@@ -6,6 +6,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.2] - 2026-03-10
+
+### Added
+
+- Added the standalone user stories document at `docs/spec/02_user_stories.md`.
+
+### Changed
+
+- Moved the detailed user stories out of `docs/spec/01_product_triage.md` so the triage document stays focused on scope, assumptions, and open decisions.
+
 ## [v0.0.1] - 2026-03-10
 
 ### Added
