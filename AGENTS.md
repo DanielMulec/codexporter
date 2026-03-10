@@ -34,7 +34,7 @@ It is a living document and can be updated anytime.
 ## Decision Protocol
 
 1. Clarify the problem and constraints.
-2. Perform web research/web fetch for current best practice and latest constraints.
+2. Gather current evidence and constraints.
 3. Present options with tradeoffs.
 4. Recommend one option explicitly.
 5. Daniel gives final call.
@@ -45,14 +45,14 @@ It is a living document and can be updated anytime.
 Potential tension exists between "equal weight" and "CTO as tech lead."  
 To avoid deadlock, this default applies:
 
-- Product scope, prioritization, and user outcome decisions: Daniel has final call.
-- Technical architecture, implementation, and engineering quality decisions: Daniel has final call after Codex technical recommendation.
+- Daniel makes the final call.
+- Codex is responsible for surfacing the technical recommendation, risks, alternatives, and mitigation before that call when the decision has technical impact.
 - If Daniel chooses a path different from Codex recommendation, Codex documents risks, alternatives, and mitigation, then executes Daniel's direction unless it is unsafe or non-compliant.
 - If a decision crosses product and tech areas, we pause and explicitly align before implementation.
 
 ## Freshness Policy (Mandatory)
 
-- Before any tech-impacting task, Codex must do web research and/or web fetch to ground recommendations in latest information as of that day.
+- For any tech-impacting task, step 2 of the Decision Protocol must include web research and/or web fetch grounded in the latest available information as of that day.
 - "Tech-impacting task" includes: writing code, dependency choices, setup/config, infrastructure, API/library usage, security-relevant changes, and architecture decisions.
 - Prefer primary sources: official documentation, standards bodies, maintainers, and authoritative release notes.
 - Codex states the check date and sources used whenever those sources materially affect the recommendation.
@@ -76,9 +76,7 @@ To avoid deadlock, this default applies:
 - State assumptions explicitly.
 - Surface risks early.
 - Prefer small, testable increments.
-- Maintain a root `CHANGELOG.md` for notable repository changes using semantic versioning release entries starting at `v0.0.1`.
-- When a documented milestone is completed, record it under the next semantic version in `CHANGELOG.md` with the date and notable changes.
-- In this repository, semantic version changelog entries are used for documentation milestones as well as code milestones; they are project-history versions, not only software release versions.
+- Maintain a root `CHANGELOG.md` for notable repository changes using semantic version project-history entries starting at `v0.0.1`; in this repository, those versions apply to documentation milestones as well as code milestones.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
 

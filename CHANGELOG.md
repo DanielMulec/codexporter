@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.3] - 2026-03-10
+
+### Changed
+
+- Refined `AGENTS.md` authority wording to remove the equal-weight versus final-authority ambiguity.
+- Consolidated overlapping `AGENTS.md` rules for decision flow, freshness research requirements, conflict handling, and semantic version changelog policy.
+
 ## [v0.0.2] - 2026-03-10
 
 ### Added
