@@ -12,7 +12,7 @@ This document contains the initial user stories for the Codex export skill proje
 
 It exists separately from the triage document so that:
 
-- product prioritization stays concise in `01_product_triage.md`
+- product prioritization stays isolated in `01_product_triage.md`
 - user-facing behavior can expand without bloating the triage document
 - later acceptance criteria can be mapped here more directly
 

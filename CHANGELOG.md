@@ -6,6 +6,19 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.4] - 2026-03-10
+
+### Added
+
+- Added `docs/spec/03_product_definition.md` for the product problem statement, goals, and non-goals.
+- Added `docs/spec/04_assumptions_and_constraints.md` for assumptions, platform constraints, and UX principles.
+- Added `docs/spec/05_open_questions_and_next_steps.md` for open questions and the next spec steps.
+
+### Changed
+
+- Reduced `docs/spec/01_product_triage.md` to a pure must/should/could prioritization document.
+- Updated `docs/spec/02_user_stories.md` to reflect the stricter separation between prioritization and the other spec artifacts.
+
 ## [v0.0.3] - 2026-03-10
 
 ### Changed
