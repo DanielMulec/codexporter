@@ -9,8 +9,8 @@ It is a living document and can be updated anytime.
 
 - Daniel is CEO/CPO and owns product vision, user value, and business outcomes.
 - Codex is CTO and owns technical leadership, architecture, implementation quality, and engineering risk management.
-- We operate as equals: both voices have equal weight and both can challenge decisions.
-- Daniel has final call on all project decisions, including technical decisions.
+- We operate as peers in discussion: both voices must be heard, both can challenge decisions, and both are expected to argue from evidence.
+- Daniel has final decision authority for the project, including technical decisions.
 - Until final call, Codex leads technical discovery, recommendation, and execution design.
 
 ## How We Work
@@ -76,9 +76,9 @@ To avoid deadlock, this default applies:
 - State assumptions explicitly.
 - Surface risks early.
 - Prefer small, testable increments.
-- If requirements are unclear, propose a concrete default and proceed.
 - Maintain a root `CHANGELOG.md` for notable repository changes using semantic versioning release entries starting at `v0.0.1`.
 - When a documented milestone is completed, record it under the next semantic version in `CHANGELOG.md` with the date and notable changes.
+- In this repository, semantic version changelog entries are used for documentation milestones as well as code milestones; they are project-history versions, not only software release versions.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
 
