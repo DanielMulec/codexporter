@@ -6,6 +6,21 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.5] - 2026-03-10
+
+### Added
+
+- Added `docs/spec/06_supported_environments.md` to define the current-session meaning and the v1 environment targets.
+- Added `docs/spec/07_export_data_contract.md` to define the supported v1 export contract, including model name and excluded hidden reasoning.
+- Added `docs/spec/08_artifact_structure_and_naming.md` to define the v1 artifact shape, filename rules, and export sequence behavior.
+- Added `docs/spec/09_checkpoint_behavior.md` to define incremental export and sidecar checkpoint behavior.
+- Added `docs/spec/10_degraded_mode_behavior.md` to define natural-language failure and partial-availability behavior.
+- Added `docs/spec/11_post_v1_deferrals.md` to document deferred features, the reason for deferral, the consequence, and the anti-refactor integration rule.
+
+### Changed
+
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to remove decisions that are now resolved and focus on the remaining open design work.
+
 ## [v0.0.4] - 2026-03-10
 
 ### Added
