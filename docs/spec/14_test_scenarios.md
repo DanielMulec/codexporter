@@ -17,6 +17,9 @@ This document lists the main v1 test scenarios implied by the current specificat
 - successful export in a non-git workspace
 - successful second export of the same session with incremental behavior
 - successful export with a session name that requires filename sanitization
+- successful export rendering with the agreed markdown section order
+- successful export rendering with `## <Model Name> Assistant` and inline timestamps when available
+- successful tool rendering using labeled subsections and fenced blocks
 
 ## Checkpoint Scenarios
 
@@ -24,6 +27,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 - corrupted checkpoint sidecar is handled safely
 - unreadable checkpoint sidecar is handled safely
 - sidecar JSON remains consistent after repeated successful exports
+- composite cursor resumes from the correct next record without re-exporting prior content
 
 ## Degraded-Mode Scenarios
 

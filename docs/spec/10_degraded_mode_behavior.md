@@ -52,6 +52,14 @@ If sandboxing or platform restrictions block required session access:
 - do not fake an export
 - explain the actual access limitation
 
+## Fail Safely Rule
+
+If validation metadata or checkpoint state does not match expectations:
+
+- stop the export rather than guessing
+- do not advance the checkpoint
+- inform the user directly what failed and why
+
 ## Future Compatibility Rule
 
 Later versions may introduce richer recovery suggestions or platform-specific diagnostics, but they should extend the degraded-mode behavior rather than replace the core rule set above.

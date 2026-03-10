@@ -7,13 +7,14 @@
 
 ## Key Open Questions
 
-- What exact markdown section order and headings should the primary export artifact use?
-- What exact stable cursor should be preferred in the sidecar when multiple cursor candidates are available?
-- What exact standardized wording templates should be defined for degraded-mode failures and omissions in multilingual usage?
+- What are the primary v1 user journey and user flow from trigger to export completion?
+- How should the existing user stories map to user-side acceptance criteria?
+- What exact test taxonomy should the project adopt across unit, integration, end-to-end or full-flow, and manual cross-platform validation?
 
 ## Recommended Next Spec Steps
 
-1. Define the markdown section order and formatting rules for the primary export artifact.
-2. Refine the exact sidecar cursor choice inside the approved JSON schema.
-3. Define standardized multilingual degraded-mode message templates.
-4. Validate the support matrix against real environments, including Windows validation by Daniel and trusted Windows users.
+1. Define the v1 user journey and user flow.
+2. Map the existing user stories to user-side acceptance criteria.
+3. Define the test taxonomy across unit, integration, end-to-end or full-flow, and manual validation.
+4. Expand the test plan from scenarios into a fuller verification strategy.
+5. Validate the support matrix against real environments, including Windows validation by Daniel and trusted Windows users.

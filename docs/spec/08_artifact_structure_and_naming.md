@@ -27,6 +27,8 @@ V1 must default to a single markdown file for the exported session content.
 
 No second markdown report is part of the default v1 export.
 
+The markdown reading format is defined in `docs/spec/15_markdown_rendering_rules.md`.
+
 ## Naming Rule
 
 The markdown export filename should use this structure:

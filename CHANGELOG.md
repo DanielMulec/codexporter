@@ -6,6 +6,19 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.8] - 2026-03-10
+
+### Added
+
+- Added `docs/spec/15_markdown_rendering_rules.md` to define the exact v1 markdown reading format, section order, and tool rendering style.
+
+### Changed
+
+- Updated `docs/spec/09_checkpoint_behavior.md` and `docs/spec/10_degraded_mode_behavior.md` to define fail-safe behavior explicitly as stopping, not guessing, not advancing the checkpoint, and informing the user directly.
+- Updated `docs/spec/12_checkpoint_sidecar_schema.md` to lock the composite cursor model with `last_exported_record_index` as the primary resume marker.
+- Updated `docs/spec/13_acceptance_criteria.md` and `docs/spec/14_test_scenarios.md` to reflect the approved Track A decisions.
+- Updated `docs/spec/05_open_questions_and_next_steps.md` so the next spec focus moves to the missing product-spec pack after Track A.
+
 ## [v0.0.7] - 2026-03-10
 
 ### Added

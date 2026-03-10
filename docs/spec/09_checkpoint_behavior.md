@@ -56,6 +56,13 @@ The system must avoid checkpoint corruption or partial advancement if:
 - the process stops unexpectedly
 - the session data cannot be read consistently
 
+To fail safely in this context means:
+
+- stop the export rather than guessing
+- do not advance the checkpoint
+- do not silently drop or duplicate data on purpose
+- tell the user directly what failed and why
+
 ## Future Compatibility Rule
 
 The checkpoint model should be designed so that later features can be added without forcing a redesign of the v1 export identity.

@@ -45,6 +45,7 @@ This document turns the current v1 decisions into acceptance criteria.
 - Each export invocation must create one primary markdown artifact.
 - The filename must follow the agreed export naming structure.
 - Repeated exports for the same session must increment the per-session export number.
+- The primary markdown artifact must follow the agreed rendering rules and section order.
 
 ## Incremental Export
 
@@ -56,6 +57,8 @@ This document turns the current v1 decisions into acceptance criteria.
 
 - V1 must use a sidecar checkpoint file.
 - The sidecar file must use JSON.
+- The sidecar must use `last_exported_record_index` as the primary resume cursor.
+- The sidecar must store validation metadata alongside the primary cursor.
 - The checkpoint must advance only after a successful export.
 - A failed export must not advance the checkpoint.
 
@@ -63,6 +66,7 @@ This document turns the current v1 decisions into acceptance criteria.
 
 - The skill must never fail silently.
 - The skill must never imply success when export did not actually succeed.
+- If checkpoint or validation metadata does not match expectations, the skill must stop rather than guess.
 - User-facing failure messages must explain what failed and why.
 - User-facing failure or omission messages should include a next-step hint when one is responsibly available.
 - User-facing failure or omission messages must follow the language of the active conversation.
