@@ -80,6 +80,20 @@ That means:
 - include what the user can meaningfully review
 - exclude what is internal, hidden, noisy, or unstable
 
+## Default Output Rule
+
+The default markdown export should stay close to what the user visibly experienced in the chat.
+
+That means the default output should prioritize:
+
+- visible user messages
+- visible assistant replies
+- visible commentary or progress updates
+- visible tool calls and outputs
+- a compact session header metadata block
+
+Optional environment metadata should stay minimal in the default export view.
+
 ## Future Compatibility Rule
 
 The export pipeline should be structured so that new optional sections can be added later without changing the meaning of existing v1 sections.

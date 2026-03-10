@@ -24,6 +24,12 @@ When export fails, Codex must inform the user in natural language:
 - the specific reason it failed
 - a next-step hint when one can be given responsibly
 
+## Language Rule
+
+User-facing degraded-mode and omission messages should be generated in the language of the active conversation.
+
+They should not be hardcoded to English when the user is actively using another language in that thread.
+
 ## Examples
 
 - "I couldn't export this session because the current environment cannot access the persisted session history from here."

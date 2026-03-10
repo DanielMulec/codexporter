@@ -34,26 +34,24 @@ It does not mean:
 - macOS Codex CLI
 - Linux Codex CLI
 - macOS Codex app
+- Windows Codex CLI
 - Windows Codex app
-
-### Secondary v1 target
-
-- Windows Codex CLI as best-effort support
 
 ## Support Notes
 
-- Windows Codex CLI should not be specified as equal in confidence to the primary v1 targets unless current platform support and local validation justify that later.
 - The specification should distinguish between:
   - target support
   - validated support
 - Validation must happen separately from this analysis-phase document.
+- For this project, Windows Codex CLI is a required v1 product target.
+- Validation for Windows support may be established through real-user testing by Daniel and trusted Windows users in addition to repo-driven validation scenarios.
 
 ## Documentation Rule
 
 Whenever environment support is described elsewhere in the spec, it should use the same distinction:
 
 - primary v1 targets
-- secondary or best-effort targets
+- validated support status
 
 ## Source Basis
 

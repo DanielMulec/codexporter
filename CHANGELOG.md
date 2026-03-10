@@ -6,6 +6,22 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.7] - 2026-03-10
+
+### Added
+
+- Added `docs/spec/12_checkpoint_sidecar_schema.md` to define the v1 JSON sidecar schema.
+- Added `docs/spec/13_acceptance_criteria.md` to turn the current v1 decisions into acceptance criteria.
+- Added `docs/spec/14_test_scenarios.md` to document the current v1 test scenarios, including Windows validation by Daniel and trusted users.
+
+### Changed
+
+- Updated `docs/spec/06_supported_environments.md` so Windows Codex CLI is a required v1 target while still distinguishing target support from validated support.
+- Updated `docs/spec/07_export_data_contract.md` to lock the default export view close to what the user visibly experienced in chat.
+- Updated `docs/spec/09_checkpoint_behavior.md` to point to the approved JSON sidecar schema.
+- Updated `docs/spec/10_degraded_mode_behavior.md` to require failure and omission messages in the language of the active conversation.
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to remove the now-resolved questions and reflect the remaining design work.
+
 ## [v0.0.6] - 2026-03-10
 
 ### Changed

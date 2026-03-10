@@ -7,16 +7,13 @@
 
 ## Key Open Questions
 
-- What exact optional fields beyond the current v1 contract are worth including without adding noise?
-- How much optional environment metadata should appear in the default markdown output versus a later expanded mode?
-- What exact sidecar schema should represent checkpoint state?
-- What exact user-facing wording should be standardized for degraded-mode failures and omissions?
-- What validation is required before Windows Codex CLI can be upgraded from best-effort to a primary supported environment?
+- What exact markdown section order and headings should the primary export artifact use?
+- What exact stable cursor should be preferred in the sidecar when multiple cursor candidates are available?
+- What exact standardized wording templates should be defined for degraded-mode failures and omissions in multilingual usage?
 
 ## Recommended Next Spec Steps
 
-1. Turn the current v1 decisions into acceptance criteria while preserving the additive-stage and additive-artifact extension model.
-2. Define the checkpoint sidecar schema.
-3. Define the markdown section order and formatting rules for the primary export artifact.
-4. Define test scenarios for successful export, incremental export, non-git export, and degraded-mode behavior.
-5. Validate the support matrix against real environments, especially Windows Codex CLI.
+1. Define the markdown section order and formatting rules for the primary export artifact.
+2. Refine the exact sidecar cursor choice inside the approved JSON schema.
+3. Define standardized multilingual degraded-mode message templates.
+4. Validate the support matrix against real environments, including Windows validation by Daniel and trusted Windows users.

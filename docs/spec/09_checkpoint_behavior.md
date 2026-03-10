@@ -20,6 +20,8 @@ That means each later export should include only the session content that appear
 
 V1 should store checkpoint state in a sidecar file next to the export artifacts.
 
+The sidecar format should be JSON as defined in `docs/spec/12_checkpoint_sidecar_schema.md`.
+
 This is preferred over:
 
 - embedding mutable checkpoint state into the markdown file itself
