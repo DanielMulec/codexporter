@@ -6,6 +6,8 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.1] - 2026-03-10
+
 ### Added
 
 - Added the initial product triage document at `docs/spec/01_product_triage.md`.
@@ -13,3 +15,5 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 ### Changed
 
 - Updated `AGENTS.md` to remove the carried-over project-specific wording while keeping the rest of the document unchanged.
+- Updated `AGENTS.md` to require semantic versioning release entries in `CHANGELOG.md`, starting at `v0.0.1`.
+- Converted `CHANGELOG.md` from a generic unreleased list to semantic versioned release entries.

@@ -77,7 +77,8 @@ To avoid deadlock, this default applies:
 - Surface risks early.
 - Prefer small, testable increments.
 - If requirements are unclear, propose a concrete default and proceed.
-- Maintain a root `CHANGELOG.md` for notable repository changes using semantic versioning.
+- Maintain a root `CHANGELOG.md` for notable repository changes using semantic versioning release entries starting at `v0.0.1`.
+- When a documented milestone is completed, record it under the next semantic version in `CHANGELOG.md` with the date and notable changes.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
 
