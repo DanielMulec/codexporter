@@ -73,3 +73,5 @@ Later versions may add additional artifacts, but they must not break the v1 expe
 - the base naming structure remains recognizable
 
 Any later added artifacts should derive from the same export identity rather than inventing an unrelated naming model.
+
+This follows the project anti-refactor rule: later capabilities should extend the artifact set additively instead of redefining what the primary artifact is.

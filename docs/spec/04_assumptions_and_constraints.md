@@ -31,6 +31,11 @@
 - Degraded-mode behavior must be explicit, not silent.
 - The user should not need to understand internal Codex storage details to use the skill successfully.
 
+## Architectural Constraint
+
+- Deferred features should integrate additively as optional stages or optional artifacts.
+- V1 should not be designed in a way that later reporting, classification, or additional artifacts require a redesign of the core export semantics.
+
 ## Source Notes
 
 This document is based on:

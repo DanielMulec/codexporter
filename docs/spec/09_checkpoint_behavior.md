@@ -68,3 +68,5 @@ without changing:
 
 - the per-session sequence concept
 - the meaning of a successful checkpoint
+
+This follows the project anti-refactor rule: later features should attach to the existing checkpoint semantics rather than replace them.

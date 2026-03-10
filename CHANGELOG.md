@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.6] - 2026-03-10
+
+### Changed
+
+- Propagated the anti-refactor rule through the relevant spec documents so v1 design, later extensibility, and deferred post-v1 work all point to the same additive integration model.
+
 ## [v0.0.5] - 2026-03-10
 
 ### Added

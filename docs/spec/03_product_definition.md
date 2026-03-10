@@ -42,3 +42,7 @@ These items are explicitly out of scope for the initial version unless later pro
 - Guaranteeing Linux support for the Codex desktop app if the platform itself does not provide it.
 - Building a full project knowledge management system, analytics system, or long-term archive browser in v1.
 - Exporting every possible internal system event if those events are not stable, accessible, or useful to end users.
+
+## Product Design Constraint
+
+V1 must be shaped so that deferred features can be added later as optional stages or optional artifacts, not by redefining the meaning of a session export, the primary artifact, or checkpoint behavior.

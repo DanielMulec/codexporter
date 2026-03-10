@@ -91,3 +91,5 @@ This means later additions should generally be:
 - clearly labeled
 
 Later features should not require rewriting the v1 source-record semantics.
+
+This follows the project anti-refactor rule: post-v1 capabilities should be added as optional stages or optional artifacts, not by redefining the core v1 export contract.

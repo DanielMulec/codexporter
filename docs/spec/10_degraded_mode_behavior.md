@@ -49,3 +49,5 @@ If sandboxing or platform restrictions block required session access:
 ## Future Compatibility Rule
 
 Later versions may introduce richer recovery suggestions or platform-specific diagnostics, but they should extend the degraded-mode behavior rather than replace the core rule set above.
+
+This follows the project anti-refactor rule: degraded-mode improvements should be additive and should not require redefining what counts as a successful export versus a failed export.

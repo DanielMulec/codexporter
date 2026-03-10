@@ -15,7 +15,7 @@
 
 ## Recommended Next Spec Steps
 
-1. Turn the current v1 decisions into acceptance criteria.
+1. Turn the current v1 decisions into acceptance criteria while preserving the additive-stage and additive-artifact extension model.
 2. Define the checkpoint sidecar schema.
 3. Define the markdown section order and formatting rules for the primary export artifact.
 4. Define test scenarios for successful export, incremental export, non-git export, and degraded-mode behavior.
