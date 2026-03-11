@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.1] - 2026-03-12
+
+### Changed
+
+- Updated `docs/spec/16_user_journeys.md` with drafted content for the first-export and repeated-export user journeys.
+
 ## [v0.1.0] - 2026-03-11
 
 ### Changed
