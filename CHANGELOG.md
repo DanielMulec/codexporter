@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.0.9] - 2026-03-11
+
+### Added
+
+- Added Track B starter template documents for user journeys, user flows, user story mapping, user-side acceptance criteria, and test taxonomy under `docs/spec/16_` through `docs/spec/20_`.
+
 ## [v0.0.8] - 2026-03-10
 
 ### Added
