@@ -31,7 +31,6 @@ This document turns the current v1 decisions into acceptance criteria.
 - The export must include session id when available.
 - The export must include session start timestamp when available.
 - The export must include current working directory when available.
-- The export must include git metadata when available.
 - The default export must not be cluttered with excessive optional environment metadata.
 
 ## Exclusions
@@ -39,6 +38,7 @@ This document turns the current v1 decisions into acceptance criteria.
 - The export must not include hidden chain-of-thought.
 - The export must not include encrypted reasoning payloads.
 - The export must not dump raw internal instruction payloads by default.
+- The export must not require dedicated structured session-level git metadata in v1.
 
 ## Artifact And Naming
 

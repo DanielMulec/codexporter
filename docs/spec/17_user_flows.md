@@ -23,7 +23,6 @@ This document defines the step-by-step flows for `$export`.
 
 ### Alternate flows
 
-- no git repository is present
 - optional metadata is unavailable
 - session name is unavailable
 

@@ -6,6 +6,14 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.0] - 2026-03-11
+
+### Changed
+
+- Removed dedicated structured session-level git metadata from the v1 export contract and deferred it to post-v1.
+- Clarified that visible git-related tool output remains part of v1 when it appeared in the chat history.
+- Updated the Track B starter docs so they no longer treat structured git metadata as a core v1 user-facing concern.
+
 ## [v0.0.9] - 2026-03-11
 
 ### Added

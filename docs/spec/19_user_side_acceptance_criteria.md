@@ -52,17 +52,9 @@ This document defines the user-observable acceptance criteria for `$export`.
 - Observable evidence:
   - English threads receive English failure messaging, German threads receive German failure messaging.
 
-## AC-07: Git Metadata Graceful Handling
+## AC-07: Stable Export Numbering
 
 - Related stories: US-05
-- Criterion:
-  - Missing git data does not block a successful core export.
-- Observable evidence:
-  - The export still succeeds in a non-git context.
-
-## AC-08: Stable Export Numbering
-
-- Related stories: US-06
 - Criterion:
   - Exports of the same session use clear incrementing numbering.
 - Observable evidence:

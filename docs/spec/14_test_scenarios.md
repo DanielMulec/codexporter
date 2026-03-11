@@ -13,7 +13,6 @@ This document lists the main v1 test scenarios implied by the current specificat
 ## Successful Export Scenarios
 
 - successful export of the current live session
-- successful export including git metadata
 - successful export in a non-git workspace
 - successful second export of the same session with incremental behavior
 - successful export with a session name that requires filename sanitization
@@ -33,7 +32,6 @@ This document lists the main v1 test scenarios implied by the current specificat
 
 - inaccessible session history produces a natural-language failure
 - unavailable optional metadata does not block the core export
-- missing git context does not block the core export
 - failure messaging follows the active conversation language
 - omission messaging follows the active conversation language
 

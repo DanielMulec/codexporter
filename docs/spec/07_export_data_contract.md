@@ -22,14 +22,6 @@ The goal is to create a stable export contract for v1 without tying the product 
 - originator or source when available
 - model name when available
 
-### Required git metadata when available
-
-- repository URL
-- branch name
-- commit hash
-
-If git metadata is unavailable, the export must still succeed and explain the omission only when user-facing clarification is useful.
-
 ### Required visible conversation and workflow content
 
 - user messages
@@ -39,6 +31,8 @@ If git metadata is unavailable, the export must still succeed and explain the om
 - task complete markers when available
 - tool invocations when available
 - tool outputs when available
+
+Visible git-related content that appeared in the chat, such as tool output, remains part of the export because it is part of the visible session history.
 
 ## Optional v1 fields
 
@@ -56,6 +50,7 @@ These fields may be included if they are reliably accessible and can be presente
 
 - hidden chain-of-thought
 - encrypted reasoning payloads
+- dedicated structured session-level git metadata such as `session_meta.git`
 - raw internal instruction payloads such as full base, developer, or user instruction dumps
 - rate-limit internals
 - internal-only event details that are not clearly useful to end users

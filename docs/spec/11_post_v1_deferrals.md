@@ -109,6 +109,31 @@ Integration rule for later:
 - new metadata should be added as optional labeled sections
 - existing v1 sections should not need to be redefined or renamed
 
+### Structured session-level git metadata
+
+Deferred status:
+
+- post-v1
+
+What it is:
+
+- dedicated structured session metadata such as `session_meta.git` containing repository URL, branch, or commit snapshot fields when present
+
+Why it is deferred:
+
+- it is not foundational to exporting the visible chat and workflow history
+- it appears to be optional and session-level rather than the main event stream
+- visible git-related tool output is already covered by the visible-session export model
+
+Consequence of deferral:
+
+- v1 does not surface structured session-level git metadata as a dedicated export section
+
+Integration rule for later:
+
+- if added later, it should appear as an optional labeled metadata section
+- it must not redefine the core visible-history export model
+
 ### Hidden reasoning export
 
 Deferred status:
