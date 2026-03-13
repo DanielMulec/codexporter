@@ -7,11 +7,12 @@
 
 ## Key Open Questions
 
-- How should acceptance criteria and test scenarios be expanded into a fuller coverage matrix that distinguishes automated versus manual validation?
 - What exact evidence will be required to mark each target environment as validated, especially on Windows?
+- How should the initial validation evidence be recorded and maintained as real platform testing begins?
 
 ## Recommended Next Spec Steps
 
-1. Expand the current acceptance and scenario docs into a coverage matrix from stories to criteria to tests.
-2. Distinguish which tests are intended to be automated versus manual on each platform.
-3. Define the validation evidence expected for each target environment, including Windows validation by Daniel and trusted Windows users.
+1. Review and refine `21_coverage_matrix.md` so the traceability model is accepted as the working QA baseline.
+2. Review and refine `22_platform_validation.md` so the validation checklist is accepted as the working platform evidence model.
+3. Distinguish which validation items are expected to be automated versus manual on each platform once the implementation stack is chosen.
+4. Begin recording real validation evidence for target environments, including Windows validation by Daniel and trusted Windows users.

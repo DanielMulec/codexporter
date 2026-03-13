@@ -6,6 +6,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.6] - 2026-03-13
+
+### Added
+
+- Added `docs/spec/21_coverage_matrix.md` to provide explicit v1 traceability from stories to acceptance criteria to tests and test layers.
+- Added `docs/spec/22_platform_validation.md` to define the platform validation checklist and evidence model for the primary v1 targets.
+
+### Changed
+
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to point at coverage-matrix review and platform-validation review as the next spec steps.
+
 ## [v0.1.5] - 2026-03-13
 
 ### Changed
