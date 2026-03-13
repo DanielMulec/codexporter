@@ -17,7 +17,7 @@ This document defines the step-by-step flows for `$export`.
 2. skill identifies the current session
 3. skill reads exportable session records
 4. skill renders the markdown export
-5. skill writes export file `-1` into the `codex_exports` subfolder in the current project repository
+5. skill writes export file `-1` into the `codex_exports` subfolder in the current project root
 6. skill writes checkpoint sidecar into the `codex_exports` subfolder
 7. skill informs user of success and provides the file name and file path
 

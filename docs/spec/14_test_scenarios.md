@@ -19,8 +19,9 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-05`: successful export rendering with the agreed markdown section order
 - `T-06`: successful export rendering with `## <Model Name> Assistant` and inline timestamps when available
 - `T-07`: successful tool rendering using labeled subsections and fenced blocks
-- `T-08`: successful export writes artifacts into the `codex_exports` subfolder in the current project repository
+- `T-08`: successful export writes artifacts into the `codex_exports` subfolder in the current project root
 - `T-09`: successful first export clearly communicates that the export was created for the current session and provides the file location
+- `T-32`: successful export includes the required compact session metadata header when the metadata is available
 
 ## Checkpoint Scenarios
 
@@ -31,6 +32,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-14`: composite cursor resumes from the correct next record without re-exporting prior content
 - `T-15`: when there is no new exportable content since the previous successful checkpoint, no new export file is created and the user is informed
 - `T-16`: successful repeated export clearly communicates that the export was incremental
+- `T-34`: successful export writes the checkpoint sidecar as JSON with the required v1 schema fields
 
 ## Degraded-Mode Scenarios
 
@@ -40,6 +42,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-20`: omission messaging follows the active conversation language
 - `T-21`: when blocked access can be resolved, the user is guided toward the recovery step
 - `T-22`: restricted-environment behavior explains what could not be accessed without claiming a false success
+- `T-33`: export output excludes hidden reasoning and raw internal instruction payloads
 
 ## Cross-Platform Scenarios
 

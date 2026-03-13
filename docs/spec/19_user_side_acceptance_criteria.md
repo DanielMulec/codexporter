@@ -96,7 +96,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 - Related stories: US-01
 - Criterion:
-  - Export artifacts are written into the `codex_exports` subfolder in the current project repository.
+  - Export artifacts are written into the `codex_exports` subfolder in the current project root.
 - Observable evidence:
   - The created export file appears in `codex_exports`, and the reported file path points there.
 

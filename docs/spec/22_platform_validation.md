@@ -20,7 +20,7 @@ Target support and validated support are not the same thing:
 The following checks define the baseline validation evidence for a target environment:
 
 1. A first export of the current live session succeeds.
-2. The export file is written into the `codex_exports` subfolder in the current project repository.
+2. The export file is written into the `codex_exports` subfolder in the current project root.
 3. The success message provides the file name and file path.
 4. A repeated export in the same session behaves incrementally.
 5. A repeated export with no new content creates no new file and informs the user directly.

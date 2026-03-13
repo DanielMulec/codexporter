@@ -43,7 +43,7 @@ This document turns the current v1 decisions into acceptance criteria.
 ## Artifact And Naming
 
 - Each export invocation must create one primary markdown artifact.
-- The default export location must be the `codex_exports` subfolder in the current project repository.
+- The default export location must be the `codex_exports` subfolder in the current project root.
 - The filename must follow the agreed export naming structure.
 - Repeated exports for the same session must increment the per-session export number.
 - The primary markdown artifact must follow the agreed rendering rules and section order.

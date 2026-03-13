@@ -23,7 +23,7 @@ The sidecar file is implementation support state and should not be treated as th
 
 ## Default Export Location Rule
 
-V1 should write export artifacts into a `codex_exports` subfolder in the current project repository.
+V1 should write export artifacts into a `codex_exports` subfolder in the current project root.
 
 That means:
 

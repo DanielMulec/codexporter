@@ -112,14 +112,15 @@ These engineering standards are part of the working agreement.
 They apply to implementation decisions, code changes, testing, and delivery quality across the project.
 
 Check date for standards that materially depend on current tooling guidance: March 8, 2026.
-Primary current-source basis: official documentation for React, Vite, Vitest, Playwright, TypeScript, ESLint, FastAPI, Pydantic, SQLAlchemy, Alembic, pytest, mypy, and Ruff.
 
 ### Source of Truth
 
 - `AGENTS.md` is the source of truth for collaboration rules and engineering standards.
 - Product-specific specification and test planning live under `docs/spec/`.
+- Project-specific engineering policy and stack decisions live in `docs/spec/23_engineering_policy.md`.
+- If project-specific engineering guidance in `docs/spec/23_engineering_policy.md` conflicts with generic engineering guidance here, `docs/spec/23_engineering_policy.md` wins for this repository.
 - `pyproject.toml` remains the source of truth for Python tool configuration values.
-- Frontend tool configuration files remain the source of truth for frontend lint/type/test settings once they exist.
+- Tool-specific configuration files become the source of truth for their own settings once those tools are explicitly approved for this repository.
 
 ### Architecture and Modularity
 
@@ -127,35 +128,19 @@ Primary current-source basis: official documentation for React, Vite, Vitest, Pl
   1. Domain layer: business rules and workflow constraints
   2. Application layer: use cases and orchestration
   3. Infrastructure layer: database, persistence, adapters
-  4. Interface layer: REST controllers and GUI
+  4. Interface layer: skill invocation, file I/O, and user-facing integration points
 - Add complexity only when a real requirement, risk, or delivery benefit justifies it.
-- Preserve clear separation between frontend, backend, and data model.
-- Preserve clear separation between public and internal surfaces in the UI and API.
+- Preserve clear separation between core logic, persistence, and user-facing integration surfaces when those concerns exist.
+- Preserve clear separation between public and internal surfaces in user-facing and internal interfaces.
 - Preserve explicit request and response contracts instead of relying on implicit data flow.
-- Never render raw internal system output directly in user-facing UI.
-- Normalize backend/internal identifiers, audit event keys, enum/storage values, exception text, and other machine-oriented strings into intentional user-facing copy before display.
+- Never surface raw internal system output directly in user-facing outputs.
+- Normalize internal identifiers, audit event keys, enum or storage values, exception text, and other machine-oriented strings into intentional user-facing copy before display.
 
 ### Quality Gates
 
-Before a change is considered done, all relevant quality gates must pass.
+Before a change is considered done, all relevant quality gates defined by the approved project stack and engineering policy must pass.
 
-Python/backend gates:
-
-1. `ruff check .`
-2. `mypy .`
-3. `pytest`
-
-Frontend gates once the frontend exists:
-
-1. `tsc --noEmit`
-2. `eslint`
-3. `vitest run`
-
-Additional gate for browser end-to-end coverage when configured:
-
-1. `playwright test`
-
-If a relevant gate fails, the change is not done.
+Until the project stack is explicitly approved in `docs/spec/23_engineering_policy.md`, do not assume specific tool commands as binding quality gates for this repository.
 
 ### Testing Standard
 
@@ -163,11 +148,11 @@ The project does not accept "basic tests only."
 
 Testing must be risk-driven and layered:
 
-- backend unit tests for isolated business rules
-- backend integration tests for API and orchestration behavior
-- frontend component tests for important UI behavior
-- end-to-end tests for the highest-value real user journeys
-- security-boundary tests for visibility, validation, and authorization risks
+- unit tests for isolated logic
+- integration tests for subsystem and orchestration behavior
+- full-flow tests for the highest-value real user journeys
+- manual platform validation for environment-specific behavior
+- security-boundary coverage where the chosen implementation introduces visibility, validation, authorization, or isolation risks
 
 Test depth should match:
 
@@ -179,63 +164,20 @@ Practical rule:
 
 - high-risk business rules require strong automated coverage
 - low-risk glue code requires light but meaningful coverage
-- not every permutation belongs in end-to-end tests
+- not every permutation belongs in full-flow tests
 
-### Backend Stack Standards
+### Project Stack Status
 
-The selected backend stack is:
+The project-specific implementation stack, testing toolchain, and any framework-specific standards are defined in `docs/spec/23_engineering_policy.md`.
 
-- `FastAPI`
-- `Pydantic v2`
-- `SQLAlchemy 2`
-- `pytest`
-- `mypy`
-- `ruff`
-
-Planned post-MVP schema-evolution tool:
-
-- `Alembic`
-
-Standards:
-
-- Keep API routes thin.
-- Keep business rules out of route handlers where practical.
-- Use explicit Pydantic schemas for request and response contracts.
-- Use ORM or parameterized query APIs; avoid raw string-built SQL.
-- After the bootstrap-only assessment slice, track schema evolution through migrations rather than ad hoc manual DB edits.
-- Keep public and internal response schemas separate.
-
-### Frontend Stack Standards
-
-The selected frontend stack is:
-
-- `React`
-- `TypeScript`
-- `Vite`
-- `React Router`
-- `Vitest`
-- `React Testing Library`
-- `ESLint`
-
-Optional post-MVP browser end-to-end tool:
-
-- `Playwright`
-
-Standards:
-
-- Use TypeScript for application code, not plain JavaScript.
-- Keep route-level screens under explicit public and staff route groups.
-- Prefer component behavior tests over implementation-detail tests.
-- Use end-to-end tests for real user journeys, not every internal permutation.
-- Avoid introducing frontend dependencies without clear delivery value.
-- Prefer platform-safe defaults over heavy security libraries unless a real rendering risk justifies them.
+Until that document explicitly approves a stack choice, those choices remain undecided for this repository.
 
 ### Security Baseline
 
-- Validate input on the backend.
-- Treat frontend validation as a UX improvement, not the authority.
-- Enforce authorization in the backend.
-- Do not expose internal-only fields on public endpoints.
+- Validate input in the authoritative execution layer.
+- Treat client-side or presentation-layer validation as a UX improvement, not the authority.
+- Enforce authorization in the authoritative execution layer.
+- Do not expose internal-only fields on user-facing outputs or interfaces.
 - Do not leak internal identifiers, raw event names, stack-shaped error text, or storage-oriented values into user-facing screens.
 - Do not render user-controlled HTML unless there is an explicit, justified need.
 - Avoid unsafe HTML rendering patterns such as `dangerouslySetInnerHTML` for user content.
@@ -273,7 +215,7 @@ Preferred split strategies:
 
 ### Reproducibility Standard
 
-- Application startup must be reproducible from documented commands.
+- Project setup and execution must be reproducible from documented commands.
 - Seed/bootstrap steps must be explicit.
 - Demo data must be intentional and stable enough to support testing and walkthroughs.
 

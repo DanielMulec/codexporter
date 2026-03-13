@@ -4,17 +4,16 @@
 
 This document provides traceability across the v1 specification.
 
-It exists to make these relationships explicit:
+It exists in two layers:
 
-- user story to user-side acceptance criteria
-- acceptance criteria to test scenarios
-- test scenarios to test layers
-- v1 scope to platform coverage expectations
+- story-level traceability for user-visible v1 behavior
+- requirement-level traceability for the broader v1 contract
 
 ## How To Use This Document
 
 - Use this matrix to check whether every important v1 user promise has acceptance coverage.
 - Use this matrix to check whether every important acceptance criterion has test coverage.
+- Use the requirement-level table to check coverage for v1 contract rules that are broader than user-side acceptance criteria alone.
 - Use this matrix to identify which verification is expected to be automated versus manual.
 - Use this matrix together with `22_platform_validation.md` when validating target environments.
 
@@ -25,7 +24,7 @@ It exists to make these relationships explicit:
 - `full-flow`: end-to-end or realistic invocation flow validation
 - `manual`: real-user or real-environment validation
 
-## V1 Coverage Matrix
+## Story-Level Coverage Matrix
 
 | Story ID | Story Summary | Acceptance IDs | Test IDs | Test Layers | Platform Scope | Notes |
 |---|---|---|---|---|---|---|
@@ -37,6 +36,29 @@ It exists to make these relationships explicit:
 | US-06 | Export filenames stay clearly sequenced across repeated exports. | AC-07 | T-31 | unit, integration, full-flow | all primary v1 targets | naming and sequencing story |
 | US-07 | The skill works consistently across the supported operating systems for Codex. | AC-13 | T-23, T-24, T-25, T-26, T-27, T-28, T-29, T-30 | full-flow, manual | macOS CLI, Linux CLI, macOS app, Windows CLI, Windows app | requires real-environment validation evidence |
 | US-08 | In a restricted environment, the skill explains clearly what it can and cannot access. | AC-05, AC-06, AC-11, AC-14 | T-17, T-19, T-20, T-21, T-22 | integration, full-flow, manual | all primary v1 targets | degraded-mode and restricted-environment transparency story |
+
+## Requirement-Level Coverage Matrix
+
+| Requirement ID | Source | Requirement Summary | Test IDs | Test Layers | Automation Expectation | Platform Scope | Notes |
+|---|---|---|---|---|---|---|---|
+| REQ-01 | `13_acceptance_criteria.md`, `19_user_side_acceptance_criteria.md` | Export the current live session into a markdown artifact. | T-01, T-09 | integration, full-flow | automated preferred plus manual platform confirmation | all primary v1 targets | base export behavior |
+| REQ-02 | `07_export_data_contract.md`, `15_markdown_rendering_rules.md`, `19_user_side_acceptance_criteria.md` | Render a visible-chat-first export with readable chronology, model-labeled assistant headings, and tool rendering. | T-05, T-06, T-07 | unit, integration, full-flow | automated preferred | all primary v1 targets | user-visible rendering contract |
+| REQ-03 | `07_export_data_contract.md`, `13_acceptance_criteria.md` | Include the compact session metadata header with required fields when available. | T-32 | integration, full-flow | automated preferred | all primary v1 targets | covers model name and other required metadata when available |
+| REQ-04 | `07_export_data_contract.md`, `13_acceptance_criteria.md` | Exclude hidden reasoning, encrypted reasoning payloads, and raw internal instruction payloads from v1 export output. | T-33 | integration, full-flow | automated preferred | all primary v1 targets | exclusion contract |
+| REQ-05 | `08_artifact_structure_and_naming.md`, `13_acceptance_criteria.md` | Create one primary markdown artifact per successful export and write it into `codex_exports` under the current project root. | T-01, T-08 | integration, full-flow | automated preferred plus manual platform confirmation | all primary v1 targets | export location wording intentionally uses project root, not repository |
+| REQ-06 | `08_artifact_structure_and_naming.md`, `13_acceptance_criteria.md` | Sanitize session-name-based filenames and keep repeated-export numbering clear. | T-04, T-31 | unit, integration, full-flow | automated preferred | all primary v1 targets | naming and sequencing contract |
+| REQ-07 | `09_checkpoint_behavior.md`, `13_acceptance_criteria.md`, `19_user_side_acceptance_criteria.md` | First export is full so far; later exports are incremental; no-new-content creates no new export file and informs the user directly. | T-03, T-15, T-16 | integration, full-flow | automated preferred | all primary v1 targets | incremental export behavior |
+| REQ-08 | `09_checkpoint_behavior.md`, `12_checkpoint_sidecar_schema.md`, `13_acceptance_criteria.md` | Checkpoint state uses a JSON sidecar with the required v1 schema fields and composite cursor model. | T-13, T-34 | integration, full-flow | automated preferred | all primary v1 targets | sidecar format and cursor contract |
+| REQ-09 | `09_checkpoint_behavior.md`, `10_degraded_mode_behavior.md`, `13_acceptance_criteria.md` | Failed exports, corrupted sidecar state, unreadable sidecar state, and cursor mismatch conditions do not advance the checkpoint and do not guess. | T-10, T-11, T-12, T-13, T-17 | integration, full-flow | automated preferred plus manual spot-check | all primary v1 targets | checkpoint safety and fail-safe behavior |
+| REQ-10 | `07_export_data_contract.md`, `10_degraded_mode_behavior.md`, `13_acceptance_criteria.md` | Missing optional metadata or non-git context does not block a successful core export. | T-02, T-18 | integration, full-flow | automated preferred | all primary v1 targets | resolves the non-git seam explicitly |
+| REQ-11 | `10_degraded_mode_behavior.md`, `13_acceptance_criteria.md`, `19_user_side_acceptance_criteria.md` | Failure and omission messaging explains what failed, why, and what to do next in the language of the active conversation. | T-17, T-19, T-20, T-21, T-22 | integration, full-flow, manual | automated where practical plus manual language/platform validation | all primary v1 targets | degraded-mode communication contract |
+| REQ-12 | `06_supported_environments.md`, `13_acceptance_criteria.md`, `22_platform_validation.md` | Preserve the same core export behavior across the supported target environments and collect validation evidence per platform. | T-23, T-24, T-25, T-26, T-27, T-28, T-29, T-30 | full-flow, manual | manual validation required, automation supplemental | macOS CLI, Linux CLI, macOS app, Windows CLI, Windows app | cross-platform support contract |
+
+## Design-Constraint Coverage
+
+| Constraint ID | Source | Constraint Summary | Verification Method | Notes |
+|---|---|---|---|---|
+| DC-01 | `03_product_definition.md`, `11_post_v1_deferrals.md` | Deferred features must integrate additively without redefining the meaning of the session export, the primary artifact, or checkpoint behavior. | design and spec review, not runtime testing | this is a governance and architecture constraint rather than a runtime test target |
 
 ## Coverage Review Rules
 
@@ -50,4 +72,4 @@ It exists to make these relationships explicit:
 
 - The matrix identifies traceability, not implementation completeness.
 - Platform validation still depends on actual evidence being recorded in `22_platform_validation.md`.
-- Automation-versus-manual decisions may still need to be refined once the implementation stack is chosen.
+- Automation-versus-manual decisions may still need to be refined once the implementation stack is chosen and recorded in `23_engineering_policy.md`.

@@ -6,6 +6,19 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.7] - 2026-03-13
+
+### Added
+
+- Added `docs/spec/23_engineering_policy.md` as the project-specific engineering source of truth until and after stack selection.
+
+### Changed
+
+- Expanded `docs/spec/21_coverage_matrix.md` with a second requirement-level traceability table and explicit design-constraint coverage.
+- Updated `docs/spec/08_artifact_structure_and_naming.md`, `docs/spec/13_acceptance_criteria.md`, `docs/spec/14_test_scenarios.md`, `docs/spec/17_user_flows.md`, `docs/spec/19_user_side_acceptance_criteria.md`, and `docs/spec/22_platform_validation.md` to use `current project root` instead of `current project repository`.
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to include `23_engineering_policy.md` as a next-step review item.
+- Updated `AGENTS.md` so project-specific engineering policy now lives in `docs/spec/23_engineering_policy.md` and stale stack assumptions are no longer treated as binding for this repository.
+
 ## [v0.1.6] - 2026-03-13
 
 ### Added
