@@ -108,6 +108,7 @@ Consequence of deferral:
 Evidence note:
 
 - this concern is documented in `docs/spec/25_export_length_analysis.md`, which records why a real first export reached `29,741` lines
+- implementation readiness for adding compact modes later is documented in `docs/spec/26_compact_mode_readiness.md`
 
 Integration rule for later:
 

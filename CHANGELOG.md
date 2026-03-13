@@ -6,6 +6,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.2] - 2026-03-13
+
+### Added
+
+- Added `docs/spec/26_compact_mode_readiness.md` to assess how close the current implementation is to supporting compact export modes as an additive post-v1 feature.
+
+### Changed
+
+- Updated `docs/spec/11_post_v1_deferrals.md` and `docs/spec/25_export_length_analysis.md` to reference the new compact-mode implementation-readiness assessment alongside the export-length evidence.
+
 ## [v0.2.1] - 2026-03-13
 
 ### Added

@@ -152,6 +152,8 @@ Likely post-v1 design levers may include options such as:
 
 Those are only candidate directions at this stage, not approved product decisions.
 
+Implementation-readiness evidence for adding compact modes later is recorded separately in `docs/spec/26_compact_mode_readiness.md`.
+
 ## Constraint Reminder
 
 Any later compact-mode feature should remain additive.
