@@ -6,6 +6,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.4] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to reflect the actual remaining spec work after the Track B scaffolding was added.
+- Expanded `docs/spec/17_user_flows.md` with fuller blocked-access behavior, explicit no-new-content behavior, and user-facing success communication details.
+- Filled `docs/spec/18_user_story_mapping.md` with available acceptance mappings and added stable test scenario mappings.
+- Expanded `docs/spec/19_user_side_acceptance_criteria.md` with file-location, no-new-content, incremental-communication, blocked-access-guidance, and default-export-destination criteria.
+- Updated `docs/spec/08_artifact_structure_and_naming.md`, `docs/spec/13_acceptance_criteria.md`, and `docs/spec/14_test_scenarios.md` to define the `codex_exports` default destination and the approved no-new-content behavior.
+- Updated `docs/spec/20_test_taxonomy.md` to align the integration-test language with the visible-session export model.
+
 ## [v0.1.3] - 2026-03-13
 
 ### Changed

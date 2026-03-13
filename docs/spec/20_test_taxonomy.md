@@ -36,7 +36,7 @@ Scope examples:
 - writing sidecar JSON
 - updating checkpoint after success
 - preserving checkpoint on failure
-- including git metadata when available
+- including visible git-related content when present in the session history
 - omitting optional metadata safely
 
 ## End-To-End Or Full-Flow Tests

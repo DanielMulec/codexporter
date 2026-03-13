@@ -21,6 +21,17 @@ The markdown file is the user-facing artifact.
 
 The sidecar file is implementation support state and should not be treated as the primary record.
 
+## Default Export Location Rule
+
+V1 should write export artifacts into a `codex_exports` subfolder in the current project repository.
+
+That means:
+
+- the primary markdown export file is written into `codex_exports`
+- the checkpoint sidecar file is written into `codex_exports`
+
+This location rule exists so exports are easy for the user to find and stay associated with the project context in which they were created.
+
 ## V1 Markdown Artifact Rule
 
 V1 must default to a single markdown file for the exported session content.

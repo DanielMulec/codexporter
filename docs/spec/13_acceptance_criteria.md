@@ -43,6 +43,7 @@ This document turns the current v1 decisions into acceptance criteria.
 ## Artifact And Naming
 
 - Each export invocation must create one primary markdown artifact.
+- The default export location must be the `codex_exports` subfolder in the current project repository.
 - The filename must follow the agreed export naming structure.
 - Repeated exports for the same session must increment the per-session export number.
 - The primary markdown artifact must follow the agreed rendering rules and section order.
@@ -51,6 +52,8 @@ This document turns the current v1 decisions into acceptance criteria.
 
 - The first export for a session must export the session so far.
 - Later exports for the same session must export only what appeared after the previous successful checkpoint.
+- If there is no new exportable content since the previous successful checkpoint, no new export file must be created.
+- If there is no new exportable content since the previous successful checkpoint, the user must be informed directly.
 - Prior markdown export artifacts must not be rewritten in v1.
 
 ## Checkpoint Sidecar
@@ -70,6 +73,12 @@ This document turns the current v1 decisions into acceptance criteria.
 - User-facing failure messages must explain what failed and why.
 - User-facing failure or omission messages should include a next-step hint when one is responsibly available.
 - User-facing failure or omission messages must follow the language of the active conversation.
+
+## User Communication
+
+- On successful export, the user must be told the created file name and file path.
+- On successful repeated export, the user must be told that the export was incremental.
+- When blocked access can be resolved through a user action, the user must be guided toward that recovery step.
 
 ## Environment Targets
 
