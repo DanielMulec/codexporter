@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.9] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to reflect the accepted QA baseline, platform validation model, and pre-stack engineering policy, and to shift the plan toward stack selection, macOS-first implementation, and later Windows follow-up.
+
 ## [v0.1.8] - 2026-03-13
 
 ### Changed
