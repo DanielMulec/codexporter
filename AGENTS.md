@@ -115,9 +115,10 @@ Check date for standards that materially depend on current tooling guidance: Mar
 
 ### Source of Truth
 
-- `AGENTS.md` is the source of truth for collaboration rules and engineering standards.
+- `AGENTS.md` is the source of truth for collaboration rules and generic engineering standards.
 - Product-specific specification and test planning live under `docs/spec/`.
 - Project-specific engineering policy and stack decisions live in `docs/spec/23_engineering_policy.md`.
+- For this repository, you must refer to `docs/spec/23_engineering_policy.md` before assuming project-specific stack choices, quality gates, static-analysis rules, security-scanning rules, file-size limits, or other implementation standards.
 - If project-specific engineering guidance in `docs/spec/23_engineering_policy.md` conflicts with generic engineering guidance here, `docs/spec/23_engineering_policy.md` wins for this repository.
 - `pyproject.toml` remains the source of truth for Python tool configuration values.
 - Tool-specific configuration files become the source of truth for their own settings once those tools are explicitly approved for this repository.
@@ -195,23 +196,6 @@ For non-trivial logic, comments should explain:
 - how it connects to adjacent logic or the larger flow
 
 Do not write noise comments that merely restate syntax.
-
-### File Size and Refactoring Trigger
-
-Hard limit:
-
-- no source file should exceed 400 lines without strong justification
-
-Refactor trigger:
-
-- at 320+ lines, proactively evaluate split options
-- if a file approaches 400 lines, split responsibilities before adding more logic
-
-Preferred split strategies:
-
-- separate transport from business logic
-- separate parsing/normalization from rendering/formatting
-- separate page composition from reusable UI logic
 
 ### Reproducibility Standard
 

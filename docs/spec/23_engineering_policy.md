@@ -16,26 +16,75 @@ For this repository:
 
 ## Current Project Type
 
-This repository is currently specifying a Codex skill.
+This repository is specifying and beginning to implement a Codex skill.
 
 It is not yet a conventional backend-plus-frontend application with an approved web stack.
 
 ## Current Engineering Status
 
-- the implementation stack is not fully decided yet
-- the testing toolchain is not fully decided yet
-- packaging and distribution details are not fully decided yet
+- the initial implementation stack is now approved for v1 development
+- packaging and distribution details are still not fully decided yet
+- CI wiring beyond the initial local quality gates is still not fully decided yet
+- Windows-specific implementation adjustments remain subject to follow-up after macOS validation
 - only already-approved spec decisions should be treated as binding engineering constraints
 
-## Hard Rule On Undecided Stack Choices
+## Approved Initial Stack Decisions
 
-Until a stack choice is explicitly approved in this document:
+Decision date: March 13, 2026.
 
-- do not assume a backend framework
+### Runtime And Language
+
+- Python 3.12+ is the approved implementation language for the v1 exporter and supporting utilities.
+- This choice is approved because the current persisted-session surface is filesystem- and text-centric, with JSONL rollout data and SQLite metadata, and Python handles those sources with low toolchain overhead.
+
+### Automated Test Harness
+
+- `pytest` is the binding automated test runner for unit, integration, and full-flow coverage.
+- Manual platform validation remains separate and is recorded through `docs/spec/22_platform_validation.md` and linked validation evidence.
+
+### Static Analysis And Formatting
+
+- `mypy` in `strict` mode is required for project code.
+- `ruff check` is required.
+- `ruff format --check` is required.
+- `ruff` rule `C901` is required with `lint.mccabe.max-complexity = 10`.
+- Do not add `flake8`, `pylint`, SonarQube, or another second general-purpose static-analysis layer unless a demonstrated gap justifies it.
+
+### Modular File Size Rule
+
+- no `.py` source file should exceed 400 lines without strong justification
+- at 320+ lines, proactively evaluate split options
+- if a file approaches 400 lines, split responsibilities before adding more logic
+
+Preferred split strategies:
+
+- separate transport from business logic
+- separate parsing or normalization from rendering or formatting
+- separate persistence access from export composition
+
+### Fixtures And Validation Evidence
+
+- automated tests must use sanitized repo-local fixtures derived from real persisted-session structures
+- the first fixture set should be captured on macOS
+- detailed platform-validation evidence lives under `docs/validation/`
+- `docs/spec/22_platform_validation.md` remains the checklist and index, not the storage location for all raw validation evidence
+
+### Security Scanning
+
+- `Trivy` is approved as a CI security gate after dependency manifests and CI wiring exist.
+- The initial Trivy scope should be filesystem vulnerability and secret scanning.
+- Misconfiguration scanning may be added later when the repository has enough config surface to justify it.
+- Container or image scanning is not in scope unless the project later introduces Docker or packaged runtime images.
+
+## Hard Rule On Still-Undecided Choices
+
+Beyond the approved stack decisions in this document:
+
+- do not assume an unapproved backend framework
 - do not assume a frontend framework
 - do not assume a database
 - do not assume a browser automation framework
-- do not assume a unit-test or integration-test runner
+- do not assume a packaging or distribution model
 - do not treat carried-over tooling from another project as binding here
 
 Examples of assumptions that are currently not allowed:
@@ -43,7 +92,6 @@ Examples of assumptions that are currently not allowed:
 - `FastAPI`
 - `React`
 - `Vite`
-- `Vitest`
 - `Playwright`
 - `SQLAlchemy`
 - `Alembic`
@@ -62,7 +110,7 @@ The following engineering constraints are already approved through the spec docu
 - user-visible failures must be explicit and language-sensitive
 - deferred post-v1 features must integrate additively rather than redefining v1 semantics
 
-## Testing Policy Before Stack Selection
+## Binding Test Layers
 
 The project already defines required test layers conceptually:
 
@@ -77,13 +125,29 @@ Those layers are defined in:
 - `docs/spec/21_coverage_matrix.md`
 - `docs/spec/22_platform_validation.md`
 
-But the exact tools used to implement those layers are not fixed yet.
+The approved tool choice for automated unit, integration, and full-flow coverage is `pytest`.
+
+## Binding Quality Gates
+
+Before a change is considered done, the following quality gates are binding once the relevant tooling is configured in the repository:
+
+- `pytest`
+- `mypy`
+- `ruff check`
+- `ruff format --check`
+
+When CI is introduced and dependency manifests exist, add:
+
+- `trivy fs` for filesystem vulnerability and secret scanning
+
+Tool-specific settings should be recorded in `pyproject.toml` or the relevant tool configuration files once those files are introduced.
 
 ## Engineering Review Rule
 
-Until the stack is fixed:
+Until further stack decisions are approved:
 
 - reviews may challenge correctness, traceability, product behavior, validation gaps, and spec contradictions
+- reviews may treat the approved Python, pytest, mypy, ruff, file-size, and Trivy baseline as binding
 - reviews must not treat an unapproved framework or tool as mandatory
 - if a review recommendation depends on a specific tool or stack, that recommendation must be labeled as contingent rather than normative
 
@@ -102,6 +166,6 @@ When a stack or tooling decision is approved, update this document with:
 
 This document is intended to stay alive throughout the project.
 
-Before stack selection, it should stay intentionally narrow and avoid fake certainty.
+After initial stack selection, it should expand only where a decision is actually approved.
 
-After stack selection, it should expand to capture the real engineering standards that are actually approved for this repository.
+It should still avoid fake certainty for packaging, distribution, CI shape, or platform-specific details that remain undecided.

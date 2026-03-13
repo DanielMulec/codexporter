@@ -6,6 +6,14 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.10] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/23_engineering_policy.md` to approve the initial Python stack, binding quality gates, fixture strategy, modular file-size rule, and later Trivy CI posture for the repository.
+- Updated `AGENTS.md` so project-specific implementation standards must be read from `docs/spec/23_engineering_policy.md`, and moved the 400-line source-file rule out of `AGENTS.md`.
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to reflect that the initial stack decision is now made and that the next work is macOS-first fixture definition, implementation, and validation.
+
 ## [v0.1.9] - 2026-03-13
 
 ### Changed
