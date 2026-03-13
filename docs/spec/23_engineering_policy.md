@@ -18,7 +18,7 @@ For this repository:
 
 This repository is specifying and beginning to implement a Codex skill.
 
-It is not yet a conventional backend-plus-frontend application with an approved web stack.
+It is a local exporter and integration tool for Codex session data, not a conventional web application.
 
 ## Current Engineering Status
 
@@ -80,23 +80,14 @@ Preferred split strategies:
 
 Beyond the approved stack decisions in this document:
 
-- do not assume an unapproved backend framework
-- do not assume a frontend framework
-- do not assume a database
+- do not assume a separate service layer or HTTP API
+- do not assume a separate user-interface framework
+- do not assume an application-owned database
 - do not assume a browser automation framework
 - do not assume a packaging or distribution model
 - do not treat carried-over tooling from another project as binding here
 
-Examples of assumptions that are currently not allowed:
-
-- `FastAPI`
-- `React`
-- `Vite`
-- `Playwright`
-- `SQLAlchemy`
-- `Alembic`
-
-These tools may still be proposed later, but they are not standards for this project unless and until this document says so.
+Unapproved tools from older projects are not standards for this repository unless and until this document says so.
 
 ## Current Binding Engineering Constraints
 

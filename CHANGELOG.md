@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.11] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/23_engineering_policy.md` to remove stale web-stack, frontend, and backend framing so the engineering policy now describes the project in Codex-skill terms only.
+
 ## [v0.1.10] - 2026-03-13
 
 ### Changed
