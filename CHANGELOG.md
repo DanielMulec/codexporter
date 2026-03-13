@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.3] - 2026-03-13
+
+### Changed
+
+- Rewrote `docs/spec/16_user_journeys.md` in the same formal product-spec language used by the rest of the documentation.
+- Removed the post-v1 `$export --full` mention from `docs/spec/16_user_journeys.md` and aligned the blocked-access journey with the approved degraded-mode behavior.
+
 ## [v0.1.2] - 2026-03-13
 
 ### Changed
