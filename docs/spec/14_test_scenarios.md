@@ -33,6 +33,8 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-15`: when there is no new exportable content since the previous successful checkpoint, no new export file is created and the user is informed
 - `T-16`: successful repeated export clearly communicates that the export was incremental
 - `T-34`: successful export writes the checkpoint sidecar as JSON with the required v1 schema fields
+- `T-35`: later exports do not rewrite earlier markdown export artifacts for the same session
+- `T-36`: cursor validation metadata mismatch stops export and preserves the prior checkpoint state
 
 ## Degraded-Mode Scenarios
 
@@ -46,11 +48,11 @@ This document lists the main v1 test scenarios implied by the current specificat
 
 ## Cross-Platform Scenarios
 
-- `T-23`: macOS Codex CLI export path behavior
-- `T-24`: Linux Codex CLI export path behavior
-- `T-25`: macOS Codex app export path behavior
-- `T-26`: Windows Codex CLI export path behavior
-- `T-27`: Windows Codex app export path behavior
+- `T-23`: macOS Codex CLI satisfies the platform validation checklist for first export, incremental export, and failure communication
+- `T-24`: Linux Codex CLI satisfies the platform validation checklist for first export, incremental export, and failure communication
+- `T-25`: macOS Codex app satisfies the platform validation checklist for first export, incremental export, and failure communication
+- `T-26`: Windows Codex CLI satisfies the platform validation checklist for first export, incremental export, and failure communication
+- `T-27`: Windows Codex app satisfies the platform validation checklist for first export, incremental export, and failure communication
 
 ## Validation Scenarios
 

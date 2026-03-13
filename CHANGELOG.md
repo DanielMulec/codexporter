@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.8] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/14_test_scenarios.md` so the v1 baseline now explicitly covers prior-artifact immutability, cursor-validation mismatch handling, and per-platform checklist scope for cross-platform validation.
+- Updated `docs/spec/18_user_story_mapping.md` and `docs/spec/21_coverage_matrix.md` so repeated-export traceability includes prior-artifact immutability and checkpoint-safety traceability includes cursor-mismatch handling without overstating coverage.
+
 ## [v0.1.7] - 2026-03-13
 
 ### Added
