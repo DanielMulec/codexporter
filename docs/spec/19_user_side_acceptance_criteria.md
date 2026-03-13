@@ -22,7 +22,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-03: Visible-Chat-First Rendering
 
-- Related stories: US-03
+- Related stories: US-02, US-03
 - Criterion:
   - The default export stays close to what the user visibly experienced in chat.
 - Observable evidence:
@@ -30,7 +30,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-04: Repeated Export Does Not Duplicate Prior Content
 
-- Related stories: US-02
+- Related stories: US-04
 - Criterion:
   - A later export of the same session does not repeat content that was already exported successfully before.
 - Observable evidence:
@@ -38,7 +38,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-05: Clear Failure Messaging
 
-- Related stories: US-04
+- Related stories: US-08
 - Criterion:
   - If export fails, the user is informed directly what failed and why.
 - Observable evidence:
@@ -46,7 +46,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-06: Language-Sensitive Failure Messaging
 
-- Related stories: US-04
+- Related stories: US-08
 - Criterion:
   - Failure and omission messaging follows the language of the active conversation.
 - Observable evidence:
@@ -54,7 +54,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-07: Stable Export Numbering
 
-- Related stories: US-05
+- Related stories: US-04, US-06
 - Criterion:
   - Exports of the same session use clear incrementing numbering.
 - Observable evidence:
@@ -70,7 +70,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-09: No-New-Content Behavior
 
-- Related stories: US-02
+- Related stories: US-04
 - Criterion:
   - If there is no new exportable content since the previous successful checkpoint, no new export file is created.
 - Observable evidence:
@@ -78,7 +78,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-10: Incremental Export Is Communicated Clearly
 
-- Related stories: US-02
+- Related stories: US-04, US-05
 - Criterion:
   - On successful repeated export, Codex tells the user that the export was incremental.
 - Observable evidence:
@@ -86,7 +86,7 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 ## AC-11: Blocked-Access Guidance
 
-- Related stories: US-04
+- Related stories: US-08
 - Criterion:
   - When required access is blocked and a recovery step is available, Codex guides the user toward that recovery step.
 - Observable evidence:
@@ -99,3 +99,19 @@ This document defines the user-observable acceptance criteria for `$export`.
   - Export artifacts are written into the `codex_exports` subfolder in the current project repository.
 - Observable evidence:
   - The created export file appears in `codex_exports`, and the reported file path points there.
+
+## AC-13: Cross-Platform Consistency
+
+- Related stories: US-07
+- Criterion:
+  - Across the supported target environments, the skill preserves the same core user-facing behavior for export creation, incremental export, and failure communication.
+- Observable evidence:
+  - Users on the supported target environments receive the same basic export outcome and the same class of success or failure messaging, even if the underlying paths or environment details differ.
+
+## AC-14: Restricted-Environment Transparency
+
+- Related stories: US-08
+- Criterion:
+  - In a restricted environment, Codex tells the user clearly what required or optional data could not be accessed.
+- Observable evidence:
+  - The user is told what data was unavailable and whether the export still succeeded, partially succeeded, or failed.

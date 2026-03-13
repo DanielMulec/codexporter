@@ -6,6 +6,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.5] - 2026-03-13
+
+### Changed
+
+- Updated `docs/spec/02_user_stories.md` to mark the true v1 story groups versus the post-v1 story groups and to align repeated-export wording with the approved v1 contract.
+- Expanded `docs/spec/18_user_story_mapping.md` so the explicit v1 mapping now reflects the full set of user-designated v1 stories.
+- Expanded `docs/spec/19_user_side_acceptance_criteria.md` with cross-platform consistency and restricted-environment transparency criteria.
+- Updated `docs/spec/14_test_scenarios.md` so the scenario IDs cover first-versus-incremental messaging and restricted-environment transparency.
+- Updated `docs/spec/05_open_questions_and_next_steps.md` to remove the now-resolved v1-versus-post-v1 story-boundary question.
+
 ## [v0.1.4] - 2026-03-13
 
 ### Changed

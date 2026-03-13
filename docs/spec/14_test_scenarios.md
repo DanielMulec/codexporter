@@ -20,37 +20,41 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-06`: successful export rendering with `## <Model Name> Assistant` and inline timestamps when available
 - `T-07`: successful tool rendering using labeled subsections and fenced blocks
 - `T-08`: successful export writes artifacts into the `codex_exports` subfolder in the current project repository
+- `T-09`: successful first export clearly communicates that the export was created for the current session and provides the file location
 
 ## Checkpoint Scenarios
 
-- `T-09`: failed export does not advance checkpoint state
-- `T-10`: corrupted checkpoint sidecar is handled safely
-- `T-11`: unreadable checkpoint sidecar is handled safely
-- `T-12`: sidecar JSON remains consistent after repeated successful exports
-- `T-13`: composite cursor resumes from the correct next record without re-exporting prior content
-- `T-14`: when there is no new exportable content since the previous successful checkpoint, no new export file is created and the user is informed
+- `T-10`: failed export does not advance checkpoint state
+- `T-11`: corrupted checkpoint sidecar is handled safely
+- `T-12`: unreadable checkpoint sidecar is handled safely
+- `T-13`: sidecar JSON remains consistent after repeated successful exports
+- `T-14`: composite cursor resumes from the correct next record without re-exporting prior content
+- `T-15`: when there is no new exportable content since the previous successful checkpoint, no new export file is created and the user is informed
+- `T-16`: successful repeated export clearly communicates that the export was incremental
 
 ## Degraded-Mode Scenarios
 
-- `T-15`: inaccessible session history produces a natural-language failure
-- `T-16`: unavailable optional metadata does not block the core export
-- `T-17`: failure messaging follows the active conversation language
-- `T-18`: omission messaging follows the active conversation language
-- `T-19`: when blocked access can be resolved, the user is guided toward the recovery step
+- `T-17`: inaccessible session history produces a natural-language failure
+- `T-18`: unavailable optional metadata does not block the core export
+- `T-19`: failure messaging follows the active conversation language
+- `T-20`: omission messaging follows the active conversation language
+- `T-21`: when blocked access can be resolved, the user is guided toward the recovery step
+- `T-22`: restricted-environment behavior explains what could not be accessed without claiming a false success
 
 ## Cross-Platform Scenarios
 
-- `T-20`: macOS Codex CLI export path behavior
-- `T-21`: Linux Codex CLI export path behavior
-- `T-22`: macOS Codex app export path behavior
-- `T-23`: Windows Codex CLI export path behavior
-- `T-24`: Windows Codex app export path behavior
+- `T-23`: macOS Codex CLI export path behavior
+- `T-24`: Linux Codex CLI export path behavior
+- `T-25`: macOS Codex app export path behavior
+- `T-26`: Windows Codex CLI export path behavior
+- `T-27`: Windows Codex app export path behavior
 
 ## Validation Scenarios
 
-- `T-25`: Daniel validates Windows behavior in real use
-- `T-26`: trusted Windows users validate Windows behavior in real use
-- `T-27`: validation findings are compared against the documented v1 environment targets
+- `T-28`: Daniel validates Windows behavior in real use
+- `T-29`: trusted Windows users validate Windows behavior in real use
+- `T-30`: validation findings are compared against the documented v1 environment targets
+- `T-31`: export filenames increment clearly across repeated exports of the same session
 
 ## Future Test Planning Rule
 
