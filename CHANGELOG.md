@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.2] - 2026-03-13
+
+### Changed
+
+- Expanded `docs/spec/16_user_journeys.md` with the blocked-access journey, filled the repeated-export failure path, and removed the unused notes placeholders.
+- Updated `docs/spec/18_user_story_mapping.md` to remove references to the deleted long-running-session journey.
+
 ## [v0.1.1] - 2026-03-12
 
 ### Changed
