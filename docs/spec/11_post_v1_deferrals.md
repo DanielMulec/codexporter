@@ -85,6 +85,36 @@ Integration rule for later:
 - additional artifacts should derive from the same base export identity and sequence number
 - later bundle additions must remain compatible with the existing v1 filename model
 
+### Compact export modes
+
+Deferred status:
+
+- post-v1
+
+What it is:
+
+- optional export modes that reduce output size by omitting, collapsing, or summarizing selected content classes while preserving the main export identity
+
+Why it is deferred:
+
+- the v1 priority is a faithful source-record export
+- compact-mode behavior introduces product and UX decisions that are not yet approved
+- we do not yet know which compactness levels or content-reduction options should be offered
+
+Consequence of deferral:
+
+- v1 exports may become very large for long, tool-heavy sessions
+
+Evidence note:
+
+- this concern is documented in `docs/spec/25_export_length_analysis.md`, which records why a real first export reached `29,741` lines
+
+Integration rule for later:
+
+- compact modes must be additive export options rather than a redefinition of the default v1 export semantics
+- compact modes must not break the base export identity, numbering model, or checkpoint behavior
+- if multiple compactness levels are introduced later, they should be documented explicitly rather than inferred
+
 ### Richer internal metadata coverage
 
 Deferred status:

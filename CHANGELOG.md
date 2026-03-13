@@ -6,6 +6,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.1] - 2026-03-13
+
+### Added
+
+- Added `docs/spec/25_export_length_analysis.md` to record why a real first export became extremely large and to preserve that evidence for later compact-mode design.
+
+### Changed
+
+- Updated `docs/spec/11_post_v1_deferrals.md` to add compact export modes as an explicit post-v1 deferral and to reference the new export-length analysis report as evidence.
+
 ## [v0.2.0] - 2026-03-13
 
 ### Added
