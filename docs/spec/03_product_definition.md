@@ -26,6 +26,7 @@ The desired product is a Codex skill that can export the current session into ma
 
 - Create a Codex skill that exports the current session into one or more markdown files.
 - Support Codex CLI and Codex app in the environments where Codex currently supports skills and local session data access.
+- Allow the skill to be installed once globally and then used across project contexts without per-project reinstallation.
 - Preserve the meaningful workflow record of the session, not just the final assistant answer.
 - Make repeated export within the same session practical and understandable for users.
 - Keep the export readable by humans and useful for handoff, learning, documentation, and audit purposes.
@@ -42,6 +43,7 @@ These items are explicitly out of scope for the initial version unless later pro
 - Guaranteeing Linux support for the Codex desktop app if the platform itself does not provide it.
 - Building a full project knowledge management system, analytics system, or long-term archive browser in v1.
 - Exporting every possible internal system event if those events are not stable, accessible, or useful to end users.
+- Treating the installed skill directory as a project workspace or as an export destination.
 
 ## Product Design Constraint
 

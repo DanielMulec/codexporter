@@ -9,11 +9,11 @@
 
 - What fixture strategy should be used for persisted session samples before implementation begins?
 - How should validation evidence be recorded so macOS-first testing is auditable before Windows follow-up begins?
-- Which packaging and distribution decision should follow once the macOS implementation path is proven?
+- Which release and versioning approach should follow once the macOS implementation path is proven?
 
 ## Recommended Next Spec Steps
 
-1. Treat `21_coverage_matrix.md` as the working QA baseline, `22_platform_validation.md` as the working platform evidence model, and `23_engineering_policy.md` as the working project-specific engineering policy.
+1. Treat `21_coverage_matrix.md` as the working QA baseline, `22_platform_validation.md` as the working platform evidence model, `23_engineering_policy.md` as the working project-specific engineering policy, and `24_installation_and_distribution.md` as the working distribution-boundary spec.
 2. Define the first macOS fixture set from real persisted-session structures and map each fixture to the relevant v1 test scenarios.
 3. Implement a macOS-first vertical slice that proves session discovery, event extraction, markdown rendering, artifact writing, and checkpoint behavior end to end.
 4. Configure the approved local quality gates from `23_engineering_policy.md`: `pytest`, `mypy`, `ruff check`, and `ruff format --check`.

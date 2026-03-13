@@ -36,6 +36,7 @@ It exists in two layers:
 | US-06 | Export filenames stay clearly sequenced across repeated exports. | AC-07 | T-31 | unit, integration, full-flow | all primary v1 targets | naming and sequencing story |
 | US-07 | The skill works consistently across the supported operating systems for Codex. | AC-13 | T-23, T-24, T-25, T-26, T-27, T-28, T-29, T-30 | full-flow, manual | macOS CLI, Linux CLI, macOS app, Windows CLI, Windows app | requires per-platform checklist evidence and real-environment validation |
 | US-08 | In a restricted environment, the skill explains clearly what it can and cannot access. | AC-05, AC-06, AC-11, AC-14 | T-17, T-19, T-20, T-21, T-22 | integration, full-flow, manual | all primary v1 targets | degraded-mode and restricted-environment transparency story |
+| US-09 | The skill installs once globally and can then be used across project contexts. | AC-15 | T-37, T-38, T-39 | integration, full-flow | all primary v1 targets | covers global install model, per-project export destination, and fail-fast handling when project root cannot be determined |
 
 ## Requirement-Level Coverage Matrix
 
@@ -53,6 +54,7 @@ It exists in two layers:
 | REQ-10 | `07_export_data_contract.md`, `10_degraded_mode_behavior.md`, `13_acceptance_criteria.md` | Missing optional metadata or non-git context does not block a successful core export. | T-02, T-18 | integration, full-flow | automated preferred | all primary v1 targets | resolves the non-git seam explicitly |
 | REQ-11 | `10_degraded_mode_behavior.md`, `13_acceptance_criteria.md`, `19_user_side_acceptance_criteria.md` | Failure and omission messaging explains what failed, why, and what to do next in the language of the active conversation. | T-17, T-19, T-20, T-21, T-22 | integration, full-flow, manual | automated where practical plus manual language/platform validation | all primary v1 targets | degraded-mode communication contract |
 | REQ-12 | `06_supported_environments.md`, `13_acceptance_criteria.md`, `22_platform_validation.md` | Preserve the same core export behavior across the supported target environments and collect validation evidence per platform. | T-23, T-24, T-25, T-26, T-27, T-28, T-29, T-30 | full-flow, manual | manual validation required, automation supplemental | macOS CLI, Linux CLI, macOS app, Windows CLI, Windows app | cross-platform support contract scoped to the checklist in `22_platform_validation.md` |
+| REQ-13 | `08_artifact_structure_and_naming.md`, `13_acceptance_criteria.md`, `19_user_side_acceptance_criteria.md`, `24_installation_and_distribution.md` | The skill is installed once globally, reused across project contexts, and never uses the installed skill directory as the export destination; if the active project root cannot be determined, the skill fails clearly. | T-37, T-38, T-39 | integration, full-flow | automated preferred plus manual platform confirmation | all primary v1 targets | install-boundary and project-context contract |
 
 ## Design-Constraint Coverage
 
@@ -72,4 +74,4 @@ It exists in two layers:
 
 - The matrix identifies traceability, not implementation completeness.
 - Platform validation still depends on actual evidence being recorded in `22_platform_validation.md`.
-- Automation-versus-manual decisions may still need to be refined once the implementation stack is chosen and recorded in `23_engineering_policy.md`.
+- Automation-versus-manual decisions may still need to be refined once the implementation scaffolding and validation harness are in place.

@@ -93,3 +93,29 @@ This document defines the step-by-step flows for `$export`.
 - if required access remains unavailable, no false success is reported
 - checkpoint does not advance on failure
 - if required access is restored, the export continues under the appropriate normal flow
+
+## Flow F-04: Global Install Across Projects
+
+### Preconditions
+
+- the skill is installed globally
+- user is in an active Codex session
+
+### Main flow
+
+1. user invokes `$export`
+2. skill resolves the active project root from the current session or workspace context
+3. skill confirms that the installed skill directory is not the export target
+4. skill continues through the first-export or repeated-export flow as appropriate
+5. skill writes export artifacts into the active project's `codex_exports` subfolder
+
+### Alternate flows
+
+- user has moved to a different project context since the last export
+- the active project root cannot be determined responsibly
+
+### Postconditions
+
+- the same installed skill can be used across project contexts without reinstallation
+- export destination stays tied to the active project root
+- if the active project root cannot be determined, no export artifact is written into the installed skill directory

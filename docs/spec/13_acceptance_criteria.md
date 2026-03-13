@@ -48,6 +48,13 @@ This document turns the current v1 decisions into acceptance criteria.
 - Repeated exports for the same session must increment the per-session export number.
 - The primary markdown artifact must follow the agreed rendering rules and section order.
 
+## Installation And Invocation Context
+
+- V1 must support a global install model where the skill is installed once and then used across project contexts.
+- The install location must not determine export destination.
+- Export destination must be resolved from the active project root at invocation time.
+- If the active project root cannot be determined responsibly, the skill must fail clearly rather than guess or write into the installed skill directory.
+
 ## Incremental Export
 
 - The first export for a session must export the session so far.

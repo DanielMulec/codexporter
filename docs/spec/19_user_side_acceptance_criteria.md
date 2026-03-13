@@ -115,3 +115,11 @@ This document defines the user-observable acceptance criteria for `$export`.
   - In a restricted environment, Codex tells the user clearly what required or optional data could not be accessed.
 - Observable evidence:
   - The user is told what data was unavailable and whether the export still succeeded, partially succeeded, or failed.
+
+## AC-15: Global Skill Install And Per-Project Output
+
+- Related stories: US-09
+- Criterion:
+  - After the skill is installed once globally, it can be invoked across project contexts without per-project reinstallation, and export artifacts still go to the active project's `codex_exports` folder.
+- Observable evidence:
+  - The same installed skill can export from more than one project context, and the created files appear under each active project's `codex_exports` folder rather than inside the installed skill directory.

@@ -33,6 +33,10 @@ It exists separately from the triage document so that:
 - As a Codex user, I want the skill to work consistently across the supported operating systems for Codex so that I can rely on it in different environments.
 - As a Codex user in a restricted environment, I want the skill to tell me clearly what it can and cannot access so that I understand the result and the limitations.
 
+## Installation And Invocation Context (v1)
+
+- As a Codex user, I want to install the export skill once globally and use it in any project so that I do not need to reinstall it for each workspace.
+
 ## Git-Aware Export (post-v1)
 
 - As a Codex user working in a git repository, I want the export to include git context so that I can correlate the conversation with actual repository changes.

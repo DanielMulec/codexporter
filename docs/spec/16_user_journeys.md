@@ -56,3 +56,23 @@ This document describes the main user journeys for the `$export` skill from the 
   5. If access becomes available, the export continues through the first-export or repeated-export journey as appropriate.
   6. If access does not become available, Codex tells the user what must be resolved before retrying `$export`.
 - Outcome: the correct export file is created, or the user understands the blocking issue and what to do before retrying `$export`
+
+## Journey J-04: Use One Installed Skill Across Projects
+
+- Actor: Codex user, globally installed `$export` skill, Codex CLI or Codex app
+- Trigger: user invokes `$export` from a different project context after the skill was already installed
+- Context: the skill is already installed globally, and the user is now working in a project that is different from the one used during a prior export
+- Goal: reuse the same installed skill without reinstallation while still writing export artifacts into the active project's `codex_exports` folder
+- Happy path:
+  1. The user installs the skill once through the skill installer.
+  2. The user opens a Codex session in a project context.
+  3. The user invokes `$export`.
+  4. The skill resolves the active project root from the current session context.
+  5. The skill writes export artifacts into that project's `codex_exports` subfolder.
+  6. Later, the user invokes `$export` from a different project context without reinstalling the skill.
+  7. The same installed skill writes export artifacts into the new active project's `codex_exports` subfolder.
+- Failure or edge path:
+  1. The skill cannot determine the active project root responsibly.
+  2. The skill does not guess and does not write into the installed skill directory.
+  3. Codex tells the user what failed and why.
+- Outcome: one globally installed skill can be reused across projects, or the user is told clearly why export could not proceed

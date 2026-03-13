@@ -6,6 +6,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.1.12] - 2026-03-13
+
+### Added
+
+- Added `docs/spec/24_installation_and_distribution.md` to define the global-install model, the installable repo boundary at `skills/codexporter/`, and the rule that install location must never determine export destination.
+
+### Changed
+
+- Updated `docs/spec/01_product_triage.md`, `docs/spec/02_user_stories.md`, `docs/spec/03_product_definition.md`, `docs/spec/13_acceptance_criteria.md`, `docs/spec/19_user_side_acceptance_criteria.md`, `docs/spec/16_user_journeys.md`, `docs/spec/17_user_flows.md`, `docs/spec/18_user_story_mapping.md`, and `docs/spec/21_coverage_matrix.md` to make global install and per-project export destination an explicit v1 product promise with traceability.
+- Updated `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/08_artifact_structure_and_naming.md`, and `docs/spec/23_engineering_policy.md` to align the next steps, export-location contract, and engineering policy with the approved global install boundary.
+
 ## [v0.1.11] - 2026-03-13
 
 ### Changed

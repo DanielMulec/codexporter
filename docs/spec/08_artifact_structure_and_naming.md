@@ -29,8 +29,13 @@ That means:
 
 - the primary markdown export file is written into `codex_exports`
 - the checkpoint sidecar file is written into `codex_exports`
+- the installed skill directory is never used as the export destination
 
 This location rule exists so exports are easy for the user to find and stay associated with the project context in which they were created.
+
+The install location of a globally installed skill is not part of the export location model.
+
+Export destination must be resolved from the active project context at invocation time, not from the path where the skill was installed.
 
 ## V1 Markdown Artifact Rule
 

@@ -22,6 +22,8 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-08`: successful export writes artifacts into the `codex_exports` subfolder in the current project root
 - `T-09`: successful first export clearly communicates that the export was created for the current session and provides the file location
 - `T-32`: successful export includes the required compact session metadata header when the metadata is available
+- `T-37`: globally installed skill exports successfully in more than one project context without reinstallation
+- `T-38`: globally installed skill writes export artifacts to the active project root rather than the installed skill directory
 
 ## Checkpoint Scenarios
 
@@ -45,6 +47,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-21`: when blocked access can be resolved, the user is guided toward the recovery step
 - `T-22`: restricted-environment behavior explains what could not be accessed without claiming a false success
 - `T-33`: export output excludes hidden reasoning and raw internal instruction payloads
+- `T-39`: when the active project root cannot be determined, the skill fails clearly without writing export artifacts into the installed skill directory
 
 ## Cross-Platform Scenarios
 

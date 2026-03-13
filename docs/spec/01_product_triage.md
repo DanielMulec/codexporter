@@ -6,6 +6,7 @@ This document is only for prioritization.
 
 - Export the current session into markdown.
 - Work in Codex CLI and Codex app where the required capabilities are actually available.
+- Be installable once as a global Codex skill and usable across project contexts without per-project reinstallation.
 - Include the core visible workflow trail:
   - user messages
   - assistant final answers

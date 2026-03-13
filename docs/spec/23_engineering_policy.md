@@ -23,7 +23,7 @@ It is a local exporter and integration tool for Codex session data, not a conven
 ## Current Engineering Status
 
 - the initial implementation stack is now approved for v1 development
-- packaging and distribution details are still not fully decided yet
+- the global install boundary is now approved, but release and versioning details are still not fully decided yet
 - CI wiring beyond the initial local quality gates is still not fully decided yet
 - Windows-specific implementation adjustments remain subject to follow-up after macOS validation
 - only already-approved spec decisions should be treated as binding engineering constraints
@@ -69,6 +69,13 @@ Preferred split strategies:
 - detailed platform-validation evidence lives under `docs/validation/`
 - `docs/spec/22_platform_validation.md` remains the checklist and index, not the storage location for all raw validation evidence
 
+### Install Boundary
+
+- the installable skill artifact lives at `skills/codexporter/`
+- the skill is intended to be installed once globally through the skill installer and then reused across project contexts
+- runtime output must always resolve from the active project root, never from the installed skill directory
+- if the active project root cannot be determined responsibly, the skill must fail clearly rather than guess
+
 ### Security Scanning
 
 - `Trivy` is approved as a CI security gate after dependency manifests and CI wiring exist.
@@ -98,6 +105,7 @@ The following engineering constraints are already approved through the spec docu
 - repeated exports in the same session are incremental
 - checkpoint state is stored in a JSON sidecar
 - export artifacts are written into `codex_exports` under the current project root
+- the globally installed skill boundary lives at `skills/codexporter/`, and install location does not determine export destination
 - user-visible failures must be explicit and language-sensitive
 - deferred post-v1 features must integrate additively rather than redefining v1 semantics
 
