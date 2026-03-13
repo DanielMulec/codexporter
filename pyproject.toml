@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codexporter-skill"
+version = "0.2.0"
+description = "Codex skill for exporting the current session to markdown."
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.19.1",
+  "pytest>=8.4.2",
+  "ruff>=0.13.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "skills/codexporter"}
+
+[tool.setuptools.packages.find]
+where = ["skills/codexporter"]
+include = ["codexporter*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+mypy_path = ["skills/codexporter"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["skills/codexporter", "tests"]
+
+[tool.ruff.lint]
+select = ["B", "C90", "E", "F", "I", "UP"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+

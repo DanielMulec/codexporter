@@ -6,6 +6,19 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.0] - 2026-03-13
+
+### Added
+
+- Added the installable `skills/codexporter/` skill runtime, including `SKILL.md`, a Python entry script, and modular exporter code for session discovery, rollout parsing, markdown rendering, artifact writing, and checkpoint sidecars.
+- Added `pyproject.toml` and `.gitignore` for the approved Python toolchain and local development exclusions.
+- Added sanitized macOS-derived rollout fixtures and `pytest` coverage for first export, incremental export, no-new-content behavior, prior-artifact immutability, and checkpoint corruption or mismatch handling.
+- Added `docs/validation/macos_app.md` with the first real macOS Codex app validation record.
+
+### Changed
+
+- Updated `docs/spec/22_platform_validation.md` to add shared validation result vocabulary, runtime-environment evidence fields, and the first partial macOS Codex app validation status.
+
 ## [v0.1.12] - 2026-03-13
 
 ### Added

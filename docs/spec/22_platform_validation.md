@@ -39,6 +39,15 @@ Acceptable evidence may include:
 - captured artifact examples from the target environment
 - concise validation notes recorded against the checklist below
 
+## Result Vocabulary
+
+Use the following result labels in checklist records:
+
+- `pass`
+- `fail`
+- `partial`
+- `not run`
+
 ## Per-Platform Validation Records
 
 ### macOS Codex CLI
@@ -46,6 +55,11 @@ Acceptable evidence may include:
 - Target status: primary v1 target
 - Validated status:
 - Evidence source:
+- Codex version:
+- Source surface:
+- Model:
+- Sandbox mode:
+- Approval mode:
 - Checklist results:
   - first export:
   - default export destination:
@@ -63,6 +77,11 @@ Acceptable evidence may include:
 - Target status: primary v1 target
 - Validated status:
 - Evidence source:
+- Codex version:
+- Source surface:
+- Model:
+- Sandbox mode:
+- Approval mode:
 - Checklist results:
   - first export:
   - default export destination:
@@ -78,25 +97,35 @@ Acceptable evidence may include:
 ### macOS Codex app
 
 - Target status: primary v1 target
-- Validated status:
-- Evidence source:
+- Validated status: partial
+- Evidence source: `docs/validation/macos_app.md`
+- Codex version: `0.115.0-alpha.11`
+- Source surface: Codex Desktop app context, rollout source field `vscode`
+- Model: `gpt-5.4`
+- Sandbox mode: `danger-full-access`
+- Approval mode: `never`
 - Checklist results:
-  - first export:
-  - default export destination:
-  - success message with file location:
-  - incremental export:
-  - no-new-content behavior:
-  - filename sequencing:
-  - markdown rendering:
-  - language-sensitive failure messaging:
-  - restricted-environment honesty:
-- Notes:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `pass`
+  - filename sequencing: `pass`
+  - markdown rendering: `pass`
+  - language-sensitive failure messaging: `partial`
+  - restricted-environment honesty: `not run`
+- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; non-English messaging and restricted-environment honesty still need real-use validation.
 
 ### Windows Codex CLI
 
 - Target status: primary v1 target
 - Validated status:
 - Evidence source:
+- Codex version:
+- Source surface:
+- Model:
+- Sandbox mode:
+- Approval mode:
 - Checklist results:
   - first export:
   - default export destination:
@@ -114,6 +143,11 @@ Acceptable evidence may include:
 - Target status: primary v1 target
 - Validated status:
 - Evidence source:
+- Codex version:
+- Source surface:
+- Model:
+- Sandbox mode:
+- Approval mode:
 - Checklist results:
   - first export:
   - default export destination:
@@ -130,6 +164,7 @@ Acceptable evidence may include:
 
 - A platform should not be marked validated based on assumption alone.
 - Partial validation should be recorded explicitly rather than rounded up to full validation.
+- Checklist results should use the shared result vocabulary rather than free-form status words.
 - Notes should capture meaningful deviations, not generic comments.
 - If a platform fails one checklist item but passes the rest, that should be recorded as a real gap rather than hidden.
 

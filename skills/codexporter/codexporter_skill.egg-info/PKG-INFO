@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: codexporter-skill
+Version: 0.2.0
+Summary: Codex skill for exporting the current session to markdown.
+Requires-Python: >=3.12
+Provides-Extra: dev
+Requires-Dist: mypy>=1.19.1; extra == "dev"
+Requires-Dist: pytest>=8.4.2; extra == "dev"
+Requires-Dist: ruff>=0.13.0; extra == "dev"
