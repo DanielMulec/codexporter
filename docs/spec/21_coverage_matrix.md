@@ -73,5 +73,7 @@ It exists in two layers:
 ## Current Gaps To Watch
 
 - The matrix identifies traceability, not implementation completeness.
-- Platform validation still depends on actual evidence being recorded in `22_platform_validation.md`.
-- Automation-versus-manual decisions may still need to be refined once the implementation scaffolding and validation harness are in place.
+- As of March 14, 2026, the repo's automated coverage is still one core `pytest` module centered on `export_current_session(...)`; the distinct unit and full-flow suites described in this matrix are not implemented yet as separate automated layers.
+- macOS app now has direct manual evidence for the renamed installed-skill `$export` boundary and active-project output behavior, but macOS app remains partial until non-English failure or omission messaging and restricted-environment honesty are validated.
+- Linux CLI, Windows CLI, and Windows app platform evidence are still missing from `22_platform_validation.md`, so the cross-platform target set remains broader than the validated set.
+- Global-install behavior now has direct macOS app evidence in one project context, but multi-project reuse, unsafe-project-root fail-fast behavior, unreadable-sidecar handling, and raw sidecar-schema assertions still need explicit validation.

@@ -3,19 +3,28 @@
 ## Status
 
 - Phase: analysis and discussion
-- Date: March 13, 2026
+- Date: March 14, 2026
 
 ## Key Open Questions
 
-- What fixture strategy should be used for persisted session samples before implementation begins?
-- How should validation evidence be recorded so macOS-first testing is auditable before Windows follow-up begins?
-- Which release and versioning approach should follow once the macOS implementation path is proven?
+- Which missing automated suites should be implemented next so the documented unit, integration, and full-flow layers are no longer aspirational?
+- How should remaining macOS gap evidence be captured for non-English failure or omission behavior and restricted-environment honesty?
+- What is the most efficient validation sequence for Linux and Windows once the current macOS path is considered stable enough?
 
 ## Recommended Next Spec Steps
 
 1. Treat `21_coverage_matrix.md` as the working QA baseline, `22_platform_validation.md` as the working platform evidence model, `23_engineering_policy.md` as the working project-specific engineering policy, and `24_installation_and_distribution.md` as the working distribution-boundary spec.
-2. Define the first macOS fixture set from real persisted-session structures and map each fixture to the relevant v1 test scenarios.
-3. Implement a macOS-first vertical slice that proves session discovery, event extraction, markdown rendering, artifact writing, and checkpoint behavior end to end.
-4. Configure the approved local quality gates from `23_engineering_policy.md`: `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
-5. Record real validation evidence for macOS Codex CLI first, then macOS Codex app, using the platform checklist and linked evidence artifacts.
-6. After the macOS path is stable, follow with Windows validation and any Windows-specific implementation adjustments that are still required.
+2. Preserve the recorded macOS app evidence for the renamed globally installed `$export` boundary and active-project output behavior, while keeping the remaining macOS gaps explicit rather than rounding them up to full validation.
+3. Add the missing automated test suites that the current docs already call for:
+   - isolated unit tests for filename generation, session-name sanitization, renderer formatting, message-heading rendering, tool rendering, sidecar serialization, and language detection
+   - full-flow automated tests that exercise the public invocation boundary rather than only `export_current_session(...)`
+4. Add the missing degraded-mode and checkpoint edge-case tests:
+   - inaccessible session history
+   - language-sensitive failure and omission messaging
+   - blocked-access recovery guidance
+   - restricted-environment honesty
+   - unsafe-project-root fail-fast behavior
+   - unreadable checkpoint sidecar
+   - raw sidecar-schema assertions
+5. Record the remaining macOS validation evidence for non-English failure or omission messaging and restricted-environment honesty.
+6. After the current macOS path is stable enough, validate Linux and Windows and record the results in `22_platform_validation.md`.

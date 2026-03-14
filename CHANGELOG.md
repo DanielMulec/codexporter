@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.4] - 2026-03-14
+
+### Changed
+
+- Updated `docs/validation/macos_app.md`, `docs/spec/22_platform_validation.md`, `docs/spec/21_coverage_matrix.md`, and `docs/spec/05_open_questions_and_next_steps.md` to record the March 14 macOS app evidence for the renamed globally installed `$export` skill boundary, to note that active-project output was observed from the installed skill path, and to clarify the still-open automated and manual validation gaps.
+
 ## [v0.2.3] - 2026-03-14
 
 ### Changed

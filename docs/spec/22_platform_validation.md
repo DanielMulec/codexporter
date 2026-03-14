@@ -114,7 +114,7 @@ Use the following result labels in checklist records:
   - markdown rendering: `pass`
   - language-sensitive failure messaging: `partial`
   - restricted-environment honesty: `not run`
-- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; non-English messaging and restricted-environment honesty still need real-use validation.
+- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; on March 14, 2026, the renamed globally installed `$export` skill was also invoked successfully in the active macOS app thread and wrote the export into the active project's `codex_exports/` folder rather than into the installed skill directory; non-English messaging and restricted-environment honesty still need real-use validation.
 
 ### Windows Codex CLI
 
