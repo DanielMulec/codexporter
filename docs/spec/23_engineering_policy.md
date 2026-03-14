@@ -71,7 +71,7 @@ Preferred split strategies:
 
 ### Install Boundary
 
-- the installable skill artifact lives at `skills/codexporter/`
+- the installable skill artifact lives at `skills/export/`
 - the skill is intended to be installed once globally through the skill installer and then reused across project contexts
 - runtime output must always resolve from the active project root, never from the installed skill directory
 - if the active project root cannot be determined responsibly, the skill must fail clearly rather than guess
@@ -105,7 +105,7 @@ The following engineering constraints are already approved through the spec docu
 - repeated exports in the same session are incremental
 - checkpoint state is stored in a JSON sidecar
 - export artifacts are written into `codex_exports` under the current project root
-- the globally installed skill boundary lives at `skills/codexporter/`, and install location does not determine export destination
+- the globally installed skill boundary lives at `skills/export/`, and install location does not determine export destination
 - user-visible failures must be explicit and language-sensitive
 - deferred post-v1 features must integrate additively rather than redefining v1 semantics
 

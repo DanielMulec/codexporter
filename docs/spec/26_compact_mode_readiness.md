@@ -30,11 +30,11 @@ Interpretation:
 
 The current code already separates the main responsibilities in a way that supports additive extension:
 
-- session discovery in `skills/codexporter/codexporter/session_store.py`
-- rollout parsing in `skills/codexporter/codexporter/rollout_parser.py`
-- checkpoint logic in `skills/codexporter/codexporter/checkpoint.py`
-- export orchestration in `skills/codexporter/codexporter/service.py`
-- markdown rendering in `skills/codexporter/codexporter/renderer.py`
+- session discovery in `skills/export/codexporter/session_store.py`
+- rollout parsing in `skills/export/codexporter/rollout_parser.py`
+- checkpoint logic in `skills/export/codexporter/checkpoint.py`
+- export orchestration in `skills/export/codexporter/service.py`
+- markdown rendering in `skills/export/codexporter/renderer.py`
 
 This matches the intended v1 pipeline shape:
 
@@ -68,7 +68,7 @@ This is the strongest sign that the anti-refactor rule is mostly holding.
 
 ### 1. Service orchestration is already clean enough
 
-`skills/codexporter/codexporter/service.py` already does the high-level pipeline work in a clear order:
+`skills/export/codexporter/service.py` already does the high-level pipeline work in a clear order:
 
 - resolve the current session
 - parse the rollout
@@ -80,7 +80,7 @@ Compact mode can likely be inserted as a new option in this pipeline without red
 
 ### 2. Checkpointing is already isolated
 
-`skills/codexporter/codexporter/checkpoint.py` is already responsible for:
+`skills/export/codexporter/checkpoint.py` is already responsible for:
 
 - sidecar loading
 - sidecar validation
@@ -91,7 +91,7 @@ Compact mode should not need to alter that logic, which is exactly what the spec
 
 ### 3. Parsed export entries already form a stable intermediate layer
 
-`skills/codexporter/codexporter/models.py` and `skills/codexporter/codexporter/rollout_parser.py` already produce structured `ExportEntry` values.
+`skills/export/codexporter/models.py` and `skills/export/codexporter/rollout_parser.py` already produce structured `ExportEntry` values.
 
 That means later compact-mode logic can act on a normalized entry stream instead of having to parse raw JSONL again.
 
@@ -99,7 +99,7 @@ That means later compact-mode logic can act on a normalized entry stream instead
 
 The main weakness is that markdown rendering is still a single fixed path.
 
-`skills/codexporter/codexporter/renderer.py` currently has:
+`skills/export/codexporter/renderer.py` currently has:
 
 - one render function
 - one fixed formatting policy
@@ -140,7 +140,7 @@ That future layer would likely handle actions such as:
 
 ### 4. Public invocation surface for mode selection
 
-`skills/codexporter/codexporter/cli.py` currently exposes the v1 public surface.
+`skills/export/codexporter/cli.py` currently exposes the v1 public surface.
 
 Later compact mode will likely need:
 

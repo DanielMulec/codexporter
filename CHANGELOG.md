@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.3] - 2026-03-14
+
+### Changed
+
+- Renamed the installable skill boundary from `skills/codexporter/` to `skills/export/` and changed the skill frontmatter name from `codexporter` to `export` so the registered invocation token matches the required `$export` command.
+- Updated the approved install-boundary references in `pyproject.toml`, engineering/spec docs, validation evidence, and packaged source metadata to reflect the renamed `skills/export/` install surface while keeping the internal Python package name `codexporter`.
+
 ## [v0.2.2] - 2026-03-13
 
 ### Added

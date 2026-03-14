@@ -24,7 +24,7 @@ That means:
 
 The installable skill artifact lives at:
 
-- `skills/codexporter/`
+- `skills/export/`
 
 Only that directory is the supported install target for GitHub-based skill installation.
 

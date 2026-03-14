@@ -12,7 +12,7 @@
 
 ## Evidence
 
-- Ran `./.venv/bin/python skills/codexporter/scripts/export_skill.py --project-root /Users/danielmulec/Projekte/codexporter --codex-home /Users/danielmulec/.codex` from the active project root.
+- Ran `./.venv/bin/python skills/export/scripts/export_skill.py --project-root /Users/danielmulec/Projekte/codexporter --codex-home /Users/danielmulec/.codex` from the active project root.
 - Observed first export creation at `codex_exports/20260313-221601-review-whether-21-coverage-matrix-md-is-complete-enough-as-t-1.md`.
 - Observed second incremental export creation at `codex_exports/20260313-221620-review-whether-21-coverage-matrix-md-is-complete-enough-as-t-2.md`.
 - Observed no-new-content behavior by calling `export_current_session(...)` twice inside one shell process; the first call created `codex_exports/20260313-221644-review-whether-21-coverage-matrix-md-is-complete-enough-as-t-3.md` and the second call returned `There is no new content to export since the last successful export.` without creating another markdown file.
@@ -21,7 +21,7 @@
 - Ran automated gates in the repo on the same day:
   - `./.venv/bin/ruff check .`
   - `./.venv/bin/ruff format --check .`
-  - `./.venv/bin/mypy skills/codexporter tests`
+  - `./.venv/bin/mypy skills/export tests`
   - `./.venv/bin/pytest`
 
 ## Checklist Results
@@ -40,4 +40,3 @@
 
 - This validation record covers the macOS Codex app runtime behavior in the current desktop-app session context. It does not yet validate GitHub skill installation flow end to end.
 - English user-facing success and no-new-content messages were observed directly. Non-English failure or omission behavior still needs separate real-use validation.
-
