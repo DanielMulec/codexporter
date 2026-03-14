@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -24,14 +25,20 @@ class SessionFixture:
     expected_initial_markdown: str
     expected_incremental_markdown: str
 
-    def apply_initial_rollout(self) -> None:
+    def apply_initial_rollout(self, replacements: Mapping[str, str] | None = None) -> None:
         _write_template(
-            FIXTURE_ROOT / "rollout_initial.jsonl", self.rollout_path, self.project_root
+            FIXTURE_ROOT / "rollout_initial.jsonl",
+            self.rollout_path,
+            self.project_root,
+            replacements,
         )
 
-    def apply_extended_rollout(self) -> None:
+    def apply_extended_rollout(self, replacements: Mapping[str, str] | None = None) -> None:
         _write_template(
-            FIXTURE_ROOT / "rollout_incremental.jsonl", self.rollout_path, self.project_root
+            FIXTURE_ROOT / "rollout_incremental.jsonl",
+            self.rollout_path,
+            self.project_root,
+            replacements,
         )
 
     @property
@@ -53,9 +60,14 @@ class SessionFixture:
 
 @pytest.fixture()
 def session_fixture(tmp_path: Path) -> SessionFixture:
-    project_root = tmp_path / "project-alpha"
+    return build_session_fixture(tmp_path)
+
+
+def build_session_fixture(base_dir: Path, project_name: str = "project-alpha") -> SessionFixture:
+    base_dir.mkdir(parents=True, exist_ok=True)
+    project_root = base_dir / project_name
     project_root.mkdir()
-    codex_home = tmp_path / ".codex"
+    codex_home = base_dir / ".codex"
     rollout_path = codex_home / "sessions" / "2026" / "03" / "13" / "rollout.jsonl"
     rollout_path.parent.mkdir(parents=True)
     _create_state_db(codex_home / "state_5.sqlite", rollout_path, project_root)
@@ -124,10 +136,24 @@ def _create_state_db(state_db: Path, rollout_path: Path, project_root: Path) -> 
         connection.close()
 
 
-def _read_template(template_path: Path, project_root: Path) -> str:
+def _read_template(
+    template_path: Path,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str:
     rendered = template_path.read_text(encoding="utf-8").replace(PLACEHOLDER, str(project_root))
+    if replacements is not None:
+        for original, replacement in replacements.items():
+            rendered = rendered.replace(original, replacement)
     return rendered.rstrip("\n") + "\n"
 
 
-def _write_template(template_path: Path, destination: Path, project_root: Path) -> None:
-    destination.write_text(_read_template(template_path, project_root), encoding="utf-8")
+def _write_template(
+    template_path: Path,
+    destination: Path,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> None:
+    destination.write_text(
+        _read_template(template_path, project_root, replacements), encoding="utf-8"
+    )

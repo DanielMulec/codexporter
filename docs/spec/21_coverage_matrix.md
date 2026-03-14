@@ -73,7 +73,7 @@ It exists in two layers:
 ## Current Gaps To Watch
 
 - The matrix identifies traceability, not implementation completeness.
-- As of March 14, 2026, the repo's automated coverage is still one core `pytest` module centered on `export_current_session(...)`; the distinct unit and full-flow suites described in this matrix are not implemented yet as separate automated layers.
+- As of March 14, 2026, the repo now has distinct automated coverage for unit behavior, service-level export flow, public invocation flow, degraded-mode behavior, and checkpoint edge cases; the remaining gaps are now concentrated more in manual platform validation than in missing test-layer scaffolding.
 - macOS app now has direct manual evidence for the renamed installed-skill `$export` boundary and active-project output behavior, but macOS app remains partial until non-English failure or omission messaging and restricted-environment honesty are validated.
 - Linux CLI, Windows CLI, and Windows app platform evidence are still missing from `22_platform_validation.md`, so the cross-platform target set remains broader than the validated set.
-- Global-install behavior now has direct macOS app evidence in one project context, but multi-project reuse, unsafe-project-root fail-fast behavior, unreadable-sidecar handling, and raw sidecar-schema assertions still need explicit validation.
+- GitHub skill installation flow end to end and the remaining manual restricted-environment checks still need explicit validation beyond the current automated suite.

@@ -6,6 +6,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.5] - 2026-03-14
+
+### Added
+
+- Added 13 new `pytest` cases covering isolated unit behavior, public invocation flow through `cli.main(...)` and the skill script entrypoint, localized degraded-mode behavior, multi-project script reuse, unreadable or incomplete sidecars, raw sidecar schema assertions, and failed-write checkpoint preservation.
+
+### Changed
+
+- Extended `tests/conftest.py` with reusable fixture-building and rollout-replacement helpers so multiple project contexts and localized rollout variants can be exercised hermetically.
+- Updated `docs/spec/21_coverage_matrix.md` and `docs/spec/05_open_questions_and_next_steps.md` so they reflect the new automated baseline and shift the remaining QA focus toward manual platform validation and the narrower remaining edge cases.
+
 ## [v0.2.4] - 2026-03-14
 
 ### Changed
