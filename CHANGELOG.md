@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.6] - 2026-03-15
+
+### Added
+
+- Added a root `README.md` that documents the current `export` skill boundary, the `$export` invocation, local development commands, repository layout, and the current automated and manual validation status.
+
 ## [v0.2.5] - 2026-03-14
 
 ### Added
