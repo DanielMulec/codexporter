@@ -62,29 +62,73 @@ If the active project root cannot be determined safely, the skill stops with a u
 
 ## Local Development
 
-Create a virtual environment and install the dev dependencies:
+Each contributor should create a local virtual environment in `.venv/`.
+
+`.venv/` is machine-specific and is intentionally not committed to Git. Create it locally, recreate it when needed, and do not copy it between machines.
+
+### macOS and Linux
+
+Create and activate the virtual environment:
 
 ```bash
 python3 -m venv .venv
-./.venv/bin/pip install -e .[dev]
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 ```
 
 Run the current quality gates:
 
 ```bash
-./.venv/bin/pytest
-./.venv/bin/mypy skills/export tests
-./.venv/bin/ruff check .
-./.venv/bin/ruff format --check .
+python -m pytest
+python -m mypy skills/export tests
+python -m ruff check .
+python -m ruff format --check .
 ```
 
 Run the exporter directly from the repo during development:
 
 ```bash
-./.venv/bin/python skills/export/scripts/export_skill.py \
+python skills/export/scripts/export_skill.py \
   --project-root "$PWD" \
   --codex-home "${CODEX_HOME:-$HOME/.codex}"
 ```
+
+### Windows (PowerShell)
+
+Create and activate the virtual environment:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+```
+
+Run the current quality gates:
+
+```powershell
+python -m pytest
+python -m mypy skills/export tests
+python -m ruff check .
+python -m ruff format --check .
+```
+
+Run the exporter directly from the repo during development:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME ".codex" }
+
+python skills/export/scripts/export_skill.py `
+  --project-root $PWD `
+  --codex-home $codexHome
+```
+
+### Notes
+
+- Prefer `python -m ...` after activating the virtual environment. This avoids platform-specific `.venv/bin/...` and `.venv\\Scripts\\...` command paths.
+- Validation evidence in `docs/validation/` may contain machine-specific example paths. Those are recorded observations, not required contributor paths.
+- The supported development baseline is Python 3.12 or newer.
 
 ## Validation Snapshot
 

@@ -6,6 +6,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.7] - 2026-03-16
+
+### Changed
+
+- Updated `README.md` so local development instructions are platform-neutral for contributors, with separate macOS/Linux and Windows virtual-environment setup paths and `python -m ...` command patterns instead of POSIX-only `.venv/bin/...` examples.
+
 ## [v0.2.6] - 2026-03-15
 
 ### Added
