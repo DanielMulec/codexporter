@@ -76,6 +76,14 @@ Preferred split strategies:
 - runtime output must always resolve from the active project root, never from the installed skill directory
 - if the active project root cannot be determined responsibly, the skill must fail clearly rather than guess
 
+### Ignore Rules And Local-Only Artifacts
+
+- use `.gitignore` for ignore rules that should apply to every clone of this repository
+- use `.git/info/exclude` for repo-local ignore rules that should stay on one machine and must not appear on GitHub
+- use the global Git excludes file via `core.excludesFile` only for machine-wide noise that is not specific to this repository
+- when choosing between `.gitignore` and `.git/info/exclude`, prefer the narrowest scope that matches the intent
+- ignore rules do not stop tracking files that are already in Git; if a tracked file must remain on disk but leave version control, remove it from the index explicitly
+
 ### Security Scanning
 
 - `Trivy` is approved as a CI security gate after dependency manifests and CI wiring exist.

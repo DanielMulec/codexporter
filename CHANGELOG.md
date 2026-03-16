@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.8] - 2026-03-16
+
+### Changed
+
+- Updated `.gitignore` to ignore a neutral `.local/` workspace folder for local-only artifacts that must stay off GitHub.
+- Updated `docs/spec/23_engineering_policy.md` with a concise binding rule for when to use `.gitignore`, `.git/info/exclude`, and the global Git excludes file, plus the reminder that ignore rules do not untrack files already in Git.
+
 ## [v0.2.7] - 2026-03-16
 
 ### Changed
