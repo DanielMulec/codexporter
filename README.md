@@ -142,8 +142,8 @@ Current automated baseline:
 Current manual validation status:
 
 - macOS Codex app: partial validation recorded
-- macOS Codex CLI: target, but manual evidence still needs to be recorded
-- Linux Codex CLI: target, not yet validated
+- macOS Codex CLI: partial validation recorded
+- Linux Codex CLI: partial validation recorded
 - Windows Codex CLI: target, not yet validated
 - Windows Codex app: target, not yet validated
 
@@ -151,6 +151,8 @@ See:
 
 - `docs/spec/22_platform_validation.md`
 - `docs/validation/macos_app.md`
+- `docs/validation/macos_cli.md`
+- `docs/validation/linux_cli.md`
 
 ## Notes
 

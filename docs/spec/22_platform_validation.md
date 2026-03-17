@@ -53,46 +53,46 @@ Use the following result labels in checklist records:
 ### macOS Codex CLI
 
 - Target status: primary v1 target
-- Validated status:
-- Evidence source:
-- Codex version:
-- Source surface:
-- Model:
-- Sandbox mode:
-- Approval mode:
+- Validated status: partial
+- Evidence source: `docs/validation/macos_cli.md`
+- Codex version: `0.115.x` (exact patch not recorded)
+- Source surface: Codex CLI in Ghostty
+- Model: `gpt-5.4`
+- Sandbox mode: not recorded
+- Approval mode: not recorded
 - Checklist results:
-  - first export:
-  - default export destination:
-  - success message with file location:
-  - incremental export:
-  - no-new-content behavior:
-  - filename sequencing:
-  - markdown rendering:
-  - language-sensitive failure messaging:
-  - restricted-environment honesty:
-- Notes:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `pass`
+  - filename sequencing: `pass`
+  - markdown rendering: `pass`
+  - language-sensitive failure messaging: `not run`
+  - restricted-environment honesty: `not run`
+- Notes: direct real-user validation by Daniel recorded on March 18, 2026; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure or blocked-access case occurred during the recorded runs.
 
 ### Linux Codex CLI
 
 - Target status: primary v1 target
-- Validated status:
-- Evidence source:
-- Codex version:
-- Source surface:
-- Model:
-- Sandbox mode:
-- Approval mode:
+- Validated status: partial
+- Evidence source: `docs/validation/linux_cli.md`
+- Codex version: `0.115.x` (exact patch not recorded)
+- Source surface: Codex CLI in Kitty
+- Model: `gpt-5.4`
+- Sandbox mode: not recorded
+- Approval mode: not recorded
 - Checklist results:
-  - first export:
-  - default export destination:
-  - success message with file location:
-  - incremental export:
-  - no-new-content behavior:
-  - filename sequencing:
-  - markdown rendering:
-  - language-sensitive failure messaging:
-  - restricted-environment honesty:
-- Notes:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `pass`
+  - filename sequencing: `pass`
+  - markdown rendering: `pass`
+  - language-sensitive failure messaging: `not run`
+  - restricted-environment honesty: `not run`
+- Notes: direct real-user validation by Daniel recorded on March 18, 2026; the tested CLI was reported as the same `0.115` series as the corresponding macOS validation, but the exact patch/build was not retained; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure or blocked-access case occurred during the recorded runs.
 
 ### macOS Codex app
 

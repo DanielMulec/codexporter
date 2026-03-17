@@ -6,6 +6,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v0.2.9] - 2026-03-18
+
+### Added
+
+- Added `docs/validation/macos_cli.md` and `docs/validation/linux_cli.md` as concise manual validation records for the now-confirmed macOS Codex CLI and Linux Codex CLI happy-path runs.
+
+### Changed
+
+- Updated `docs/spec/22_platform_validation.md` to record partial validation status for macOS Codex CLI and Linux Codex CLI, including the observed pass results and the still-unrun degraded-mode checks.
+- Updated `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, and `docs/spec/21_coverage_matrix.md` so the repository status no longer claims that macOS CLI and Linux CLI evidence is missing.
+
 ## [v0.2.8] - 2026-03-16
 
 ### Changed
