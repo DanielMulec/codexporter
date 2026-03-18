@@ -15,6 +15,8 @@ This document turns the current v1 decisions into acceptance criteria.
 - The skill must export the current live Codex session when the user invokes `$export`.
 - The output must be a markdown file.
 - The export must reflect the current session, not a different session or a project-wide history.
+- If a precise current-thread identifier is available at invocation time, the skill must prefer it over workspace-based session discovery.
+- If the current session cannot be identified unambiguously, the skill must fail clearly rather than export another session from the same workspace.
 
 ## Default Output Content
 
@@ -32,6 +34,7 @@ This document turns the current v1 decisions into acceptance criteria.
 - The export must include session start timestamp when available.
 - The export must include current working directory when available.
 - The default export must not be cluttered with excessive optional environment metadata.
+- If the preferred named timezone cannot be resolved, timestamp rendering may fall back to UTC rather than failing the export.
 
 ## Exclusions
 
@@ -77,6 +80,7 @@ This document turns the current v1 decisions into acceptance criteria.
 - The skill must never fail silently.
 - The skill must never imply success when export did not actually succeed.
 - If checkpoint or validation metadata does not match expectations, the skill must stop rather than guess.
+- If current-session resolution is ambiguous or conflicts with explicit session context, the skill must stop rather than guess.
 - User-facing failure messages must explain what failed and why.
 - User-facing failure or omission messages should include a next-step hint when one is responsibly available.
 - User-facing failure or omission messages must follow the language of the active conversation.

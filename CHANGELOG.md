@@ -9,6 +9,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 ### Changed
 
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
+- Updated the spec baseline to make current-session targeting fail-safe, treat same-workspace wrong-session export as a cross-platform validation concern, and require UTC fallback when named timezone data is unavailable.
 
 ## [v0.2.9] - 2026-03-18
 

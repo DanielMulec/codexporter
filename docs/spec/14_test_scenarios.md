@@ -13,6 +13,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 ## Successful Export Scenarios
 
 - `T-01`: successful export of the current live session
+- `T-40`: successful export prefers an explicit or runtime-provided current-thread identifier over same-workspace `cwd` heuristics
 - `T-02`: successful export in a non-git workspace
 - `T-03`: successful second export of the same session with incremental behavior
 - `T-04`: successful export with a session name that requires filename sanitization
@@ -42,6 +43,9 @@ This document lists the main v1 test scenarios implied by the current specificat
 
 - `T-17`: inaccessible session history produces a natural-language failure
 - `T-18`: unavailable optional metadata does not block the core export
+- `T-41`: differing path spellings for the same logical workspace do not cause the exporter to select a different session
+- `T-42`: when explicit current-thread context conflicts with the invoking project root, export fails clearly instead of guessing
+- `T-43`: missing timezone database support falls back to UTC rendering without blocking an otherwise valid export
 - `T-19`: failure messaging follows the active conversation language
 - `T-20`: omission messaging follows the active conversation language
 - `T-21`: when blocked access can be resolved, the user is guided toward the recovery step
@@ -73,4 +77,5 @@ They should also cover:
 - checkpoint safety
 - naming safety
 - partial-data handling
+- current-thread targeting safety
 - environment-specific behavior

@@ -16,6 +16,10 @@ This document defines the current support targets for v1 based on:
 
 For this project, the `current session` means the live chat thread the user is currently in when `$export` is invoked in Codex CLI or the Codex app.
 
+When a precise runtime thread or session identifier is available at invocation time, that identifier is authoritative over workspace-based discovery.
+
+Workspace-path-based discovery is only an allowed fallback when no precise current-thread identifier is available and the result is unambiguous.
+
 This applies to:
 
 - the currently active Codex CLI thread
@@ -25,6 +29,7 @@ It does not mean:
 
 - all sessions in the workspace
 - the last session on disk
+- the newest session that happens to share the same workspace path
 - a project-wide merged history
 
 ## V1 Environment Targets
@@ -45,6 +50,8 @@ It does not mean:
 - Validation must happen separately from this analysis-phase document.
 - For this project, Windows Codex CLI is a required v1 product target.
 - Validation for Windows support may be established through real-user testing by Daniel and trusted Windows users in addition to repo-driven validation scenarios.
+- Platform validation is not complete unless it includes current-thread targeting correctness, not just happy-path export success.
+- Where practical, platform validation should include same-workspace multi-thread conditions and platform-specific path-representation differences.
 
 ## Documentation Rule
 

@@ -25,12 +25,14 @@ The desired product is a Codex skill that can export the current session into ma
 ## Goals
 
 - Create a Codex skill that exports the current session into one or more markdown files.
+- Export the invoking live session accurately rather than the newest or most convenient same-workspace session.
 - Support Codex CLI and Codex app in the environments where Codex currently supports skills and local session data access.
 - Allow the skill to be installed once globally and then used across project contexts without per-project reinstallation.
 - Preserve the meaningful workflow record of the session, not just the final assistant answer.
 - Make repeated export within the same session practical and understandable for users.
 - Keep the export readable by humans and useful for handoff, learning, documentation, and audit purposes.
 - Design the product to be cross-platform where Codex itself is available and where the skill can access the required local data.
+- Degrade safely across platform-specific runtime differences such as path representation and timezone-data availability.
 - Leave room for optional post-export AI summarization or classification without making it mandatory for the core export flow.
 
 ## Non-Goals

@@ -89,6 +89,12 @@ That means the default output should prioritize:
 
 Optional environment metadata should stay minimal in the default export view.
 
+## Timestamp Resilience Rule
+
+If source timestamps are available but the environment cannot resolve the preferred named timezone, the export may render those timestamps in UTC.
+
+Missing timezone database support must not by itself block an otherwise valid core export.
+
 ## Future Compatibility Rule
 
 The export pipeline should be structured so that new optional sections can be added later without changing the meaning of existing v1 sections.

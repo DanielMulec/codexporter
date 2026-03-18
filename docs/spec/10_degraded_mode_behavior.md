@@ -52,6 +52,12 @@ If sandboxing or platform restrictions block required session access:
 - do not fake an export
 - explain the actual access limitation
 
+## Current Session Resolution Rule
+
+If a precise current-thread identifier is available at invocation time, the skill must prefer that identifier over workspace-path heuristics.
+
+If the current session cannot be identified unambiguously, or if an explicit thread target conflicts with the invoking project context, the skill must stop rather than export a different session.
+
 ## Fail Safely Rule
 
 If validation metadata or checkpoint state does not match expectations:
@@ -59,6 +65,12 @@ If validation metadata or checkpoint state does not match expectations:
 - stop the export rather than guessing
 - do not advance the checkpoint
 - inform the user directly what failed and why
+
+If optional timezone lookup fails but the underlying timestamp data is available:
+
+- continue the export
+- render timestamps in UTC
+- avoid failing the export for formatting-only reasons
 
 ## Future Compatibility Rule
 
