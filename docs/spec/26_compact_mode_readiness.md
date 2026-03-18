@@ -2,7 +2,7 @@
 
 ## Status
 
-- Phase: analysis and discussion
+- Phase: implementation and validation
 - Date: March 13, 2026
 - Scope: implementation-readiness assessment for post-v1 compact export modes
 

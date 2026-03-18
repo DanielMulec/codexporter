@@ -2,7 +2,7 @@
 
 ## Status
 
-- Phase: analysis and discussion
+- Phase: implementation and validation
 - Date: March 10, 2026
 
 ## Purpose
@@ -47,7 +47,7 @@ It does not mean:
 - The specification should distinguish between:
   - target support
   - validated support
-- Validation must happen separately from this analysis-phase document.
+- Validation must happen separately from this support-target document.
 - For this project, Windows Codex CLI is a required v1 product target.
 - Validation for Windows support may be established through real-user testing by Daniel and trusted Windows users in addition to repo-driven validation scenarios.
 - Platform validation is not complete unless it includes current-thread targeting correctness, not just happy-path export success.

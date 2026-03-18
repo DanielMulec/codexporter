@@ -10,6 +10,12 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
 
+## [v0.2.11] - 2026-03-18
+
+### Changed
+
+- Updated the affected spec documents so their status blocks no longer claim the repository is still in the analysis-and-discussion phase, and clarified the remaining support-target wording in `docs/spec/06_supported_environments.md`.
+
 ## [v0.2.10] - 2026-03-18
 
 ### Added
