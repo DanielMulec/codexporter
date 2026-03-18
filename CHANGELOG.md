@@ -6,6 +6,10 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+### Changed
+
+- Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
+
 ## [v0.2.9] - 2026-03-18
 
 ### Added
