@@ -55,10 +55,37 @@ def unsafe_project_root_message(project_root: Path) -> str:
     )
 
 
-def missing_session_message(project_root: Path) -> str:
+def missing_session_message(project_root: Path | str) -> str:
     return (
         f"I couldn't find a live Codex session for this workspace at {project_root}. "
         "Run $export from the active project session and retry."
+    )
+
+
+def missing_targeted_session_message(session_id: str, project_root: Path | str) -> str:
+    return (
+        f"I couldn't find the current Codex session {session_id} for this workspace at "
+        f"{project_root}. Run $export from the active project session and retry."
+    )
+
+
+def ambiguous_session_message(project_root: Path | str) -> str:
+    return (
+        f"I found more than one Codex session for this workspace at {project_root} and "
+        "couldn't determine which one is current. Retry $export from the active session "
+        "context and try again."
+    )
+
+
+def session_workspace_mismatch_message(
+    session_id: str,
+    project_root: Path | str,
+    session_root: Path | str,
+) -> str:
+    return (
+        f"I found the current Codex session {session_id}, but it belongs to {session_root}, "
+        f"not the active project root {project_root}. I stopped rather than export a different "
+        "workspace session."
     )
 
 

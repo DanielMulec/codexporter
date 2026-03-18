@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 import unicodedata
 from datetime import datetime
@@ -33,11 +34,17 @@ def export_current_session(
     project_root: Path,
     codex_home: Path | None = None,
     now: datetime | None = None,
+    session_id: str | None = None,
 ) -> ExportResult:
     invocation_root = project_root.expanduser().resolve()
     _ensure_safe_project_root(invocation_root)
 
-    thread = discover_current_thread(invocation_root, resolve_codex_home(codex_home))
+    current_session_id = _resolve_session_id(session_id)
+    thread = discover_current_thread(
+        invocation_root,
+        resolve_codex_home(codex_home),
+        session_id=current_session_id,
+    )
     _ensure_safe_project_root(thread.cwd)
 
     parsed = parse_rollout(thread)
@@ -112,6 +119,15 @@ def export_current_session(
         export_mode=export_mode,
         no_new_content=False,
     )
+
+
+def _resolve_session_id(explicit_session_id: str | None) -> str | None:
+    if explicit_session_id is not None and explicit_session_id.strip():
+        return explicit_session_id.strip()
+    env_session_id = os.environ.get("CODEX_THREAD_ID")
+    if env_session_id is not None and env_session_id.strip():
+        return env_session_id.strip()
+    return None
 
 
 def _ensure_safe_project_root(project_root: Path) -> None:

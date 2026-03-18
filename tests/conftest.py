@@ -50,6 +50,10 @@ class SessionFixture:
         return self.export_dir / f"{self.session_id}-checkpoint.json"
 
     @property
+    def state_db_path(self) -> Path:
+        return self.codex_home / "state_5.sqlite"
+
+    @property
     def first_export_time(self) -> datetime:
         return datetime(2026, 3, 13, 21, 0, 0, tzinfo=TIMEZONE)
 
@@ -61,6 +65,11 @@ class SessionFixture:
 @pytest.fixture()
 def session_fixture(tmp_path: Path) -> SessionFixture:
     return build_session_fixture(tmp_path)
+
+
+@pytest.fixture(autouse=True)
+def clear_codex_thread_id(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CODEX_THREAD_ID", raising=False)
 
 
 def build_session_fixture(base_dir: Path, project_name: str = "project-alpha") -> SessionFixture:
@@ -110,30 +119,56 @@ def _create_state_db(state_db: Path, rollout_path: Path, project_root: Path) -> 
             )
             """
         )
-        connection.execute(
-            """
-            INSERT INTO threads (
-                id, rollout_path, created_at, updated_at, source, model_provider, cwd, title,
-                sandbox_policy, approval_mode, cli_version
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                SESSION_ID,
-                str(rollout_path),
-                1773428400,
-                1773428700,
-                "vscode",
-                "openai",
-                str(project_root),
-                SESSION_TITLE,
-                '{"type":"danger-full-access"}',
-                "never",
-                "0.115.0-alpha.11",
-            ),
+        insert_thread_record(
+            connection,
+            session_id=SESSION_ID,
+            rollout_path=rollout_path,
+            cwd=project_root,
+            created_at=1773428400,
+            updated_at=1773428700,
+            title=SESSION_TITLE,
         )
         connection.commit()
     finally:
         connection.close()
+
+
+def insert_thread_record(
+    connection: sqlite3.Connection,
+    *,
+    session_id: str,
+    rollout_path: Path,
+    cwd: Path | str,
+    created_at: int,
+    updated_at: int,
+    title: str | None,
+    source: str = "vscode",
+    model_provider: str = "openai",
+    sandbox_policy: str = '{"type":"danger-full-access"}',
+    approval_mode: str = "never",
+    cli_version: str = "0.115.0-alpha.11",
+) -> None:
+    connection.execute(
+        """
+        INSERT INTO threads (
+            id, rollout_path, created_at, updated_at, source, model_provider, cwd, title,
+            sandbox_policy, approval_mode, cli_version
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            session_id,
+            str(rollout_path),
+            created_at,
+            updated_at,
+            source,
+            model_provider,
+            str(cwd),
+            title,
+            sandbox_policy,
+            approval_mode,
+            cli_version,
+        ),
+    )
 
 
 def _read_template(

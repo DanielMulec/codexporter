@@ -22,10 +22,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         default=None,
         help="Codex home directory. Defaults to $CODEX_HOME or ~/.codex.",
     )
+    parser.add_argument(
+        "--session-id",
+        default=None,
+        help="Current Codex session identifier. Defaults to $CODEX_THREAD_ID when available.",
+    )
     args = parser.parse_args(list(argv) if argv is not None else None)
 
     try:
-        result = export_current_session(project_root=args.project_root, codex_home=args.codex_home)
+        result = export_current_session(
+            project_root=args.project_root,
+            codex_home=args.codex_home,
+            session_id=args.session_id,
+        )
     except ExporterError as exc:
         print(exc.user_message)
         return 1
