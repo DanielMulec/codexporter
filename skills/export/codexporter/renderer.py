@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import UTC, datetime, tzinfo
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -128,10 +128,10 @@ def _format_timestamp(timestamp: datetime | None, timezone_name: str | None) -> 
     return timestamp.astimezone(timezone).strftime("%Y-%m-%d %H:%M:%S %Z")
 
 
-def _resolve_timezone(timezone_name: str | None) -> ZoneInfo:
+def _resolve_timezone(timezone_name: str | None) -> tzinfo:
     if timezone_name is not None:
         try:
             return ZoneInfo(timezone_name)
         except ZoneInfoNotFoundError:
             pass
-    return ZoneInfo("UTC")
+    return UTC

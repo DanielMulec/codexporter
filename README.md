@@ -124,6 +124,8 @@ python skills/export/scripts/export_skill.py `
   --codex-home $codexHome
 ```
 
+When invoking the installed global skill on Windows without an activated virtual environment, prefer `py -3` over plain `python`. On some Windows setups, `python` resolves to the Microsoft Store stub instead of a working interpreter.
+
 ### Notes
 
 - Prefer `python -m ...` after activating the virtual environment. This avoids platform-specific `.venv/bin/...` and `.venv\\Scripts\\...` command paths.

@@ -9,7 +9,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 ### Changed
 
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
-- Updated the spec baseline to make current-session targeting fail-safe, treat same-workspace wrong-session export as a cross-platform validation concern, and require UTC fallback when named timezone data is unavailable.
+
+## [v0.2.10] - 2026-03-18
+
+### Added
+
+- Added 5 new `pytest` cases covering thread-ID-first session targeting, fail-closed same-workspace ambiguity, workspace-mismatch protection, Windows-style path-spelling equivalence during targeted lookup, and UTC fallback when named timezone data is unavailable.
+
+### Changed
+
+- Updated the exporter runtime to prefer the invoking Codex thread identifier when available, stop rather than guess when more than one session matches the same workspace, and reject explicit session targets that point at a different project root.
+- Updated the renderer to fall back to UTC formatting without requiring external timezone data, and updated the Windows launcher guidance in `SKILL.md` and `README.md` to prefer `py -3` for non-venv invocation.
 
 ## [v0.2.9] - 2026-03-18
 
@@ -28,6 +38,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 - Updated `.gitignore` to ignore a neutral `.local/` workspace folder for local-only artifacts that must stay off GitHub.
 - Updated `docs/spec/23_engineering_policy.md` with a concise binding rule for when to use `.gitignore`, `.git/info/exclude`, and the global Git excludes file, plus the reminder that ignore rules do not untrack files already in Git.
+- Updated the spec baseline to make current-session targeting fail-safe, treat same-workspace wrong-session export as a cross-platform validation concern, and require UTC fallback when named timezone data is unavailable.
 
 ## [v0.2.7] - 2026-03-16
 

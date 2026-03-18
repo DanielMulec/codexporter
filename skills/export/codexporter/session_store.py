@@ -114,9 +114,7 @@ def normalize_cwd(path: Path | str) -> str:
 
 
 def _looks_like_windows_path(path: str) -> bool:
-    return path.startswith("\\\\") or (
-        len(path) >= 3 and path[1] == ":" and path[2] in ("\\", "/")
-    )
+    return path.startswith("\\\\") or (len(path) >= 3 and path[1] == ":" and path[2] in ("\\", "/"))
 
 
 def _select_thread_row(
