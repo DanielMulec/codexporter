@@ -147,7 +147,7 @@ Current manual validation status:
 - macOS Codex CLI: partial validation recorded
 - Linux Codex CLI: partial validation recorded
 - Windows Codex CLI: target, not yet validated
-- Windows Codex app: target, not yet validated
+- Windows Codex app: partial validation recorded
 
 See:
 
@@ -155,6 +155,12 @@ See:
 - `docs/validation/macos_app.md`
 - `docs/validation/macos_cli.md`
 - `docs/validation/linux_cli.md`
+- `docs/validation/windows_app.md`
+
+Windows automated validation note:
+
+- On March 19, 2026, a Windows repo checkout passed `mypy`, `ruff check`, and `ruff format --check`.
+- On the same Windows run, `pytest` was not yet green because the current test harness depends on `tzdata` in `tests/conftest.py` and the rollout fixture templating still injects raw Windows paths into JSON without escaping backslashes.
 
 ## Notes
 
