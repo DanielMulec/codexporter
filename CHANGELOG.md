@@ -10,6 +10,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
 
+## [v0.2.12] - 2026-03-19
+
+### Added
+
+- Added the dated Windows repo-quality bug report and fix-proposal notes at the repository root: `codexporter-windows-test-suite-bug-report-2026-03-19.md` and `codexporter-windows-test-suite-fix-proposal-2026-03-19.md`.
+
+### Changed
+
+- Updated `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/21_coverage_matrix.md`, and `docs/spec/23_engineering_policy.md` so the documentation now reflects the pulled Windows app validation evidence, the current 23-test automated macOS-local baseline, and the remaining shared cross-platform test-harness gap that still keeps fresh-Windows `pytest` from being green.
+
 ## [v0.2.11] - 2026-03-18
 
 ### Changed

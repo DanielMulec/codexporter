@@ -73,7 +73,8 @@ It exists in two layers:
 ## Current Gaps To Watch
 
 - The matrix identifies traceability, not implementation completeness.
-- As of March 18, 2026, the repo has baseline automated coverage for unit behavior, service-level export flow, public invocation flow, degraded-mode behavior, and checkpoint edge cases, but it still lacks dedicated automated coverage for thread-accurate session targeting across same-workspace ambiguity, platform-specific path-shape differences, and timezone-data fallback.
+- As of March 19, 2026, the repo has automated coverage for thread-accurate session targeting across same-workspace ambiguity, platform-specific path-shape differences, and timezone-data fallback, but a fresh Windows `pytest` run is still not clean because the shared test harness is not yet fully cross-platform.
+- The current Windows automated gap is specific and known: baseline test setup still assumes named timezone data in Windows environments, and the rollout fixture templating still injects raw Windows paths into JSON fixture content without backslash-safe serialization.
 - macOS app, macOS CLI, and Linux CLI have direct manual happy-path evidence, but each remains partial until non-English failure or omission messaging, restricted-environment honesty, and current-thread targeting robustness beyond the happy path are validated.
-- Windows CLI and Windows app platform evidence are still incomplete in `22_platform_validation.md`, and Windows-specific runtime hardening remains an explicit gap.
+- Windows app now has direct partial runtime evidence in `22_platform_validation.md`, but Windows CLI still lacks its own validation record, and fresh-Windows automated-suite portability remains an explicit gap.
 - GitHub skill installation flow end to end and the remaining manual restricted-environment checks still need explicit validation beyond the current automated suite.

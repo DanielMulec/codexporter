@@ -136,7 +136,7 @@ When invoking the installed global skill on Windows without an activated virtual
 
 Current automated baseline:
 
-- 18 passing `pytest` cases across unit behavior, service flow, public invocation flow, degraded mode, and checkpoint edge cases
+- 23 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, and timezone-fallback behavior
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
@@ -159,8 +159,8 @@ See:
 
 Windows automated validation note:
 
-- On March 19, 2026, a Windows repo checkout passed `mypy`, `ruff check`, and `ruff format --check`.
-- On the same Windows run, `pytest` was not yet green because the current test harness depends on `tzdata` in `tests/conftest.py` and the rollout fixture templating still injects raw Windows paths into JSON without escaping backslashes.
+- On March 19, 2026, a fresh Windows repo checkout passed `mypy`, `ruff check`, and `ruff format --check`.
+- On the same Windows run, `pytest` was not yet green because the shared test harness still assumes named timezone data in baseline test setup and still injects raw Windows paths into JSON fixture content without backslash-safe serialization.
 
 ## Notes
 

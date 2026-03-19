@@ -25,7 +25,7 @@ It is a local exporter and integration tool for Codex session data, not a conven
 - the initial implementation stack is now approved for v1 development
 - the global install boundary is now approved, but release and versioning details are still not fully decided yet
 - CI wiring beyond the initial local quality gates is still not fully decided yet
-- Windows-specific implementation adjustments remain subject to follow-up after macOS validation
+- Windows-specific follow-up now centers on shared automated-test portability and remaining Windows validation evidence, not on the earlier Windows happy-path runtime breakage
 - only already-approved spec decisions should be treated as binding engineering constraints
 
 ## Approved Initial Stack Decisions

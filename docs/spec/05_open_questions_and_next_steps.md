@@ -3,22 +3,22 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 18, 2026
+- Date: March 19, 2026
 
 ## Key Open Questions
 
-- What is the smallest implementation change set that makes current-session targeting thread-accurate and fail-closed on ambiguity across all target platforms?
-- Should the session-targeting fix and Windows runtime hardening land in one patch set or two tightly sequenced patch sets?
-- What is the most efficient validation sequence for re-checking macOS, Linux, and Windows once non-happy-path current-thread targeting scenarios are included?
+- What is the smallest shared test-harness change set that makes rollout fixtures JSON-safe for Windows paths without hiding the real persisted-session structure?
+- Should the remaining Windows timezone portability gap be solved by removing baseline named-zone assumptions from shared tests, by adding explicit dev-only timezone data, or by a narrow combination of both?
+- What is the leanest validation sequence for re-checking macOS, Linux, and Windows once the shared test harness is fresh-Windows-clean?
 
 ## Recommended Next Spec Steps
 
 1. Treat `21_coverage_matrix.md` as the working QA baseline, `22_platform_validation.md` as the working platform evidence model, `23_engineering_policy.md` as the working project-specific engineering policy, and `24_installation_and_distribution.md` as the working distribution-boundary spec.
-2. Preserve the recorded macOS app, macOS CLI, and Linux CLI happy-path evidence, but do not treat that evidence as sufficient for current-thread targeting correctness or same-workspace ambiguity resistance.
-3. Treat the current automated suite as the baseline rather than the finish line:
-   - isolated unit tests for filename generation, session-name sanitization, renderer formatting, message-heading rendering, tool rendering, sidecar serialization, and language detection
-   - public invocation tests that exercise `cli.main(...)` and the script entrypoint rather than only `export_current_session(...)`
-   - degraded-mode and checkpoint edge-case tests for inaccessible session history, blocked-access guidance, language-sensitive omission or failure messaging, unsafe-project-root fail-fast behavior, unreadable checkpoint sidecars, raw sidecar-schema assertions, and failed-write checkpoint preservation
-4. Add automated coverage for thread-ID-first session selection, same-workspace ambiguity handling, platform-specific path-representation mismatches, explicit-thread-versus-workspace conflicts, and UTC fallback when named timezone data is unavailable.
-5. Implement the spec-aligned session-targeting and runtime-hardening changes.
-6. Re-run macOS, Linux, and Windows validation against the expanded checklist and record the results in `22_platform_validation.md`.
+2. Preserve the recorded macOS app, macOS CLI, Linux CLI, and Windows app runtime evidence, but do not treat the partial records as sufficient for full Windows support or for Windows CLI validation.
+3. Treat the March 19, 2026 Windows repo-quality findings as a separate cross-platform test-harness problem, not as proof that the Windows runtime happy path regressed.
+4. Preserve the current session-targeting and runtime-hardening behavior as the baseline and make the next engineering change set about shared test-harness portability:
+   - keep expected markdown fixtures as plain-text templates
+   - render rollout JSONL fixtures structurally so Windows path strings are serialized safely inside JSON
+   - remove or explicitly satisfy named timezone-data assumptions in shared tests rather than letting them fail implicitly on Windows
+5. Add one tight regression test that proves a Windows-style project root still produces valid JSONL rollout fixtures and the intended plain-text expected markdown.
+6. Re-run macOS, Linux, and Windows automated gates after the shared fixture and timezone cleanup, then record only the runtime evidence that is actually re-observed in `22_platform_validation.md` and the per-platform validation records.
