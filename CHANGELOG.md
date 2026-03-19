@@ -9,6 +9,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 ### Changed
 
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
+- Expanded `docs/spec/05_open_questions_and_next_steps.md` so the agreed Windows follow-up is now documented as an explicit shared test-harness cleanup plan with concrete change scope, timezone stance, acceptance criteria, and validation order, and linked that plan from `README.md`.
 
 ## [v0.2.12] - 2026-03-19
 

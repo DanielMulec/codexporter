@@ -161,6 +161,7 @@ Windows automated validation note:
 
 - On March 19, 2026, a fresh Windows repo checkout passed `mypy`, `ruff check`, and `ruff format --check`.
 - On the same Windows run, `pytest` was not yet green because the shared test harness still assumes named timezone data in baseline test setup and still injects raw Windows paths into JSON fixture content without backslash-safe serialization.
+- The agreed follow-up plan for that gap is tracked in `docs/spec/05_open_questions_and_next_steps.md`.
 
 ## Notes
 
