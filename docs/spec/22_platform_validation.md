@@ -152,25 +152,25 @@ When practical, validation should include at least one condition that distinguis
 ### Windows Codex app
 
 - Target status: primary v1 target
-- Validated status:
-- Evidence source:
-- Codex version:
-- Source surface:
-- Model:
-- Sandbox mode:
-- Approval mode:
+- Validated status: partial
+- Evidence source: `docs/validation/windows_app.md`
+- Codex version: `0.115.0-alpha.27`
+- Source surface: Codex Desktop app context, rollout source field `vscode`
+- Model: `gpt-5.4`
+- Sandbox mode: `danger-full-access`
+- Approval mode: `never`
 - Checklist results:
-  - first export:
-  - default export destination:
-  - success message with file location:
-  - incremental export:
-  - no-new-content behavior:
-  - filename sequencing:
-  - markdown rendering:
-  - language-sensitive failure messaging:
-  - restricted-environment honesty:
-  - current-thread targeting under shared-workspace ambiguity or path variation:
-- Notes:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `pass`
+  - filename sequencing: `pass`
+  - markdown rendering: `pass`
+  - language-sensitive failure messaging: `partial`
+  - restricted-environment honesty: `not run`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+- Notes: direct real-user validation by Daniel recorded on March 18-19, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; automated Windows quality-gate execution on March 19 also showed that `mypy` and `ruff` pass in a Windows checkout, but `pytest` is not yet Windows-clean because the current test harness assumes `tzdata` in `tests/conftest.py` and injects raw Windows paths into JSON fixture templates without escaping backslashes.
 
 ## Validation Recording Rules
 
