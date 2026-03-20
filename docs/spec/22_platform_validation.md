@@ -129,25 +129,25 @@ When practical, validation should include at least one condition that distinguis
 ### Windows Codex CLI
 
 - Target status: primary v1 target
-- Validated status:
-- Evidence source:
-- Codex version:
-- Source surface:
-- Model:
-- Sandbox mode:
-- Approval mode:
+- Validated status: partial
+- Evidence source: `docs/validation/windows_cli.md`
+- Codex version: not recorded
+- Source surface: Codex CLI
+- Model: not recorded
+- Sandbox mode: not recorded
+- Approval mode: not recorded
 - Checklist results:
-  - first export:
-  - default export destination:
-  - success message with file location:
-  - incremental export:
-  - no-new-content behavior:
-  - filename sequencing:
-  - markdown rendering:
-  - language-sensitive failure messaging:
-  - restricted-environment honesty:
-  - current-thread targeting under shared-workspace ambiguity or path variation:
-- Notes:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `not run`
+  - filename sequencing: `partial`
+  - markdown rendering: `not run`
+  - language-sensitive failure messaging: `not run`
+  - restricted-environment honesty: `not run`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
+- Notes: direct real-user validation by Daniel recorded on March 20, 2026; Daniel confirmed that the Windows Codex CLI happy path now works for first export and later incremental export through the `$export` boundary, but the exact runtime metadata and artifact names were not retained in the repository notes; no no-new-content, failure-path, or same-workspace/path-variation case was re-run during this Windows CLI validation, so the surface remains partial rather than full.
 
 ### Windows Codex app
 
@@ -170,7 +170,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `partial`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
-- Notes: direct real-user validation by Daniel recorded on March 18-19, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; automated Windows quality-gate execution on March 19 also showed that `mypy` and `ruff` pass in a Windows checkout, but `pytest` is not yet Windows-clean because the current test harness assumes `tzdata` in `tests/conftest.py` and injects raw Windows paths into JSON fixture templates without escaping backslashes.
+- Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; March 20 also added a fresh same-thread rerun in the live Windows Codex Desktop app conversation for this repository, where `$export` produced a first export followed by an incremental export in the active thread; automated Windows quality-gate execution on March 19 also showed that `mypy` and `ruff` pass in a Windows checkout, but `pytest` is not yet Windows-clean because the current test harness assumes `tzdata` in `tests/conftest.py` and injects raw Windows paths into JSON fixture templates without escaping backslashes.
 
 ## Validation Recording Rules
 

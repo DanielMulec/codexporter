@@ -146,7 +146,7 @@ Current manual validation status:
 - macOS Codex app: partial validation recorded
 - macOS Codex CLI: partial validation recorded
 - Linux Codex CLI: partial validation recorded
-- Windows Codex CLI: target, not yet validated
+- Windows Codex CLI: partial validation recorded
 - Windows Codex app: partial validation recorded
 
 See:
@@ -155,6 +155,7 @@ See:
 - `docs/validation/macos_app.md`
 - `docs/validation/macos_cli.md`
 - `docs/validation/linux_cli.md`
+- `docs/validation/windows_cli.md`
 - `docs/validation/windows_app.md`
 
 Windows automated validation note:
