@@ -9,6 +9,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 ### Added
 
 - Added 7 new automated tests covering CLI-level German no-new-content messaging, CLI-level German checkpoint-failure messaging, CLI fail-closed behavior under same-workspace ambiguity, CLI preference for runtime thread identifiers over same-workspace heuristics, Windows-path-safe fixture rendering, explicit hidden-reasoning/internal-instruction exclusion assertions, and export success when optional rollout metadata is absent.
+- Added an explicit degraded-mode regression test that preserves English fallback for pre-rollout access failures even when the thread would otherwise have been German, so the narrowed v1 language rule is pinned in the automated suite.
 
 ### Changed
 
@@ -17,6 +18,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 - Updated `docs/spec/22_platform_validation.md`, `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, and `README.md` to record the March 20, 2026 Windows validation evidence that confirmed the current happy path in both Windows Codex Desktop app and Windows Codex CLI, while keeping the Windows surfaces partial because failure-path and deeper edge-case coverage still remain open.
 - Refactored the shared test fixture harness so rollout JSONL fixtures are rendered structurally and keep nested JSON payloads valid for Windows-style paths, and removed the baseline named-timezone dependency from shared fixtures by standardizing them on UTC while keeping named-zone rendering covered in targeted renderer tests.
 - Updated `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, and `docs/spec/21_coverage_matrix.md` to replace the stale “known Windows fixture/timezone harness bug still exists” wording with the current state: the harness cleanup is in the repo, the macOS-local automated baseline is now 30 tests, and a fresh Windows rerun is still required before the Windows validation status can change.
+- Narrowed the v1 language-sensitivity spec so pre-rollout access failures may fall back to English when the exporter has no authoritative way to determine the active thread language yet, and aligned the degraded-mode test suite with that rule.
 
 ## [v0.2.12] - 2026-03-19
 

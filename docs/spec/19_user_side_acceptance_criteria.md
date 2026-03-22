@@ -48,9 +48,10 @@ This document defines the user-observable acceptance criteria for `$export`.
 
 - Related stories: US-08
 - Criterion:
-  - Failure and omission messaging follows the language of the active conversation.
+  - Failure and omission messaging follows the language of the active conversation when the exporter can determine that language from the available session data.
 - Observable evidence:
   - English threads receive English failure messaging, German threads receive German failure messaging.
+  - For v1, failures that happen before the exporter can read enough session history to determine the thread language may fall back to English.
 
 ## AC-07: Stable Export Numbering
 

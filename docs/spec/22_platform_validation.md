@@ -26,7 +26,7 @@ The following checks define the baseline validation evidence for a target enviro
 5. A repeated export with no new content creates no new file and informs the user directly.
 6. Export filenames sequence correctly across repeated exports of the same session.
 7. The rendered markdown follows the approved visible-chat-first format closely enough to satisfy the v1 rendering rules.
-8. Failure or omission messaging follows the language of the active conversation.
+8. Failure or omission messaging follows the language of the active conversation when the exporter can determine that language from the available session data; pre-rollout access failures may fall back to English in v1.
 9. Restricted-environment behavior does not claim false success.
 10. When multiple sessions share a workspace or platform-specific path spellings vary, export still targets the invoking current thread or fails clearly rather than exporting a different session.
 

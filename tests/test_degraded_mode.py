@@ -70,6 +70,32 @@ def test_missing_rollout_fails_without_claiming_success(
     assert not session_fixture.export_dir.exists()
 
 
+def test_missing_rollout_uses_english_fallback_when_thread_language_cannot_be_detected(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    session_fixture = build_session_fixture(tmp_path)
+    session_fixture.apply_initial_rollout(replacements=GERMAN_REPLACEMENTS)
+    session_fixture.rollout_path.unlink()
+
+    exit_code = main(
+        [
+            "--project-root",
+            str(session_fixture.project_root),
+            "--codex-home",
+            str(session_fixture.codex_home),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert (
+        captured.out.strip()
+        == f"I couldn't read the persisted session history at {session_fixture.rollout_path}. "
+        "Make sure this Codex environment can access the live session data, then retry $export."
+    )
+
+
 def test_no_new_content_message_is_localized_for_german_thread(tmp_path: Path) -> None:
     session_fixture = build_session_fixture(tmp_path)
     session_fixture.apply_initial_rollout(replacements=GERMAN_REPLACEMENTS)
