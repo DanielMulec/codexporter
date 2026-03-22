@@ -10,6 +10,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 - Added 7 new automated tests covering CLI-level German no-new-content messaging, CLI-level German checkpoint-failure messaging, CLI fail-closed behavior under same-workspace ambiguity, CLI preference for runtime thread identifiers over same-workspace heuristics, Windows-path-safe fixture rendering, explicit hidden-reasoning/internal-instruction exclusion assertions, and export success when optional rollout metadata is absent.
 - Added an explicit degraded-mode regression test that preserves English fallback for pre-rollout access failures even when the thread would otherwise have been German, so the narrowed v1 language rule is pinned in the automated suite.
+- Added a repository-wide `.github/CODEOWNERS` file that makes `@DanielMulec` the sole code owner for all paths, so GitHub can enforce code-owner review on protected merges.
 
 ### Changed
 
