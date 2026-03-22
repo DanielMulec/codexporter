@@ -14,6 +14,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
+- Updated `AGENTS.md` to require an explicit branch audit against current `origin/main` before repo-history or implementation-status claims say work is missing, blocked, or unimplemented, and to classify relevant branches as merged, superseded, salvage/cherry-pick, or still active.
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.
 - Expanded `docs/spec/05_open_questions_and_next_steps.md` so the agreed Windows follow-up is now documented as an explicit shared test-harness cleanup plan with concrete change scope, timezone stance, acceptance criteria, and validation order, and linked that plan from `README.md`.
 - Updated `docs/spec/22_platform_validation.md`, `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, and `README.md` to record the March 20, 2026 Windows validation evidence that confirmed the current happy path in both Windows Codex Desktop app and Windows Codex CLI, while keeping the Windows surfaces partial because failure-path and deeper edge-case coverage still remain open.

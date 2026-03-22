@@ -76,6 +76,10 @@ To avoid deadlock, this default applies:
 - State assumptions explicitly.
 - Surface risks early.
 - Prefer small, testable increments.
+- Before claiming in repo-history or implementation-status work that something is missing, blocked, or not yet implemented, audit the relevant local and remote branches against current `origin/main`.
+- Do not treat work as absent until branch review confirms it is truly missing rather than already merged, patch-equivalent, superseded, or sitting on another branch.
+- For each branch relevant to the current task, record an explicit disposition: `merged`, `superseded`, `salvage/cherry-pick`, or `still active`.
+- Prefer branch-audit commands that distinguish unique branch value from simple staleness, especially `git fetch origin --prune`, `git branch -a --no-merged origin/main`, `git log --left-right --cherry-pick --oneline origin/main...<branch>`, and `git diff --stat origin/main...<branch>` or `git range-diff`.
 - Maintain a root `CHANGELOG.md` for notable repository changes using semantic version project-history entries starting at `v0.0.1`; in this repository, those versions apply to documentation milestones as well as code milestones.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
