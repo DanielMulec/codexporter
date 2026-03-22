@@ -30,6 +30,11 @@ User-facing degraded-mode and omission messages should be generated in the langu
 
 They should not be hardcoded to English when the user is actively using another language in that thread.
 
+For v1, one narrow exception is allowed:
+
+- if the failure happens before the exporter can read enough session history to determine the active conversation language at all, an English fallback message is acceptable
+- this exception applies to pre-rollout access failures such as missing or unreadable persisted session history, not to ordinary post-parse failures where language detection is available
+
 ## Examples
 
 - "I couldn't export this session because the current environment cannot access the persisted session history from here."

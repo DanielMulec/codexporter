@@ -83,7 +83,8 @@ This document turns the current v1 decisions into acceptance criteria.
 - If current-session resolution is ambiguous or conflicts with explicit session context, the skill must stop rather than guess.
 - User-facing failure messages must explain what failed and why.
 - User-facing failure or omission messages should include a next-step hint when one is responsibly available.
-- User-facing failure or omission messages must follow the language of the active conversation.
+- User-facing failure or omission messages must follow the language of the active conversation when the exporter can determine that language from the available session data.
+- For v1, if the failure happens before the exporter can read enough session history to determine the active conversation language at all, an English fallback message is acceptable.
 
 ## User Communication
 
