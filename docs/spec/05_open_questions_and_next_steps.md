@@ -9,7 +9,7 @@
 
 - Does a fresh Windows virtual environment now run `python -m pytest` cleanly with the shared fixture and timezone harness fixes that are already in the repo?
 - What is the leanest validation sequence for re-checking macOS, Linux, and Windows now that the known shared test-harness defects are covered by regression tests?
-- What is the minimum explicit evidence we want to record for the install-once skill-installer flow on the three primary device families?
+- How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 
 ## Recommended Next Spec Steps
 
@@ -21,7 +21,7 @@
    - re-run the full automated gates once on Linux because the harness change is shared
    - keep the maintained macOS-local baseline green while the cross-platform reruns are collected
 5. After the automated reruns, update only the validation docs that are justified by directly observed evidence.
-6. Record any install-once skill-installer evidence in the platform validation notes with date and surface details instead of leaving it implicit in chat memory.
+6. Preserve the March 22, 2026 retrospective `skill-installer` confirmations in the platform validation notes and add richer installer metadata later only if it materially helps future release or support work.
 
 ## Current Repo State
 

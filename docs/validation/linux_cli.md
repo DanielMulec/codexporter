@@ -12,6 +12,7 @@
 ## Evidence
 
 - Daniel directly validated the skill in Linux Codex CLI running in Kitty.
+- Daniel reported on March 22, 2026 that he had also already installed this skill successfully through `skill-installer` on his Linux device and used the resulting globally installed `export` skill in real use; the exact installer transcript and installed path were not retained in the repository notes.
 - First export succeeded.
 - The export destination was the `codex_exports/` subfolder under the active project root.
 - The success message included the export file name and path.
@@ -37,3 +38,4 @@
 ## Notes
 
 - This record intentionally stays concise because the observed behavior was clean and uneventful.
+- The March 22, 2026 `skill-installer` confirmation is retrospective real-user evidence for the install-once boundary on Linux, but detailed per-run installer metadata was not preserved.

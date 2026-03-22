@@ -51,6 +51,5 @@
 - The March 20, 2026 rerun confirmed the same-thread installed-skill happy path again in the live Windows Codex Desktop app conversation for this repository, including a direct first export followed by a direct incremental export.
 - English success and no-new-content messaging were observed directly. Non-English failure messaging was not re-run on Windows after the fix, so that checklist item remains partial rather than full.
 - Windows CLI now has its own direct validation record in `docs/validation/windows_cli.md`; this document should not be stretched to cover that surface.
-- The current automated test suite is not yet fully Windows-ready even though the runtime happy path is now working:
-  - the fixture harness assumes `tzdata` in `tests/conftest.py`
-  - the JSON fixture generation path is still not escaping Windows backslashes correctly
+- The March 19, 2026 Windows `pytest` failure recorded a real shared-harness portability defect at that time.
+- As of March 22, 2026, the repo harness has been updated so the shared baseline no longer depends on named timezone data and the rollout fixtures render Windows-style paths safely, but a fresh Windows rerun still needs to be recorded before the automated Windows gap can be considered closed.

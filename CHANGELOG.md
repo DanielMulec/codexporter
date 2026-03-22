@@ -22,6 +22,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 - Refactored the shared test fixture harness so rollout JSONL fixtures are rendered structurally and keep nested JSON payloads valid for Windows-style paths, and removed the baseline named-timezone dependency from shared fixtures by standardizing them on UTC while keeping named-zone rendering covered in targeted renderer tests.
 - Updated `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, and `docs/spec/21_coverage_matrix.md` to replace the stale “known Windows fixture/timezone harness bug still exists” wording with the current state: the harness cleanup is in the repo, the macOS-local automated baseline is now 30 tests, and a fresh Windows rerun is still required before the Windows validation status can change.
 - Narrowed the v1 language-sensitivity spec so pre-rollout access failures may fall back to English when the exporter has no authoritative way to determine the active thread language yet, and aligned the degraded-mode test suite with that rule.
+- Updated the validation docs to record Daniel's retrospective March 22, 2026 `skill-installer` confirmations on macOS, Linux, and Windows devices, and clarified that the new macOS-host automated coverage is supplemental evidence rather than a substitute for direct macOS CLI or app runtime validation.
 
 ## [v0.2.12] - 2026-03-19
 

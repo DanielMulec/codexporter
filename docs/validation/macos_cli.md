@@ -12,6 +12,7 @@
 ## Evidence
 
 - Daniel directly validated the skill in macOS Codex CLI running in Ghostty.
+- Daniel reported on March 22, 2026 that he had also already installed this skill successfully through `skill-installer` on his macOS device and used the resulting globally installed `export` skill in real use; the exact installer transcript and installed path were not retained in the repository notes.
 - First export succeeded.
 - The export destination was the `codex_exports/` subfolder under the active project root.
 - The success message included the export file name and path.
@@ -38,3 +39,4 @@
 
 - This record intentionally stays concise because the observed behavior was clean and uneventful.
 - The exact CLI patch/build number was not retained; only the `0.115` series alignment with the corresponding macOS validation was confirmed.
+- On March 22, 2026, the macOS-host automated suite added supplemental coverage for German omission or failure messaging and same-workspace current-thread targeting behavior. That automated evidence improves traceability, but it does not by itself replace direct macOS CLI runtime observation for the still-open checklist items.

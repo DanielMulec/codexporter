@@ -43,3 +43,4 @@
 - This validation record covers the macOS Codex app runtime behavior in the current desktop-app session context. It does not yet validate GitHub skill installation flow end to end.
 - The March 14 evidence closes the direct macOS app evidence gap for the renamed installed-skill invocation path and for writing to the active project root from the installed skill boundary.
 - English user-facing success and no-new-content messages were observed directly. Non-English failure or omission behavior still needs separate real-use validation.
+- On March 22, 2026, the macOS-host automated suite added supplemental coverage for German omission or failure messaging and same-workspace current-thread targeting behavior. That evidence strengthens the repo baseline, but it does not convert the remaining macOS app checklist gaps into direct app-runtime validation.

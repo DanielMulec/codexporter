@@ -78,7 +78,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `not run`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 18, 2026; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs.
+- Notes: direct real-user validation by Daniel recorded on March 18, 2026; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his macOS device for this skill, and the repo now has supplemental macOS-host automated coverage for German omission or failure messaging and same-workspace targeting safety, but those additions do not replace the still-missing direct macOS CLI runtime observations.
 
 ### Linux Codex CLI
 
@@ -101,7 +101,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `not run`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 18, 2026; the tested CLI was reported as the same `0.115` series as the corresponding macOS validation, but the exact patch/build was not retained; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs.
+- Notes: direct real-user validation by Daniel recorded on March 18, 2026; the tested CLI was reported as the same `0.115` series as the corresponding macOS validation, but the exact patch/build was not retained; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill, but detailed installer metadata was not preserved.
 
 ### macOS Codex app
 
@@ -124,7 +124,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `partial`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; on March 14, 2026, the renamed globally installed `$export` skill was also invoked successfully in the active macOS app thread and wrote the export into the active project's `codex_exports/` folder rather than into the installed skill directory; non-English messaging, restricted-environment honesty, and same-workspace wrong-session resistance still need real-use validation.
+- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; on March 14, 2026, the renamed globally installed `$export` skill was also invoked successfully in the active macOS app thread and wrote the export into the active project's `codex_exports/` folder rather than into the installed skill directory; the macOS-host automated suite now also covers German omission or failure messaging and same-workspace targeting safety as supplemental evidence, but non-English app-runtime messaging, restricted-environment honesty, and same-workspace wrong-session resistance still need real-use validation.
 
 ### Windows Codex CLI
 
@@ -147,7 +147,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `not run`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 20, 2026; Daniel confirmed that the Windows Codex CLI happy path now works for first export and later incremental export through the `$export` boundary, but the exact runtime metadata and artifact names were not retained in the repository notes; no no-new-content, failure-path, or same-workspace/path-variation case was re-run during this Windows CLI validation, so the surface remains partial rather than full.
+- Notes: direct real-user validation by Daniel recorded on March 20, 2026; Daniel confirmed that the Windows Codex CLI happy path now works for first export and later incremental export through the `$export` boundary, but the exact runtime metadata and artifact names were not retained in the repository notes; Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Windows device for this skill. No no-new-content, failure-path, or same-workspace/path-variation case was re-run during the Windows CLI validation, so the surface remains partial rather than full.
 
 ### Windows Codex app
 
@@ -170,7 +170,7 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `partial`
   - restricted-environment honesty: `not run`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
-- Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; March 20 also added a fresh same-thread rerun in the live Windows Codex Desktop app conversation for this repository, where `$export` produced a first export followed by an incremental export in the active thread; automated Windows quality-gate execution on March 19 also showed that `mypy` and `ruff` pass in a Windows checkout, but `pytest` is not yet Windows-clean because the current test harness assumes `tzdata` in `tests/conftest.py` and injects raw Windows paths into JSON fixture templates without escaping backslashes.
+- Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; March 20 also added a fresh same-thread rerun in the live Windows Codex Desktop app conversation for this repository, where `$export` produced a first export followed by an incremental export in the active thread. The March 19, 2026 Windows `pytest` run captured a real shared-harness portability defect at that time, and as of March 22, 2026 the repo harness has been updated to remove the named-timezone dependency and to render Windows-style paths safely, but a fresh Windows rerun still needs to be recorded before the automated Windows gap can be considered closed.
 
 ## Validation Recording Rules
 
