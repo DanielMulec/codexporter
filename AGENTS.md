@@ -76,12 +76,12 @@ To avoid deadlock, this default applies:
 - State assumptions explicitly.
 - Surface risks early.
 - Prefer small, testable increments.
-- Before claiming in repo-history or implementation-status work that something is missing, blocked, or not yet implemented, audit the relevant local and remote branches against current `origin/main`.
-- Do not treat work as absent until branch review confirms it is truly missing rather than already merged, patch-equivalent, superseded, or sitting on another branch.
+- Default stance: treat unverified work as absent. Do not claim that work exists, is complete, or is already implemented until the current repository state proves it.
+- Check the repository directly before making claims about existing work. Inspect current files and current `origin/main` first; when branch history may matter, audit the relevant local and remote branches before deciding whether work is present, missing, superseded, or stranded elsewhere.
 - For each branch relevant to the current task, record an explicit disposition: `merged`, `superseded`, `salvage/cherry-pick`, or `still active`.
 - Prefer branch-audit commands that distinguish unique branch value from simple staleness, especially `git fetch origin --prune`, `git branch -a --no-merged origin/main`, `git log --left-right --cherry-pick --oneline origin/main...<branch>`, and `git diff --stat origin/main...<branch>` or `git range-diff`.
-- For history-sensitive reimplementations, supersessions, or fresh-main rewrites of earlier branch work, the implementing commit message must carry explicit traceability footers. Use `Implements:` for the governing proposal or task document, `Evidence:` for the validating bug report or investigation record when one exists, and `Supersedes:` for the replaced branch and commit when applicable.
-- When that work lands through a pull request, the PR body must repeat the same traceability links and must state whether the older branch was merged, superseded, or selectively salvaged.
+- Every Git commit must carry explicit traceability footers. At minimum include `Implements:` pointing to the governing proposal, task, issue, or document. Add `Evidence:` for the validating bug report or investigation record when one exists, and `Supersedes:` for the replaced branch and commit when applicable.
+- Every pull request body must repeat the same traceability links and must state whether any older branch was merged, superseded, or selectively salvaged.
 - Maintain a root `CHANGELOG.md` for notable repository changes using semantic version project-history entries starting at `v0.0.1`; in this repository, those versions apply to documentation milestones as well as code milestones.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
