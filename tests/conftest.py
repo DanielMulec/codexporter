@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 from collections.abc import Mapping
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 import pytest
 
@@ -13,7 +13,7 @@ FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "session_alpha"
 PLACEHOLDER = "__PROJECT_ROOT__"
 SESSION_ID = "019aaa00-bbbb-7ccc-8ddd-eeeeffff0001"
 SESSION_TITLE = "Spec Export Planning"
-TIMEZONE = ZoneInfo("Europe/Vienna")
+TIMEZONE = UTC
 
 
 @dataclass
@@ -26,7 +26,7 @@ class SessionFixture:
     expected_incremental_markdown: str
 
     def apply_initial_rollout(self, replacements: Mapping[str, str] | None = None) -> None:
-        _write_template(
+        _write_rollout_template(
             FIXTURE_ROOT / "rollout_initial.jsonl",
             self.rollout_path,
             self.project_root,
@@ -34,7 +34,7 @@ class SessionFixture:
         )
 
     def apply_extended_rollout(self, replacements: Mapping[str, str] | None = None) -> None:
-        _write_template(
+        _write_rollout_template(
             FIXTURE_ROOT / "rollout_incremental.jsonl",
             self.rollout_path,
             self.project_root,
@@ -55,11 +55,11 @@ class SessionFixture:
 
     @property
     def first_export_time(self) -> datetime:
-        return datetime(2026, 3, 13, 21, 0, 0, tzinfo=TIMEZONE)
+        return datetime(2026, 3, 13, 20, 0, 0, tzinfo=TIMEZONE)
 
     @property
     def second_export_time(self) -> datetime:
-        return datetime(2026, 3, 13, 21, 5, 0, tzinfo=TIMEZONE)
+        return datetime(2026, 3, 13, 20, 5, 0, tzinfo=TIMEZONE)
 
 
 @pytest.fixture()
@@ -81,10 +81,10 @@ def build_session_fixture(base_dir: Path, project_name: str = "project-alpha") -
     rollout_path.parent.mkdir(parents=True)
     _create_state_db(codex_home / "state_5.sqlite", rollout_path, project_root)
 
-    expected_initial_markdown = _read_template(
+    expected_initial_markdown = render_markdown_template(
         FIXTURE_ROOT / "expected" / "initial_export.md", project_root
     )
-    expected_incremental_markdown = _read_template(
+    expected_incremental_markdown = render_markdown_template(
         FIXTURE_ROOT / "expected" / "incremental_export.md", project_root
     )
     fixture = SessionFixture(
@@ -171,24 +171,93 @@ def insert_thread_record(
     )
 
 
-def _read_template(
+def render_markdown_template(
     template_path: Path,
     project_root: Path,
     replacements: Mapping[str, str] | None = None,
 ) -> str:
-    rendered = template_path.read_text(encoding="utf-8").replace(PLACEHOLDER, str(project_root))
-    if replacements is not None:
-        for original, replacement in replacements.items():
-            rendered = rendered.replace(original, replacement)
+    rendered = _replace_string_values(
+        template_path.read_text(encoding="utf-8"),
+        project_root,
+        replacements,
+    )
     return rendered.rstrip("\n") + "\n"
 
 
-def _write_template(
+def render_rollout_jsonl_template(
+    template_path: Path,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str:
+    rendered_lines: list[str] = []
+    for line in template_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        record = json.loads(line)
+        rendered_record = _replace_nested_string_values(record, project_root, replacements)
+        rendered_lines.append(
+            json.dumps(rendered_record, ensure_ascii=False, separators=(",", ":"))
+        )
+    return "\n".join(rendered_lines).rstrip("\n") + "\n"
+
+
+def _write_rollout_template(
     template_path: Path,
     destination: Path,
     project_root: Path,
     replacements: Mapping[str, str] | None = None,
 ) -> None:
     destination.write_text(
-        _read_template(template_path, project_root, replacements), encoding="utf-8"
+        render_rollout_jsonl_template(template_path, project_root, replacements), encoding="utf-8"
     )
+
+
+def _replace_nested_string_values(
+    value: object,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> object:
+    if isinstance(value, str):
+        return _replace_string_values(value, project_root, replacements)
+    if isinstance(value, list):
+        return [_replace_nested_string_values(item, project_root, replacements) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: _replace_nested_string_values(item, project_root, replacements)
+            for key, item in value.items()
+        }
+    return value
+
+
+def _replace_string_values(
+    value: str,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str:
+    nested_json = _reencode_nested_json_string(value, project_root, replacements)
+    if nested_json is not None:
+        return nested_json
+
+    rendered = value.replace(PLACEHOLDER, str(project_root))
+    if replacements is not None:
+        for original, replacement in replacements.items():
+            rendered = rendered.replace(original, replacement)
+    return rendered
+
+
+def _reencode_nested_json_string(
+    value: str,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str | None:
+    stripped = value.strip()
+    if not stripped.startswith(("{", "[")):
+        return None
+
+    try:
+        nested_payload = json.loads(value)
+    except json.JSONDecodeError:
+        return None
+
+    rendered_payload = _replace_nested_string_values(nested_payload, project_root, replacements)
+    return json.dumps(rendered_payload, ensure_ascii=False, separators=(",", ":"))

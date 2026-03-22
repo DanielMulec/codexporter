@@ -18,7 +18,7 @@ def test_first_export_creates_markdown_and_checkpoint(session_fixture: SessionFi
     )
 
     assert result.export_path is not None
-    assert result.export_path.name == "20260313-210000-Spec-Export-Planning-1.md"
+    assert result.export_path.name == "20260313-200000-Spec-Export-Planning-1.md"
     assert (
         result.export_path.read_text(encoding="utf-8") == session_fixture.expected_initial_markdown
     )
@@ -56,7 +56,7 @@ def test_second_export_is_incremental_and_keeps_prior_artifact_unchanged(
     )
 
     assert second_result.export_path is not None
-    assert second_result.export_path.name == "20260313-210500-Spec-Export-Planning-2.md"
+    assert second_result.export_path.name == "20260313-200500-Spec-Export-Planning-2.md"
     assert (
         second_result.export_path.read_text(encoding="utf-8")
         == session_fixture.expected_incremental_markdown
@@ -107,8 +107,8 @@ def test_no_new_content_creates_no_new_markdown_file(session_fixture: SessionFix
         == "There is no new content to export since the last successful export."
     )
     assert [path.name for path in markdown_files] == [
-        "20260313-210000-Spec-Export-Planning-1.md",
-        "20260313-210500-Spec-Export-Planning-2.md",
+        "20260313-200000-Spec-Export-Planning-1.md",
+        "20260313-200500-Spec-Export-Planning-2.md",
     ]
 
 
@@ -130,7 +130,7 @@ def test_corrupted_checkpoint_fails_safely(session_fixture: SessionFixture) -> N
         )
 
     markdown_files = sorted(session_fixture.export_dir.glob("*.md"))
-    assert [path.name for path in markdown_files] == ["20260313-210000-Spec-Export-Planning-1.md"]
+    assert [path.name for path in markdown_files] == ["20260313-200000-Spec-Export-Planning-1.md"]
     assert (
         first_result.export_path.read_text(encoding="utf-8")
         == session_fixture.expected_initial_markdown
@@ -161,7 +161,7 @@ def test_checkpoint_cursor_mismatch_fails_without_new_artifact(
         )
 
     markdown_files = sorted(session_fixture.export_dir.glob("*.md"))
-    assert [path.name for path in markdown_files] == ["20260313-210000-Spec-Export-Planning-1.md"]
+    assert [path.name for path in markdown_files] == ["20260313-200000-Spec-Export-Planning-1.md"]
     assert (
         first_result.export_path.read_text(encoding="utf-8")
         == session_fixture.expected_initial_markdown

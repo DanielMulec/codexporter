@@ -73,8 +73,8 @@ It exists in two layers:
 ## Current Gaps To Watch
 
 - The matrix identifies traceability, not implementation completeness.
-- As of March 19, 2026, the repo has automated coverage for thread-accurate session targeting across same-workspace ambiguity, platform-specific path-shape differences, and timezone-data fallback, but a fresh Windows `pytest` run is still not clean because the shared test harness is not yet fully cross-platform.
-- The current Windows automated gap is specific and known: baseline test setup still assumes named timezone data in Windows environments, and the rollout fixture templating still injects raw Windows paths into JSON fixture content without backslash-safe serialization.
+- As of March 22, 2026, the repo has automated coverage for thread-accurate session targeting across same-workspace ambiguity, platform-specific path-shape differences, timezone-data fallback, Windows-safe fixture rendering, explicit hidden-reasoning exclusion, optional-metadata omission, and CLI-level localized failure or omission messaging.
+- The previously known shared Windows fixture and timezone portability defects were addressed in the repo on March 22, 2026, but a fresh Windows `pytest` rerun still has to be recorded before the automated Windows gap can be considered closed.
 - macOS app, macOS CLI, and Linux CLI have direct manual happy-path evidence, but each remains partial until non-English failure or omission messaging, restricted-environment honesty, and current-thread targeting robustness beyond the happy path are validated.
-- Windows app now has direct partial runtime evidence in `22_platform_validation.md`, but Windows CLI still lacks its own validation record, and fresh-Windows automated-suite portability remains an explicit gap.
+- Windows app and Windows CLI both have direct partial runtime evidence in `22_platform_validation.md`, but the remaining manual checklist items and the fresh-Windows automated rerun are still explicit gaps.
 - GitHub skill installation flow end to end and the remaining manual restricted-environment checks still need explicit validation beyond the current automated suite.
