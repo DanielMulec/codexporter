@@ -45,7 +45,7 @@ def test_incomplete_checkpoint_sidecar_fails_safely(session_fixture: SessionFixt
         )
 
     markdown_files = sorted(session_fixture.export_dir.glob("*.md"))
-    assert [path.name for path in markdown_files] == ["20260313-210000-Spec-Export-Planning-1.md"]
+    assert [path.name for path in markdown_files] == ["20260313-200000-Spec-Export-Planning-1.md"]
     assert (
         first_result.export_path is not None
         and first_result.export_path.read_text(encoding="utf-8")
@@ -82,6 +82,6 @@ def test_failed_write_keeps_existing_checkpoint_state(
         )
 
     markdown_files = sorted(session_fixture.export_dir.glob("*.md"))
-    assert [path.name for path in markdown_files] == ["20260313-210000-Spec-Export-Planning-1.md"]
+    assert [path.name for path in markdown_files] == ["20260313-200000-Spec-Export-Planning-1.md"]
     assert session_fixture.sidecar_path.read_text(encoding="utf-8") == original_sidecar_payload
     assert original_result.export_path is not None

@@ -136,7 +136,7 @@ When invoking the installed global skill on Windows without an activated virtual
 
 Current automated baseline:
 
-- 23 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, and timezone-fallback behavior
+- 30 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, optional-metadata omission, and timezone-fallback behavior
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
@@ -160,9 +160,9 @@ See:
 
 Windows automated validation note:
 
-- On March 19, 2026, a fresh Windows repo checkout passed `mypy`, `ruff check`, and `ruff format --check`.
-- On the same Windows run, `pytest` was not yet green because the shared test harness still assumes named timezone data in baseline test setup and still injects raw Windows paths into JSON fixture content without backslash-safe serialization.
-- The agreed follow-up plan for that gap is tracked in `docs/spec/05_open_questions_and_next_steps.md`.
+- On March 22, 2026, the repo test harness was updated so shared rollout fixtures render Windows-style paths safely inside JSONL and the shared baseline fixtures no longer depend on named timezone data.
+- A fresh Windows virtual-environment rerun is still required before the repository can claim that `python -m pytest` is now green on Windows too.
+- The remaining rerun and documentation follow-up is tracked in `docs/spec/05_open_questions_and_next_steps.md`.
 
 ## Notes
 
