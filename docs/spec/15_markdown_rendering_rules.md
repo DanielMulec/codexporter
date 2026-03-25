@@ -23,9 +23,12 @@ The primary markdown artifact should use this order:
 1. `# Session Export`
 2. session metadata block
 3. `## Conversation`
-4. chronological event stream
-5. `## Git Context` when available
-6. `## Export Metadata`
+4. chronological event stream, including visible tool activity and any visible git-related content when present
+5. `## Export Metadata`
+
+V1 does not define a separate `## Git Context` section.
+
+Git-related material appears only when it was visible in the session history and should stay in its chronological position in the conversation flow.
 
 ## Message Heading Rules
 

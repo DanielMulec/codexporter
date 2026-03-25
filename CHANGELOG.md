@@ -14,6 +14,9 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
+- Updated `README.md` so the automated validation snapshot now reflects the actual current macOS-local baseline of 31 passing `pytest` cases and names the added hidden-reasoning/internal-instruction exclusion coverage.
+- Updated `docs/spec/06_supported_environments.md` with a March 25, 2026 official-source refresh, including the current OpenAI note that Codex CLI on Windows is still officially experimental even though this repository keeps Windows CLI in scope as a project target with partial runtime evidence.
+- Updated `docs/spec/15_markdown_rendering_rules.md` so the v1 rendering spec now matches the implementation: there is no separate `## Git Context` section, and visible git-related content stays in the chronological conversation stream.
 - Updated `AGENTS.md` so unverified work must always be treated as absent until the repository proves otherwise, and branch audits are required when branch history may affect that judgment.
 - Updated `AGENTS.md` so every Git commit must carry traceability footers and every pull request must repeat the same links and state whether older branches were merged, superseded, or selectively salvaged.
 - Logged a local-only internal investigation event in repository history without publishing the underlying working notes.

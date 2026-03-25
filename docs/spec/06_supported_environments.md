@@ -3,7 +3,7 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 10, 2026
+- Date: March 25, 2026
 
 ## Purpose
 
@@ -49,6 +49,8 @@ It does not mean:
   - validated support
 - Validation must happen separately from this support-target document.
 - For this project, Windows Codex CLI is a required v1 product target.
+- Current official Codex CLI documentation still describes Windows support as experimental and recommends WSL for the best experience.
+- This repository intentionally keeps Windows Codex CLI in scope anyway because the exporter now has direct partial Windows CLI runtime evidence; that target should still be treated as higher risk than macOS or Linux CLI support until validation is stronger.
 - Validation for Windows support may be established through real-user testing by Daniel and trusted Windows users in addition to repo-driven validation scenarios.
 - Platform validation is not complete unless it includes current-thread targeting correctness, not just happy-path export success.
 - Where practical, platform validation should include same-workspace multi-thread conditions and platform-specific path-representation differences.
@@ -62,8 +64,8 @@ Whenever environment support is described elsewhere in the spec, it should use t
 
 ## Source Basis
 
-Checked on March 10, 2026 against:
+Checked on March 25, 2026 against:
 
-- [OpenAI Codex CLI Getting Started](https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started)
+- [Codex CLI](https://developers.openai.com/codex/cli)
 - [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan)
 - [Introducing the Codex app](https://openai.com/index/introducing-the-codex-app/)

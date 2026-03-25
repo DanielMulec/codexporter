@@ -136,7 +136,7 @@ When invoking the installed global skill on Windows without an activated virtual
 
 Current automated baseline:
 
-- 30 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, optional-metadata omission, and timezone-fallback behavior
+- 31 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, and timezone-fallback behavior
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
