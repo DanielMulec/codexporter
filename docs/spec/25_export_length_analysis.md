@@ -10,15 +10,11 @@
 
 This document records why a real first export of the current project session became extremely large.
 
-It exists because the project already has post-v1 deferrals for richer export behavior, but compact-mode behavior has not been designed yet.
+It exists because the project already had post-v1 deferrals for richer export behavior, and this evidence motivated the later compact-mode design work.
 
-We are not yet deciding:
+At the time this report was first written, compact-mode behavior had not been designed yet.
 
-- which compact export modes will exist
-- which content classes may be omitted, summarized, or collapsed
-- how many compactness levels should be offered
-
-But we do want to preserve the evidence that motivated this future design area.
+As of March 26, 2026, the approved initial compact-mode contract now lives in `docs/spec/27_compact_mode_definition.md`.
 
 ## Analyzed Artifact
 
@@ -138,11 +134,11 @@ The dominant source of length is full-fidelity workflow trace data.
 
 ## Post-V1 Design Implication
 
-This report does not define the post-v1 compact-mode feature.
+This report does not itself define the compact-mode feature.
 
-It only establishes why such a feature area is worth considering later.
+It establishes the evidence that justified the later compact-mode contract.
 
-Likely post-v1 design levers may include options such as:
+The main design levers identified here were:
 
 - excluding raw tool outputs
 - excluding raw tool-call argument payloads
@@ -150,9 +146,9 @@ Likely post-v1 design levers may include options such as:
 - summarizing tool activity instead of preserving it verbatim
 - offering multiple export verbosity levels
 
-Those are only candidate directions at this stage, not approved product decisions.
+The approved initial compact-mode behavior now adopts the same general direction, but only for the first explicit compact mode rather than for multiple levels at once.
 
-Implementation-readiness evidence for adding compact modes later is recorded separately in `docs/spec/26_compact_mode_readiness.md`.
+Implementation-readiness evidence for adding compact modes is recorded in `docs/spec/26_compact_mode_readiness.md`.
 
 ## Constraint Reminder
 

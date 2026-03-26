@@ -3,7 +3,7 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 13, 2026
+- Date: March 26, 2026
 - Scope: implementation-readiness assessment for post-v1 compact export modes
 
 ## Purpose
@@ -53,6 +53,8 @@ The current architecture suggests that compact mode can probably be added by int
 - a new export or render option at the public surface
 - a filtering, collapsing, or summarization step between parsed entries and markdown rendering
 - renderer behavior that changes based on the selected output mode
+
+The approved initial compact-mode contract now lives in `docs/spec/27_compact_mode_definition.md`.
 
 That means compact mode should be able to evolve without changing:
 
@@ -117,13 +119,12 @@ The following additions are still likely needed later:
 
 ### 1. A compactness option model
 
-Examples of future directions:
+The first approved public mode split is:
 
 - `full`
 - `compact`
-- later possibly `minimal`, `audit`, or other explicit modes
 
-These are only examples, not approved product decisions.
+Later modes such as `minimal`, `audit`, or other explicit levels remain undecided.
 
 ### 2. A transformation layer between parsed entries and rendering
 
@@ -134,6 +135,14 @@ That future layer would likely handle actions such as:
 - collapsing repeated workflow details
 - replacing raw detail with a compact summary line
 
+The newly approved first compact mode already sharpens this direction:
+
+- always omit raw `apply_patch` bodies
+- omit full file-read bodies and replace them with deterministic omission markers
+- keep raw diff bodies only when they are `<= 60` lines and touch `<= 2` files
+- summarize larger diffs with changed file paths and `+/-` counts when derivable
+- preserve raw chronology without AI classification or inferred explanation
+
 ### 3. Renderer options
 
 `renderer.py` will likely need an explicit render-options object or profile model so rendering policy is no longer hardcoded as one shape only.
@@ -142,10 +151,9 @@ That future layer would likely handle actions such as:
 
 `skills/export/codexporter/cli.py` currently exposes the v1 public surface.
 
-Later compact mode will likely need:
+The approved intended user-facing compact-mode surface is now:
 
-- an explicit flag
-- or another approved user-facing invocation mechanism
+- `$export --compact`
 
 without changing the default v1 export behavior.
 
@@ -176,4 +184,4 @@ So the anti-refactor goal is mostly being achieved in the current implementation
 
 The main future work is not architectural rescue.
 
-The main future work is to turn rendering and content-selection policy into explicit, configurable abstractions.
+The main future work is to turn the now-approved compact-mode policy into explicit, configurable rendering abstractions.

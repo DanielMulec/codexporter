@@ -98,23 +98,25 @@ What it is:
 Why it is deferred:
 
 - the v1 priority is a faithful source-record export
-- compact-mode behavior introduces product and UX decisions that are not yet approved
-- we do not yet know which compactness levels or content-reduction options should be offered
+- the initial compact-mode contract is now approved, but implementation and validation are still pending
+- future expansion beyond the first compact mode would still introduce additional product and UX decisions
 
 Consequence of deferral:
 
-- v1 exports may become very large for long, tool-heavy sessions
+- until compact mode is implemented, exports may still become very large for long, tool-heavy sessions
 
 Evidence note:
 
 - this concern is documented in `docs/spec/25_export_length_analysis.md`, which records why a real first export reached `29,741` lines
 - implementation readiness for adding compact modes later is documented in `docs/spec/26_compact_mode_readiness.md`
+- the approved initial compact-mode contract is defined in `docs/spec/27_compact_mode_definition.md`
 
 Integration rule for later:
 
 - compact modes must be additive export options rather than a redefinition of the default v1 export semantics
 - compact modes must not break the base export identity, numbering model, or checkpoint behavior
-- if multiple compactness levels are introduced later, they should be documented explicitly rather than inferred
+- the first compact mode is now explicitly defined rather than inferred
+- if additional compactness levels are introduced later, they should be documented explicitly rather than inferred
 
 ### Richer internal metadata coverage
 

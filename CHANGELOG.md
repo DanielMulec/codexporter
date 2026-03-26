@@ -14,6 +14,8 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
+- Added `docs/spec/27_compact_mode_definition.md` to define the first approved compact-mode contract: same `export` skill, explicit `--compact` invocation, deterministic non-AI compaction, always-compacted raw patch bodies, compacted full file reads, and threshold-based raw diff retention with file-level summaries for larger diffs.
+- Updated `docs/spec/11_post_v1_deferrals.md`, `docs/spec/25_export_length_analysis.md`, and `docs/spec/26_compact_mode_readiness.md` so compact mode is no longer described as entirely undefined; the docs now point to the approved initial compact-mode contract while still treating implementation as pending.
 - Updated `README.md` so the automated validation snapshot now reflects the actual current macOS-local baseline of 31 passing `pytest` cases and names the added hidden-reasoning/internal-instruction exclusion coverage.
 - Updated `docs/spec/06_supported_environments.md` with a March 25, 2026 official-source refresh, including the current OpenAI note that Codex CLI on Windows is still officially experimental even though this repository keeps Windows CLI in scope as a project target with partial runtime evidence.
 - Updated `docs/spec/15_markdown_rendering_rules.md` so the v1 rendering spec now matches the implementation: there is no separate `## Git Context` section, and visible git-related content stays in the chronological conversation stream.
