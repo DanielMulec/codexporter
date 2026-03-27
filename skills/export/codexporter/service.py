@@ -14,6 +14,7 @@ from codexporter.checkpoint import (
     sidecar_path_for_session,
     validate_checkpoint,
 )
+from codexporter.compaction import prepare_entries_for_render
 from codexporter.errors import ExporterError, ProjectRootError, RolloutAccessError
 from codexporter.messages import (
     no_exportable_content_message,
@@ -22,7 +23,7 @@ from codexporter.messages import (
     unsafe_project_root_message,
     write_failure_message,
 )
-from codexporter.models import ExportEntry, ExportMode, ExportResult, Language
+from codexporter.models import ExportEntry, ExportMode, ExportResult, Language, RenderProfile
 from codexporter.renderer import render_markdown
 from codexporter.rollout_parser import parse_rollout
 from codexporter.session_store import discover_current_thread, resolve_codex_home
@@ -35,6 +36,7 @@ def export_current_session(
     codex_home: Path | None = None,
     now: datetime | None = None,
     session_id: str | None = None,
+    render_profile: RenderProfile = "full",
 ) -> ExportResult:
     invocation_root = project_root.expanduser().resolve()
     _ensure_safe_project_root(invocation_root)
@@ -76,6 +78,7 @@ def export_current_session(
             sidecar_path=sidecar_path,
             export_sequence=checkpoint.export_sequence,
             export_mode=export_mode,
+            render_profile=render_profile,
             no_new_content=True,
         )
 
@@ -94,11 +97,13 @@ def export_current_session(
         export_path=export_path,
         exported_at=exported_at,
     )
+    rendered_entries = prepare_entries_for_render(export_entries, render_profile)
     markdown = render_markdown(
         session=parsed.session,
-        entries=export_entries,
+        entries=rendered_entries,
         export_sequence=sequence,
         export_mode=export_mode,
+        render_profile=render_profile,
         exported_at=exported_at,
         sidecar_path=sidecar_path,
     )
@@ -111,12 +116,18 @@ def export_current_session(
         language=parsed.session.language,
     )
     return ExportResult(
-        message=success_message(export_path, export_mode == "incremental", parsed.session.language),
+        message=success_message(
+            export_path,
+            export_mode == "incremental",
+            parsed.session.language,
+            render_profile=render_profile,
+        ),
         project_root=thread.cwd,
         export_path=export_path,
         sidecar_path=sidecar_path,
         export_sequence=sequence,
         export_mode=export_mode,
+        render_profile=render_profile,
         no_new_content=False,
     )
 

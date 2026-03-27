@@ -89,6 +89,16 @@ That means the default output should prioritize:
 
 Optional environment metadata should stay minimal in the default export view.
 
+## Additive Compact Profile Rule
+
+The implemented compact profile is an additive export option, not a redefinition of the default contract.
+
+That means:
+
+- plain `$export` keeps the full-fidelity default
+- `$export --compact` preserves the same visible session chronology and checkpoint semantics
+- compact mode may replace bulky raw tool payloads with deterministic omission markers when that payload is not needed for quick human review
+
 ## Timestamp Resilience Rule
 
 If source timestamps are available but the environment cannot resolve the preferred named timezone, the export may render those timestamps in UTC.

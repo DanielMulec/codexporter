@@ -3,12 +3,12 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 26, 2026
-- Scope: implementation-readiness assessment for post-v1 compact export modes
+- Date: March 27, 2026
+- Scope: readiness assessment plus implementation outcome for the first compact export profile
 
 ## Purpose
 
-This document records how close the current implementation is to supporting compact export modes as an additive post-v1 feature.
+This document records how the v1 architecture held up when the first compact export profile was actually implemented.
 
 It exists to answer a specific design-health question:
 
@@ -18,13 +18,13 @@ It exists to answer a specific design-health question:
 
 Current assessment:
 
-- approximately `75%` to `85%` of the way to the anti-refactor goal for compact export modes
+- the anti-refactor goal held for the first compact profile
 
 Interpretation:
 
-- the current implementation already has the right major boundaries
-- compact mode does not currently look like a rewrite
-- compact mode does still require deliberate extension work before it becomes a clean first-class option
+- the compact profile landed as a localized extension rather than a rewrite
+- the existing boundaries were strong enough to absorb the new render profile cleanly
+- future expansion still needs deliberate abstraction work, but the initial mode is now first-class
 
 ## Why The Current Implementation Is In Good Shape
 
@@ -48,15 +48,17 @@ That separation is the main reason compact mode still looks additive.
 
 ## What This Means For Compact Mode
 
-The current architecture suggests that compact mode can probably be added by introducing:
+The readiness assessment proved accurate.
 
-- a new export or render option at the public surface
-- a filtering, collapsing, or summarization step between parsed entries and markdown rendering
-- renderer behavior that changes based on the selected output mode
+The implemented compact profile now uses:
+
+- a new explicit render-profile option at the public surface
+- a deterministic compaction step between parsed entries and markdown rendering
+- renderer metadata that records which render profile produced the artifact
 
 The approved initial compact-mode contract now lives in `docs/spec/27_compact_mode_definition.md`.
 
-That means compact mode should be able to evolve without changing:
+The implemented first profile did not require changing:
 
 - session discovery
 - export identity
@@ -64,7 +66,7 @@ That means compact mode should be able to evolve without changing:
 - sidecar semantics
 - checkpoint semantics
 
-This is the strongest sign that the anti-refactor rule is mostly holding.
+This is the strongest sign that the anti-refactor rule held for the first expansion.
 
 ## Strong Areas
 
@@ -78,7 +80,7 @@ This is the strongest sign that the anti-refactor rule is mostly holding.
 - render the export
 - write the markdown and sidecar
 
-Compact mode can likely be inserted as a new option in this pipeline without redesigning the pipeline itself.
+Compact mode landed in this pipeline without redesigning the pipeline itself.
 
 ### 2. Checkpointing is already isolated
 
@@ -89,81 +91,55 @@ Compact mode can likely be inserted as a new option in this pipeline without red
 - sidecar building
 - sidecar serialization
 
-Compact mode should not need to alter that logic, which is exactly what the spec intended.
+Compact mode did not alter that logic, which is exactly what the spec intended.
 
 ### 3. Parsed export entries already form a stable intermediate layer
 
 `skills/export/codexporter/models.py` and `skills/export/codexporter/rollout_parser.py` already produce structured `ExportEntry` values.
 
-That means later compact-mode logic can act on a normalized entry stream instead of having to parse raw JSONL again.
+That meant compact-mode logic could act on a normalized entry stream instead of having to parse raw JSONL again.
 
-## Main Weakness
+## What Landed
 
-The main weakness is that markdown rendering is still a single fixed path.
+The first implementation added:
 
-`skills/export/codexporter/renderer.py` currently has:
+- an explicit render-profile split between `full` and `compact`
+- a deterministic compaction module between parsed entries and rendering
+- CLI-level `--compact` support on the same `export` skill surface
+- renderer metadata that records the render profile
+- automated coverage for compact CLI invocation, compaction rules, short-diff preservation, and compact/full checkpoint sharing
 
-- one render function
-- one fixed formatting policy
-- one fixed verbosity level
-- no explicit render profile or compactness model
+## What Still Remains For Future Expansion
 
-This is not a design failure, but it does mean that:
-
-- adding one simple compact mode should be straightforward
-- adding multiple compactness levels cleanly will require a new options or profile abstraction
-
-## What Is Still Missing Before Compact Mode Becomes Truly First-Class
-
-The following additions are still likely needed later:
-
-### 1. A compactness option model
-
-The first approved public mode split is:
+The current implemented public mode split is:
 
 - `full`
 - `compact`
 
 Later modes such as `minimal`, `audit`, or other explicit levels remain undecided.
 
-### 2. A transformation layer between parsed entries and rendering
-
-That future layer would likely handle actions such as:
-
-- excluding selected entry kinds
-- truncating long tool payloads
-- collapsing repeated workflow details
-- replacing raw detail with a compact summary line
-
-The newly approved first compact mode already sharpens this direction:
+The current compaction layer already handles:
 
 - always omit raw `apply_patch` bodies
 - omit full file-read bodies and replace them with deterministic omission markers
 - keep raw diff bodies only when they are `<= 60` lines and touch `<= 2` files
 - summarize larger diffs with changed file paths and `+/-` counts when derivable
+- compact very large directory listings and large machine-shaped JSON outputs when they cross the generic threshold
 - preserve raw chronology without AI classification or inferred explanation
 
-### 3. Renderer options
+Future expansion may still need:
 
-`renderer.py` will likely need an explicit render-options object or profile model so rendering policy is no longer hardcoded as one shape only.
-
-### 4. Public invocation surface for mode selection
-
-`skills/export/codexporter/cli.py` currently exposes the v1 public surface.
-
-The approved intended user-facing compact-mode surface is now:
-
-- `$export --compact`
-
-without changing the default v1 export behavior.
+- a more explicit render-options object if more than two profiles are added
+- richer deterministic compaction heuristics if new bulk classes prove important
+- direct real-session compact-mode validation notes in `docs/validation/` when future shared exporter changes warrant that evidence
 
 ## Confidence Level
 
 High confidence:
 
-- compact mode can be added without redefining session export identity
-- compact mode can be added without changing checkpoint behavior
-- compact mode can be added without changing export numbering
+- compact mode was added without redefining session export identity
+- compact mode was added without changing checkpoint behavior
+- compact mode was added without changing export numbering
 
 Moderate caution:
 
@@ -172,7 +148,7 @@ Moderate caution:
 
 ## Bottom Line
 
-Compact mode currently looks like:
+Compact mode now looks like:
 
 - a localized extension
 
@@ -180,8 +156,8 @@ not like:
 
 - a major rewrite
 
-So the anti-refactor goal is mostly being achieved in the current implementation.
+So the anti-refactor goal was achieved for the first compact-mode implementation.
 
 The main future work is not architectural rescue.
 
-The main future work is to turn the now-approved compact-mode policy into explicit, configurable rendering abstractions.
+The main future work is threshold tuning or explicit new render-profile design, not rescuing the current architecture.

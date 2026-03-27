@@ -5,7 +5,7 @@ from datetime import UTC, datetime, tzinfo
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from codexporter.models import ExportEntry, ExportMode, SessionInfo
+from codexporter.models import ExportEntry, ExportMode, RenderProfile, SessionInfo
 
 
 def render_markdown(
@@ -13,6 +13,7 @@ def render_markdown(
     entries: tuple[ExportEntry, ...],
     export_sequence: int,
     export_mode: ExportMode,
+    render_profile: RenderProfile,
     exported_at: datetime,
     sidecar_path: Path,
 ) -> str:
@@ -31,6 +32,7 @@ def render_markdown(
             f"- Exported at: {_format_timestamp(exported_at, session.timezone_name)}",
             f"- Export sequence: {export_sequence}",
             f"- Export mode: {export_mode}",
+            f"- Render profile: {render_profile}",
             f"- Checkpoint sidecar: {sidecar_path.name}",
         ]
     )

@@ -2,16 +2,18 @@
 
 Codex Exporter is a Codex skill that exports the current live session to markdown.
 
-The user-facing skill name is `export`, so the intended invocation is `$export`.
+The user-facing skill name is `export`, so the intended invocations are `$export` and
+`$export --compact`.
 
 ## Current State
 
 - Installable skill boundary: `skills/export/`
-- User command: `$export`
+- User commands: `$export`, `$export --compact`
 - Internal Python package: `codexporter`
 - Primary artifact: one markdown file per successful export
 - Output location: `codex_exports/` under the active project root
 - Incremental behavior: later exports only include new session content and advance a JSON sidecar checkpoint
+- Compact behavior: `--compact` keeps chronology but deterministically omits bulky raw tool payloads
 - Failure behavior: fail clearly instead of guessing or writing into the installed skill directory
 
 ## What The Skill Exports
@@ -25,6 +27,11 @@ The v1 export stays close to what the user visibly experienced in Codex:
 - compact session metadata
 
 The exporter does not include hidden reasoning or raw internal instruction payloads.
+
+The implemented compact profile is additive:
+
+- plain `$export` keeps the current full-fidelity default
+- `$export --compact` keeps the same session chronology and checkpoint model while omitting bulky raw tool payloads such as full file-read bodies, raw `apply_patch` bodies, large raw diffs, and oversized low-signal tool output
 
 ## Install Boundary
 
@@ -46,6 +53,8 @@ When `$export` runs successfully, it writes:
 - a JSON checkpoint sidecar into the same directory
 
 Repeated exports in the same session are incremental.
+
+When `$export --compact` runs successfully, it writes the same kind of markdown artifact and sidecar, but the markdown uses the compact render profile and records that in the export metadata.
 
 If there is no new exportable content since the last successful export, the skill reports that directly and does not create a new markdown file.
 
@@ -92,6 +101,11 @@ Run the exporter directly from the repo during development:
 python skills/export/scripts/export_skill.py \
   --project-root "$PWD" \
   --codex-home "${CODEX_HOME:-$HOME/.codex}"
+
+python skills/export/scripts/export_skill.py \
+  --project-root "$PWD" \
+  --codex-home "${CODEX_HOME:-$HOME/.codex}" \
+  --compact
 ```
 
 ### Windows (PowerShell)
@@ -122,6 +136,11 @@ $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME ".c
 python skills/export/scripts/export_skill.py `
   --project-root $PWD `
   --codex-home $codexHome
+
+python skills/export/scripts/export_skill.py `
+  --project-root $PWD `
+  --codex-home $codexHome `
+  --compact
 ```
 
 When invoking the installed global skill on Windows without an activated virtual environment, prefer `py -3` over plain `python`. On some Windows setups, `python` resolves to the Microsoft Store stub instead of a working interpreter.
@@ -136,7 +155,7 @@ When invoking the installed global skill on Windows without an activated virtual
 
 Current automated baseline:
 
-- 31 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, and timezone-fallback behavior
+- 35 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, timezone-fallback behavior, compact CLI invocation, deterministic bulky-payload compaction, and compact/profile checkpoint sharing
 - On March 27, 2026, fresh Linux and Windows `.venv` reruns also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
 - `mypy` in `strict` mode
 - `ruff check`

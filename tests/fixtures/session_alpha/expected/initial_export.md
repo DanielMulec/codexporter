@@ -51,4 +51,5 @@ Completed the response.
 - Exported at: 2026-03-13 20:00:00 UTC
 - Export sequence: 1
 - Export mode: full
+- Render profile: full
 - Checkpoint sidecar: 019aaa00-bbbb-7ccc-8ddd-eeeeffff0001-checkpoint.json

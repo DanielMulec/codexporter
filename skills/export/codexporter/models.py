@@ -8,6 +8,7 @@ from typing import Literal
 EntryKind = Literal["assistant", "commentary", "event", "tool_call", "tool_output", "user"]
 ExportMode = Literal["full", "incremental"]
 Language = Literal["de", "en"]
+RenderProfile = Literal["full", "compact"]
 
 
 @dataclass(frozen=True)
@@ -36,6 +37,7 @@ class ExportEntry:
     arguments: str | None = None
     output: str | None = None
     event_type: str | None = None
+    call_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -98,4 +100,5 @@ class ExportResult:
     sidecar_path: Path
     export_sequence: int
     export_mode: ExportMode
+    render_profile: RenderProfile
     no_new_content: bool

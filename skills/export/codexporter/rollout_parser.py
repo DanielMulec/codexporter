@@ -199,6 +199,7 @@ def _append_tool_call_entry(
             turn_id=state.active_turn_id,
             tool_name=tool_name,
             arguments=arguments,
+            call_id=call_id,
         )
     )
 
@@ -218,6 +219,7 @@ def _append_tool_output_entry(
             turn_id=state.active_turn_id,
             tool_name=state.tool_names_by_call_id.get(call_id or "", "unknown"),
             output=_extract_tool_output(payload.get("output")),
+            call_id=call_id,
         )
     )
 

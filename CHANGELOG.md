@@ -6,6 +6,18 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+### Added
+
+- Added the first implemented compact export profile on the existing `export` skill surface, so `$export --compact` now writes the same canonical markdown artifact type with deterministic omission markers for bulky raw tool payloads instead of introducing a second export identity.
+- Added 4 new automated tests covering compact CLI invocation, deterministic compaction of file-read outputs, raw patch payloads, large diffs, oversized file listings, short-diff preservation, and shared checkpoint behavior between compact and full renders.
+
+### Changed
+
+- Updated `skills/export/codexporter/cli.py`, `skills/export/codexporter/service.py`, `skills/export/codexporter/renderer.py`, `skills/export/codexporter/models.py`, `skills/export/codexporter/messages.py`, and the new `skills/export/codexporter/compaction.py` so the exporter now supports explicit `full` versus `compact` render profiles while keeping export numbering and checkpoint semantics canonical.
+- Updated `skills/export/codexporter/rollout_parser.py` so tool-call and tool-output entries keep their call identifiers, allowing deterministic compaction decisions to match outputs back to the originating tool call.
+- Updated `README.md`, `skills/export/SKILL.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/07_export_data_contract.md`, `docs/spec/11_post_v1_deferrals.md`, `docs/spec/15_markdown_rendering_rules.md`, `docs/spec/21_coverage_matrix.md`, `docs/spec/25_export_length_analysis.md`, `docs/spec/26_compact_mode_readiness.md`, and `docs/spec/27_compact_mode_definition.md` so the documentation reflects the implemented compact-mode surface instead of treating it as still pending.
+- Updated `skills/export/codexporter/__init__.py` so the internal package version string no longer lags the already-recorded `1.0.0` package baseline in `pyproject.toml`.
+
 ## [v1.0.0] - 2026-03-27
 
 ### Added

@@ -3,8 +3,8 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 13, 2026
-- Scope: evidence report for post-v1 compact export design
+- Date: March 27, 2026
+- Scope: evidence report that motivated the implemented initial compact export profile
 
 ## Purpose
 
@@ -14,7 +14,7 @@ It exists because the project already had post-v1 deferrals for richer export be
 
 At the time this report was first written, compact-mode behavior had not been designed yet.
 
-As of March 26, 2026, the approved initial compact-mode contract now lives in `docs/spec/27_compact_mode_definition.md`.
+As of March 27, 2026, the first compact-mode implementation now exists and is defined in `docs/spec/27_compact_mode_definition.md`.
 
 ## Analyzed Artifact
 
@@ -146,9 +146,9 @@ The main design levers identified here were:
 - summarizing tool activity instead of preserving it verbatim
 - offering multiple export verbosity levels
 
-The approved initial compact-mode behavior now adopts the same general direction, but only for the first explicit compact mode rather than for multiple levels at once.
+The implemented initial compact-mode behavior now adopts the same general direction, but only for the first explicit compact mode rather than for multiple levels at once.
 
-Implementation-readiness evidence for adding compact modes is recorded in `docs/spec/26_compact_mode_readiness.md`.
+Implementation outcome and anti-refactor follow-through are recorded in `docs/spec/26_compact_mode_readiness.md`.
 
 ## Constraint Reminder
 
@@ -160,4 +160,4 @@ It must not redefine:
 - what the primary artifact is
 - how checkpoint behavior works
 
-That means compact-mode behavior, if added later, should be layered onto the export model rather than rewriting the v1 source-record semantics.
+The implemented first compact mode followed that rule by layering deterministic compaction onto the export model rather than rewriting the source-record semantics.

@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfoNotFoundError
 import pytest
 
 import codexporter.renderer as renderer
+from codexporter.compaction import prepare_entries_for_render
 from codexporter.messages import detect_language
 from codexporter.models import ExportEntry, SessionInfo
 from codexporter.renderer import render_markdown
@@ -105,6 +106,7 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks(
         entries=entries,
         export_sequence=1,
         export_mode="full",
+        render_profile="full",
         exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=UTC),
         sidecar_path=Path("/tmp/project-alpha/codex_exports/session-123-checkpoint.json"),
     )
@@ -119,6 +121,7 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks(
     assert "```text\n/tmp/project-alpha\n```" in rendered
     assert "## gpt-5.4 Assistant · 2026-03-14 13:00:05 CET" in rendered
     assert "## Export Metadata" in rendered
+    assert "- Render profile: full" in rendered
     assert rendered.index("## User") < rendered.index("## gpt-5.4 Commentary")
     assert rendered.index("## gpt-5.4 Commentary") < rendered.index("## Tool Call")
     assert rendered.index("## Tool Call") < rendered.index("## Tool Output")
@@ -162,6 +165,7 @@ def test_render_markdown_falls_back_to_utc_when_named_timezone_is_unavailable(
         entries=entries,
         export_sequence=1,
         export_mode="full",
+        render_profile="full",
         exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=UTC),
         sidecar_path=Path("/tmp/project-alpha/codex_exports/session-123-checkpoint.json"),
     )
@@ -169,3 +173,42 @@ def test_render_markdown_falls_back_to_utc_when_named_timezone_is_unavailable(
     assert "## User · 2026-03-14 12:00:01 UTC" in rendered
     assert "- Session started: 2026-03-14 12:00:00 UTC" in rendered
     assert "- Exported at: 2026-03-14 12:05:00 UTC" in rendered
+
+
+def test_prepare_entries_for_render_keeps_short_raw_diff_verbatim() -> None:
+    diff_output = "\n".join(
+        [
+            "diff --git a/src/app.py b/src/app.py",
+            "index 1111111..2222222 100644",
+            "--- a/src/app.py",
+            "+++ b/src/app.py",
+            "@@ -1 +1,2 @@",
+            "-old line",
+            "+new line",
+            "+second line",
+        ]
+    )
+    entries = (
+        ExportEntry(
+            source_index=1,
+            kind="tool_call",
+            timestamp=datetime(2026, 3, 14, 12, 0, 3, tzinfo=UTC),
+            turn_id="turn-1",
+            tool_name="exec_command",
+            arguments='{"cmd":"git diff -- src/app.py"}',
+            call_id="call-1",
+        ),
+        ExportEntry(
+            source_index=2,
+            kind="tool_output",
+            timestamp=datetime(2026, 3, 14, 12, 0, 4, tzinfo=UTC),
+            turn_id="turn-1",
+            tool_name="exec_command",
+            output=diff_output,
+            call_id="call-1",
+        ),
+    )
+
+    compacted = prepare_entries_for_render(entries, "compact")
+
+    assert compacted[1].output == diff_output

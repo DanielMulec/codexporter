@@ -65,11 +65,19 @@ Example shape:
 - `## Tool Output · exec_command · 2026-03-10 22:14:41 CET`
 - fenced text block
 
+In compact mode, the same chronological shape remains, but bulky raw payloads may be replaced by deterministic omission markers inside those fenced blocks.
+
 ## Formatting Rule
 
 - use headings and fenced blocks rather than dense raw dumps
 - keep the artifact readable in plain markdown
 - prefer clarity over compactness when the two conflict
+
+## Export Metadata Rule
+
+The export metadata section must keep the export sequence and export mode.
+
+When a non-default render profile is used, or when the implementation chooses to record it explicitly, the export metadata should also state the render profile so the artifact can be interpreted correctly.
 
 ## Future Compatibility Rule
 

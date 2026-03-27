@@ -27,6 +27,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         default=None,
         help="Current Codex session identifier. Defaults to $CODEX_THREAD_ID when available.",
     )
+    parser.add_argument(
+        "--compact",
+        action="store_true",
+        help="Write the export in compact mode by omitting bulky raw tool payloads.",
+    )
     args = parser.parse_args(list(argv) if argv is not None else None)
 
     try:
@@ -34,6 +39,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             project_root=args.project_root,
             codex_home=args.codex_home,
             session_id=args.session_id,
+            render_profile="compact" if args.compact else "full",
         )
     except ExporterError as exc:
         print(exc.user_message)

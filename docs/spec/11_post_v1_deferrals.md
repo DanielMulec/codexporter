@@ -85,37 +85,37 @@ Integration rule for later:
 - additional artifacts should derive from the same base export identity and sequence number
 - later bundle additions must remain compatible with the existing v1 filename model
 
-### Compact export modes
+### Additional compact export modes and expansion
 
 Deferred status:
 
-- post-v1
+- post-v1 beyond the implemented first `--compact` profile
 
 What it is:
 
-- optional export modes that reduce output size by omitting, collapsing, or summarizing selected content classes while preserving the main export identity
+- any compactness expansion beyond the implemented first profile, such as additional render levels, more aggressive condensation, or alternate compact artifacts
 
 Why it is deferred:
 
-- the v1 priority is a faithful source-record export
-- the initial compact-mode contract is now approved, but implementation and validation are still pending
+- the first deterministic compact mode is now implemented
 - future expansion beyond the first compact mode would still introduce additional product and UX decisions
+- the current product already has one clear compact surface, so additional levels should be justified rather than assumed
 
 Consequence of deferral:
 
-- until compact mode is implemented, exports may still become very large for long, tool-heavy sessions
+- the repo now supports one implemented compact profile, but not a larger family of compactness levels
 
 Evidence note:
 
 - this concern is documented in `docs/spec/25_export_length_analysis.md`, which records why a real first export reached `29,741` lines
-- implementation readiness for adding compact modes later is documented in `docs/spec/26_compact_mode_readiness.md`
-- the approved initial compact-mode contract is defined in `docs/spec/27_compact_mode_definition.md`
+- implementation outcome and anti-refactor follow-through are documented in `docs/spec/26_compact_mode_readiness.md`
+- the implemented initial compact-mode contract is defined in `docs/spec/27_compact_mode_definition.md`
 
 Integration rule for later:
 
-- compact modes must be additive export options rather than a redefinition of the default v1 export semantics
-- compact modes must not break the base export identity, numbering model, or checkpoint behavior
-- the first compact mode is now explicitly defined rather than inferred
+- additional compact modes must remain additive export options rather than redefining the default export semantics
+- additional compact modes must not break the base export identity, numbering model, or checkpoint behavior
+- the first compact mode is now implemented rather than inferred
 - if additional compactness levels are introduced later, they should be documented explicitly rather than inferred
 
 ### Richer internal metadata coverage

@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from pathlib import Path
 
-from codexporter.models import Language
+from codexporter.models import Language, RenderProfile
 
 GERMAN_MARKERS = (
     " bitte ",
@@ -30,13 +30,27 @@ def detect_language(samples: Iterable[str]) -> Language:
     return "en"
 
 
-def success_message(path: Path, incremental: bool, language: Language) -> str:
+def success_message(
+    path: Path,
+    incremental: bool,
+    language: Language,
+    render_profile: RenderProfile = "full",
+) -> str:
+    compact = render_profile == "compact"
     if language == "de":
         if incremental:
+            if compact:
+                return f"Kompakten inkrementellen Export {path.name} unter {path} erstellt."
             return f"Inkrementellen Export {path.name} unter {path} erstellt."
+        if compact:
+            return f"Aktuellen Sitzungsverlauf kompakt nach {path} exportiert. Datei: {path.name}."
         return f"Aktuellen Sitzungsverlauf nach {path} exportiert. Datei: {path.name}."
     if incremental:
+        if compact:
+            return f"Created compact incremental export {path.name} at {path}."
         return f"Created incremental export {path.name} at {path}."
+    if compact:
+        return f"Exported the current session in compact mode to {path}. File: {path.name}."
     return f"Exported the current session to {path}. File: {path.name}."
 
 

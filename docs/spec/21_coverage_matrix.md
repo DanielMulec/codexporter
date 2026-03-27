@@ -74,6 +74,7 @@ It exists in two layers:
 
 - The matrix identifies traceability, not implementation completeness.
 - As of March 22, 2026, the repo has automated coverage for thread-accurate session targeting across same-workspace ambiguity, platform-specific path-shape differences, timezone-data fallback, Windows-safe fixture rendering, explicit hidden-reasoning exclusion, optional-metadata omission, and CLI-level localized failure or omission messaging.
+- As of March 27, 2026, the repo also has focused automated coverage for the implemented compact export profile: explicit CLI-level `--compact` invocation, deterministic bulky-payload compaction, short-diff preservation, and compact/full checkpoint-sharing behavior.
 - On March 27, 2026, a fresh Windows `.venv` rerun also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`; the remaining Windows automation gap is now closed.
 - The March 27, 2026 Windows test-harness close-out removed the remaining host-dependent UTC test construction and made markdown expectation templates re-encode fenced JSON blocks structurally, so Windows path escaping now matches the renderer output without weakening Linux or macOS expectations.
 - macOS app, macOS CLI, Linux CLI, Windows CLI, and Windows app now each have full platform-checklist evidence recorded in `22_platform_validation.md`, with the remaining Windows checklist items closed by controlled Windows-host replays for localized failure behavior, restricted-environment honesty, and same-workspace ambiguity safety.

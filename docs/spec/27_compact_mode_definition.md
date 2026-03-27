@@ -2,9 +2,9 @@
 
 ## Status
 
-- Phase: implementation planning
-- Date: March 26, 2026
-- Scope: approved initial compact-mode contract, not yet implemented
+- Phase: implementation and validation
+- Date: March 27, 2026
+- Scope: implemented initial compact-mode contract
 
 ## Purpose
 
@@ -39,7 +39,7 @@ That means:
 
 Source basis note:
 
-- checked on March 26, 2026 against the official Codex skills and CLI docs
+- checked on March 27, 2026 against the official Codex skills and CLI docs
 - those docs explicitly document `$skill` invocation
 - they do not currently define a general skill-argument grammar in the same detail
 - this repository still adopts `$export --compact` as its intended compact-mode contract based on observed Codex behavior and current product fit
@@ -93,6 +93,10 @@ It should replace that body with a deterministic omission marker that preserves 
 - file count when derivable
 - suppressed line count when derivable
 
+Current implementation note:
+
+- the first implementation derives this primarily from read-heavy `exec_command` calls such as `cat`, `sed`, `nl`, `head`, `tail`, `awk`, `bat`, `less`, and `more`
+
 ### Raw patch payloads
 
 Raw `apply_patch` bodies must always be omitted in compact mode.
@@ -136,6 +140,10 @@ This includes examples such as:
 
 The generic thresholding for those cases may be implementation-tuned later, but it must remain deterministic and must not conflict with the rules above.
 
+Current implementation note:
+
+- the first implementation compacts those cases when the raw output exceeds `120` lines or `8000` characters
+
 ## Compact-Mode Replacement Shape
 
 Compact-mode omission markers should be factual and minimal.
@@ -147,6 +155,8 @@ Recommended examples:
 - `Raw diff omitted in compact mode.`
 
 When additional deterministic detail is available, compact mode should append it in a compact list rather than re-expand the raw payload.
+
+The implemented exporter also records `Render profile: compact` in the export metadata so the artifact states how it was produced.
 
 ## Checkpoint And Identity Rule
 
