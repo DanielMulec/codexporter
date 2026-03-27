@@ -60,13 +60,13 @@ When practical, validation should include at least one condition that distinguis
 ### macOS Codex CLI
 
 - Target status: primary v1 target
-- Validated status: partial
+- Validated status: validated
 - Evidence source: `docs/validation/macos_cli.md`
-- Codex version: `0.115.x` (exact patch not recorded)
+- Codex version: `0.115.x` live happy-path evidence, plus March 27 close-out on `0.116.0` and `0.80.0`
 - Source surface: Codex CLI in Ghostty
-- Model: `gpt-5.4`
-- Sandbox mode: not recorded
-- Approval mode: not recorded
+- Model: `gpt-5.4` and `gpt-5.2-codex`
+- Sandbox mode: March 18 live run not recorded; March 27 close-out observed `workspace-write` with network access
+- Approval mode: March 18 live run not recorded; March 27 close-out observed `on-request`
 - Checklist results:
   - first export: `pass`
   - default export destination: `pass`
@@ -75,10 +75,10 @@ When practical, validation should include at least one condition that distinguis
   - no-new-content behavior: `pass`
   - filename sequencing: `pass`
   - markdown rendering: `pass`
-  - language-sensitive failure messaging: `not run`
-  - restricted-environment honesty: `not run`
-  - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 18, 2026; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his macOS device for this skill, and the repo now has supplemental macOS-host automated coverage for German omission or failure messaging and same-workspace targeting safety, but those additions do not replace the still-missing direct macOS CLI runtime observations.
+  - language-sensitive failure messaging: `pass`
+  - restricted-environment honesty: `pass`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+- Notes: Daniel recorded direct real-user macOS CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on macOS against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his macOS device for this skill.
 
 ### Linux Codex CLI
 
@@ -106,13 +106,13 @@ When practical, validation should include at least one condition that distinguis
 ### macOS Codex app
 
 - Target status: primary v1 target
-- Validated status: partial
+- Validated status: validated
 - Evidence source: `docs/validation/macos_app.md`
 - Codex version: `0.115.0-alpha.11`
 - Source surface: Codex Desktop app context, rollout source field `vscode`
 - Model: `gpt-5.4`
-- Sandbox mode: `danger-full-access`
-- Approval mode: `never`
+- Sandbox mode: `danger-full-access` in the March 13-14 live app-context run; `workspace-write` without network access in the March 27 close-out source row
+- Approval mode: `never` in the March 13-14 live app-context run; `on-request` in the March 27 close-out source row
 - Checklist results:
   - first export: `pass`
   - default export destination: `pass`
@@ -121,10 +121,10 @@ When practical, validation should include at least one condition that distinguis
   - no-new-content behavior: `pass`
   - filename sequencing: `pass`
   - markdown rendering: `pass`
-  - language-sensitive failure messaging: `partial`
-  - restricted-environment honesty: `not run`
-  - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: no-new-content behavior was validated by running two exporter calls inside one shell process so no extra Codex session records landed between the two checks; on March 14, 2026, the renamed globally installed `$export` skill was also invoked successfully in the active macOS app thread and wrote the export into the active project's `codex_exports/` folder rather than into the installed skill directory; the macOS-host automated suite now also covers German omission or failure messaging and same-workspace targeting safety as supplemental evidence, but non-English app-runtime messaging, restricted-environment honesty, and same-workspace wrong-session resistance still need real-use validation.
+  - language-sensitive failure messaging: `pass`
+  - restricted-environment honesty: `pass`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+- Notes: March 13-14, 2026 captured direct macOS app happy-path evidence, including installed-skill invocation into the active project root. On March 27, 2026, the production entrypoint was rerun on macOS against isolated temporary Codex homes derived from copied real `vscode` thread data, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live app data. That closes the macOS app platform checklist while leaving GitHub-origin installation flow as a separate question.
 
 ### Windows Codex CLI
 

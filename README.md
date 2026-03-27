@@ -143,8 +143,8 @@ Current automated baseline:
 
 Current manual validation status:
 
-- macOS Codex app: partial validation recorded
-- macOS Codex CLI: partial validation recorded
+- macOS Codex app: validated
+- macOS Codex CLI: validated
 - Linux Codex CLI: partial validation recorded
 - Windows Codex CLI: partial validation recorded
 - Windows Codex app: partial validation recorded
