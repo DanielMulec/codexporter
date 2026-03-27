@@ -176,7 +176,7 @@ def render_markdown_template(
     project_root: Path,
     replacements: Mapping[str, str] | None = None,
 ) -> str:
-    rendered = _replace_string_values(
+    rendered = _render_markdown_template_content(
         template_path.read_text(encoding="utf-8"),
         project_root,
         replacements,
@@ -238,6 +238,14 @@ def _replace_string_values(
     if nested_json is not None:
         return nested_json
 
+    return _replace_plain_string_values(value, project_root, replacements)
+
+
+def _replace_plain_string_values(
+    value: str,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str:
     rendered = value.replace(PLACEHOLDER, str(project_root))
     if replacements is not None:
         for original, replacement in replacements.items():
@@ -261,3 +269,56 @@ def _reencode_nested_json_string(
 
     rendered_payload = _replace_nested_string_values(nested_payload, project_root, replacements)
     return json.dumps(rendered_payload, ensure_ascii=False, separators=(",", ":"))
+
+
+def _render_markdown_template_content(
+    markdown: str,
+    project_root: Path,
+    replacements: Mapping[str, str] | None = None,
+) -> str:
+    lines = markdown.splitlines()
+    rendered_lines: list[str] = []
+    in_json_fence = False
+    fence_lines: list[str] = []
+
+    for line in lines:
+        if not in_json_fence:
+            if line == "```json":
+                rendered_lines.append(line)
+                in_json_fence = True
+                fence_lines = []
+            else:
+                rendered_lines.append(
+                    _replace_plain_string_values(line, project_root, replacements)
+                )
+            continue
+
+        if line == "```":
+            try:
+                parsed_payload = json.loads("\n".join(fence_lines))
+            except json.JSONDecodeError:
+                rendered_lines.extend(
+                    _replace_plain_string_values(block_line, project_root, replacements)
+                    for block_line in fence_lines
+                )
+            else:
+                rendered_payload = _replace_nested_string_values(
+                    parsed_payload, project_root, replacements
+                )
+                rendered_lines.extend(
+                    json.dumps(rendered_payload, indent=2, sort_keys=True).splitlines()
+                )
+            rendered_lines.append(line)
+            in_json_fence = False
+            fence_lines = []
+            continue
+
+        fence_lines.append(line)
+
+    if in_json_fence:
+        rendered_lines.extend(
+            _replace_plain_string_values(block_line, project_root, replacements)
+            for block_line in fence_lines
+        )
+
+    return "\n".join(rendered_lines)

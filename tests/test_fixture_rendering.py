@@ -31,3 +31,5 @@ def test_windows_path_rollout_template_renders_valid_jsonl_and_plain_markdown() 
         project_root,
     )
     assert f"- Current working directory: {project_root}" in rendered_markdown
+    markdown_arguments = rendered_markdown.split("```json\n", 1)[1].split("\n```", 1)[0]
+    assert json.loads(markdown_arguments)["workdir"] == str(project_root)

@@ -22,10 +22,10 @@ It is a local exporter and integration tool for Codex session data, not a conven
 
 ## Current Engineering Status
 
-- the initial implementation stack is now approved for v1 development
-- the global install boundary is now approved, but release and versioning details are still not fully decided yet
+- the initial implementation stack is now approved and validated for v1
+- the global install boundary is now approved and the initial v1 release version is now recorded
 - CI wiring beyond the initial local quality gates is still not fully decided yet
-- Windows-specific follow-up now centers on shared automated-test portability and remaining Windows validation evidence, not on the earlier Windows happy-path runtime breakage
+- Windows-specific follow-up now centers on preserving the validated baseline rather than on unresolved Windows runtime or harness breakage
 - only already-approved spec decisions should be treated as binding engineering constraints
 
 ## Approved Initial Stack Decisions

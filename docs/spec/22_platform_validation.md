@@ -129,36 +129,13 @@ When practical, validation should include at least one condition that distinguis
 ### Windows Codex CLI
 
 - Target status: primary v1 target
-- Validated status: partial
+- Validated status: validated
 - Evidence source: `docs/validation/windows_cli.md`
-- Codex version: not recorded
+- Codex version: March 20 live happy-path metadata not recorded; March 27 controlled close-out on `0.116.0`
 - Source surface: Codex CLI
-- Model: not recorded
-- Sandbox mode: not recorded
-- Approval mode: not recorded
-- Checklist results:
-  - first export: `pass`
-  - default export destination: `pass`
-  - success message with file location: `pass`
-  - incremental export: `pass`
-  - no-new-content behavior: `not run`
-  - filename sequencing: `partial`
-  - markdown rendering: `not run`
-  - language-sensitive failure messaging: `not run`
-  - restricted-environment honesty: `not run`
-  - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 20, 2026; Daniel confirmed that the Windows Codex CLI happy path now works for first export and later incremental export through the `$export` boundary, but the exact runtime metadata and artifact names were not retained in the repository notes; Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Windows device for this skill. No no-new-content, failure-path, or same-workspace/path-variation case was re-run during the Windows CLI validation, so the surface remains partial rather than full.
-
-### Windows Codex app
-
-- Target status: primary v1 target
-- Validated status: partial
-- Evidence source: `docs/validation/windows_app.md`
-- Codex version: `0.115.0-alpha.27`
-- Source surface: Codex Desktop app context, rollout source field `vscode`
 - Model: `gpt-5.4`
-- Sandbox mode: `danger-full-access`
-- Approval mode: `never`
+- Sandbox mode: March 20 live run not recorded; March 27 controlled close-out observed `danger-full-access`
+- Approval mode: March 20 live run not recorded; March 27 controlled close-out observed `never`
 - Checklist results:
   - first export: `pass`
   - default export destination: `pass`
@@ -167,10 +144,33 @@ When practical, validation should include at least one condition that distinguis
   - no-new-content behavior: `pass`
   - filename sequencing: `pass`
   - markdown rendering: `pass`
-  - language-sensitive failure messaging: `partial`
-  - restricted-environment honesty: `not run`
+  - language-sensitive failure messaging: `pass`
+  - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
-- Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form; installed-skill happy-path behavior, incremental behavior, and no-new-content behavior were observed directly; March 20 also added a fresh same-thread rerun in the live Windows Codex Desktop app conversation for this repository, where `$export` produced a first export followed by an incremental export in the active thread. The March 19, 2026 Windows `pytest` run captured a real shared-harness portability defect at that time, and as of March 22, 2026 the repo harness has been updated to remove the named-timezone dependency and to render Windows-style paths safely, but a fresh Windows rerun still needs to be recorded before the automated Windows gap can be considered closed.
+- Notes: Daniel recorded direct real-user Windows CLI happy-path evidence on March 20, 2026. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, first/incremental/no-new-content sequencing, visible-chat-first markdown inspection, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery while the temp state DB used Windows extended-length `\\?\` path spelling. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
+
+### Windows Codex app
+
+- Target status: primary v1 target
+- Validated status: validated
+- Evidence source: `docs/validation/windows_app.md`
+- Codex version: `0.115.0-alpha.27` and `0.112.0-alpha.3`
+- Source surface: Codex Desktop app context, rollout source field `vscode`
+- Model: `gpt-5.4`
+- Sandbox mode: `danger-full-access` and `workspace-write` without network access
+- Approval mode: `never` and `on-request`
+- Checklist results:
+  - first export: `pass`
+  - default export destination: `pass`
+  - success message with file location: `pass`
+  - incremental export: `pass`
+  - no-new-content behavior: `pass`
+  - filename sequencing: `pass`
+  - markdown rendering: `pass`
+  - language-sensitive failure messaging: `pass`
+  - restricted-environment honesty: `pass`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+- Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form, plus installed-skill happy-path, incremental behavior, and no-new-content behavior. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real app thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery without mutating live app data. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
 
 ## Validation Recording Rules
 
