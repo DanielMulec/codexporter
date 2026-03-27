@@ -8,18 +8,18 @@
 ## Key Open Questions
 
 - Does a fresh Windows virtual environment now run `python -m pytest` cleanly with the shared fixture and timezone harness fixes that are already in the repo?
-- What is the leanest validation sequence for re-checking Linux and Windows now that the macOS checklist is closed and the known shared test-harness defects are covered by regression tests?
+- What is the leanest validation sequence for re-checking the remaining Windows surfaces now that the macOS and Linux CLI checklists are closed and the known shared test-harness defects are covered by regression tests?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 
 ## Recommended Next Spec Steps
 
 1. Treat `21_coverage_matrix.md` as the working QA baseline, `22_platform_validation.md` as the working platform evidence model, `23_engineering_policy.md` as the working project-specific engineering policy, and `24_installation_and_distribution.md` as the working distribution-boundary spec.
-2. Preserve the recorded macOS app and macOS CLI runtime evidence as validated, and continue to treat Linux CLI plus both Windows surfaces as partial until their remaining manual checklist items are actually re-observed.
+2. Preserve the recorded macOS app, macOS CLI, and Linux CLI runtime evidence as validated, and continue to treat both Windows surfaces as partial until their remaining manual checklist items are actually re-observed.
 3. Treat the March 22, 2026 fixture-rendering and timezone cleanup as implemented repo state, not as an open design question.
 4. Make the next QA pass about verification and evidence collection rather than more speculative harness work:
   - re-run the full automated gates in a fresh Windows virtual environment
-  - re-run the full automated gates once on Linux because the harness change is shared
-  - keep the maintained macOS-local baseline green while the remaining Linux and Windows reruns are collected
+  - preserve the March 27 Linux rerun as the recorded shared-harness confirmation on Linux
+  - keep the maintained macOS-local baseline green while the remaining Windows reruns are collected
 5. After the automated reruns, update only the validation docs that are justified by directly observed evidence.
 6. Preserve the March 22, 2026 retrospective `skill-installer` confirmations in the platform validation notes and add richer installer metadata later only if it materially helps future release or support work.
 
@@ -35,13 +35,12 @@
 - In a fresh Windows virtual environment, `python -m pip install -e ".[dev]"` followed by `python -m pytest` passes without ad hoc fixes.
 - The fixture-rendering regression test proves that a Windows-style path yields valid JSONL and valid nested JSON tool payloads.
 - The maintained macOS-local baseline remains green for `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
-- Linux gets at least one rerun of the automated gates, because this is shared cross-platform test infrastructure.
+- Linux has at least one fresh rerun of the automated gates recorded after the shared harness cleanup, because this is shared cross-platform test infrastructure.
 - Windows platform-validation docs are updated only with real runtime evidence, not merely because the shared automated suite becomes Windows-clean.
 
 ## Implementation Order
 
 1. Re-run Windows gates in a fresh virtual environment.
-2. Re-run Linux gates or collect equivalent Linux verification.
-3. Reconfirm the maintained macOS-local baseline if any follow-up change lands.
-4. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
-5. Close the remaining manual platform checklist items or document them explicitly as still open.
+2. Reconfirm the maintained macOS-local baseline if any follow-up change lands.
+3. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
+4. Close the remaining manual Windows platform checklist items or document them explicitly as still open.

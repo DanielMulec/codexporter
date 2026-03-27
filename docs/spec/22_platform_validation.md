@@ -83,13 +83,13 @@ When practical, validation should include at least one condition that distinguis
 ### Linux Codex CLI
 
 - Target status: primary v1 target
-- Validated status: partial
+- Validated status: validated
 - Evidence source: `docs/validation/linux_cli.md`
-- Codex version: `0.115.x` (exact patch not recorded)
+- Codex version: `0.115.x` live happy-path evidence, plus March 27 close-out on `0.117.0` and `0.77.0`
 - Source surface: Codex CLI in Kitty
-- Model: `gpt-5.4`
-- Sandbox mode: not recorded
-- Approval mode: not recorded
+- Model: `gpt-5.4` and `gpt-5.2`
+- Sandbox mode: March 18 live run not recorded; March 27 controlled close-out observed `workspace-write` with network access and `danger-full-access`
+- Approval mode: March 18 live run not recorded; March 27 controlled close-out observed `on-request` and `never`
 - Checklist results:
   - first export: `pass`
   - default export destination: `pass`
@@ -98,10 +98,10 @@ When practical, validation should include at least one condition that distinguis
   - no-new-content behavior: `pass`
   - filename sequencing: `pass`
   - markdown rendering: `pass`
-  - language-sensitive failure messaging: `not run`
-  - restricted-environment honesty: `not run`
-  - current-thread targeting under shared-workspace ambiguity or path variation: `not run`
-- Notes: direct real-user validation by Daniel recorded on March 18, 2026; the tested CLI was reported as the same `0.115` series as the corresponding macOS validation, but the exact patch/build was not retained; validation included both more-restricted and less-restricted runtime configurations, but the exact Codex approval-mode and sandbox-mode labels were not captured; no failure, blocked-access case, or same-workspace ambiguity case occurred during the recorded runs. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill, but detailed installer metadata was not preserved.
+  - language-sensitive failure messaging: `pass`
+  - restricted-environment honesty: `pass`
+  - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+- Notes: Daniel recorded direct real-user Linux CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on Linux against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill.
 
 ### macOS Codex app
 

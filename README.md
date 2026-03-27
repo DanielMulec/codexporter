@@ -137,6 +137,7 @@ When invoking the installed global skill on Windows without an activated virtual
 Current automated baseline:
 
 - 31 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, and timezone-fallback behavior
+- On March 27, 2026, a fresh Linux `.venv` rerun also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
@@ -145,7 +146,7 @@ Current manual validation status:
 
 - macOS Codex app: validated
 - macOS Codex CLI: validated
-- Linux Codex CLI: partial validation recorded
+- Linux Codex CLI: validated
 - Windows Codex CLI: partial validation recorded
 - Windows Codex app: partial validation recorded
 
@@ -161,6 +162,7 @@ See:
 Windows automated validation note:
 
 - On March 22, 2026, the repo test harness was updated so shared rollout fixtures render Windows-style paths safely inside JSONL and the shared baseline fixtures no longer depend on named timezone data.
+- On March 27, 2026, the same gates were rerun successfully in a fresh Linux `.venv`, so the remaining shared-harness rerun gap is now Windows-only.
 - A fresh Windows virtual-environment rerun is still required before the repository can claim that `python -m pytest` is now green on Windows too.
 - The remaining rerun and documentation follow-up is tracked in `docs/spec/05_open_questions_and_next_steps.md`.
 
