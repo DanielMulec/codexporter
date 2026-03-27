@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import re
-from datetime import datetime
+from datetime import UTC, datetime, timedelta, timezone, tzinfo
 from pathlib import Path
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+from zoneinfo import ZoneInfoNotFoundError
 
 import pytest
 
@@ -15,7 +15,7 @@ from codexporter.service import _build_export_filename
 
 
 def test_build_export_filename_sanitizes_and_truncates_session_name() -> None:
-    exported_at = datetime(2026, 3, 14, 12, 34, 56, tzinfo=ZoneInfo("UTC"))
+    exported_at = datetime(2026, 3, 14, 12, 34, 56, tzinfo=UTC)
 
     filename = _build_export_filename(
         exported_at=exported_at,
@@ -38,11 +38,17 @@ def test_detect_language_flags_german_markers() -> None:
     )
 
 
-def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
+def test_render_markdown_formats_visible_chat_and_tool_blocks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fixed_cet(_: str) -> tzinfo:
+        return timezone(timedelta(hours=1), name="CET")
+
+    monkeypatch.setattr(renderer, "ZoneInfo", fixed_cet)
     session = SessionInfo(
         session_id="session-123",
         session_name="Renderer Check",
-        session_started_at=datetime(2026, 3, 14, 12, 0, 0, tzinfo=ZoneInfo("UTC")),
+        session_started_at=datetime(2026, 3, 14, 12, 0, 0, tzinfo=UTC),
         cwd=Path("/tmp/project-alpha"),
         source="vscode",
         originator="Codex Desktop",
@@ -58,21 +64,21 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
         ExportEntry(
             source_index=1,
             kind="user",
-            timestamp=datetime(2026, 3, 14, 12, 0, 1, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 1, tzinfo=UTC),
             turn_id="turn-1",
             text="Please export the current session.",
         ),
         ExportEntry(
             source_index=2,
             kind="commentary",
-            timestamp=datetime(2026, 3, 14, 12, 0, 2, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 2, tzinfo=UTC),
             turn_id="turn-1",
             text="Inspecting the current export surface first.",
         ),
         ExportEntry(
             source_index=3,
             kind="tool_call",
-            timestamp=datetime(2026, 3, 14, 12, 0, 3, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 3, tzinfo=UTC),
             turn_id="turn-1",
             tool_name="exec_command",
             arguments='{"cmd":"pwd"}',
@@ -80,7 +86,7 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
         ExportEntry(
             source_index=4,
             kind="tool_output",
-            timestamp=datetime(2026, 3, 14, 12, 0, 4, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 4, tzinfo=UTC),
             turn_id="turn-1",
             tool_name="exec_command",
             output="/tmp/project-alpha",
@@ -88,7 +94,7 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
         ExportEntry(
             source_index=5,
             kind="assistant",
-            timestamp=datetime(2026, 3, 14, 12, 0, 5, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 5, tzinfo=UTC),
             turn_id="turn-1",
             text="The export surface looks consistent.",
         ),
@@ -99,7 +105,7 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
         entries=entries,
         export_sequence=1,
         export_mode="full",
-        exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=ZoneInfo("UTC")),
+        exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=UTC),
         sidecar_path=Path("/tmp/project-alpha/codex_exports/session-123-checkpoint.json"),
     )
 
@@ -122,14 +128,14 @@ def test_render_markdown_formats_visible_chat_and_tool_blocks() -> None:
 def test_render_markdown_falls_back_to_utc_when_named_timezone_is_unavailable(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    def raising_zoneinfo(_: str) -> ZoneInfo:
+    def raising_zoneinfo(_: str) -> tzinfo:
         raise ZoneInfoNotFoundError("missing tzdata")
 
     monkeypatch.setattr(renderer, "ZoneInfo", raising_zoneinfo)
     session = SessionInfo(
         session_id="session-123",
         session_name="Renderer Check",
-        session_started_at=datetime(2026, 3, 14, 12, 0, 0, tzinfo=ZoneInfo("UTC")),
+        session_started_at=datetime(2026, 3, 14, 12, 0, 0, tzinfo=UTC),
         cwd=Path("/tmp/project-alpha"),
         source="vscode",
         originator="Codex Desktop",
@@ -145,7 +151,7 @@ def test_render_markdown_falls_back_to_utc_when_named_timezone_is_unavailable(
         ExportEntry(
             source_index=1,
             kind="user",
-            timestamp=datetime(2026, 3, 14, 12, 0, 1, tzinfo=ZoneInfo("UTC")),
+            timestamp=datetime(2026, 3, 14, 12, 0, 1, tzinfo=UTC),
             turn_id="turn-1",
             text="Please export the current session.",
         ),
@@ -156,7 +162,7 @@ def test_render_markdown_falls_back_to_utc_when_named_timezone_is_unavailable(
         entries=entries,
         export_sequence=1,
         export_mode="full",
-        exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=ZoneInfo("UTC")),
+        exported_at=datetime(2026, 3, 14, 12, 5, 0, tzinfo=UTC),
         sidecar_path=Path("/tmp/project-alpha/codex_exports/session-123-checkpoint.json"),
     )
 

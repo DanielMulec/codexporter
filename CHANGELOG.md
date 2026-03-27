@@ -6,6 +6,8 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.0.0] - 2026-03-27
+
 ### Added
 
 - Added 7 new automated tests covering CLI-level German no-new-content messaging, CLI-level German checkpoint-failure messaging, CLI fail-closed behavior under same-workspace ambiguity, CLI preference for runtime thread identifiers over same-workspace heuristics, Windows-path-safe fixture rendering, explicit hidden-reasoning/internal-instruction exclusion assertions, and export success when optional rollout metadata is absent.
@@ -14,13 +16,17 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
+- Closed the remaining Windows v1 gaps: a fresh Windows `.venv` now passes `pytest`, `mypy`, `ruff check`, and `ruff format --check`; controlled Windows CLI and Windows app close-out replays now record German checkpoint-failure messaging, explicit persisted-session-history failures under denied read access, same-workspace ambiguity fail-closed behavior, targeted current-thread recovery, and Windows CLI sequencing/no-new-content evidence.
+- Updated the shared test harness so UTC-only unit tests are host-independent across Windows, Linux, and macOS, and markdown expectation templates now re-encode fenced JSON blocks structurally so Windows path escaping matches the renderer output.
+- Updated `.gitignore` to ignore `pytest-cache-files-*` temp directories so repo-root `ruff` traversals stay focused on real project files on Windows too.
+- Updated `pyproject.toml` so the package version now records the validated v1 release as `1.0.0`.
 - Updated `docs/validation/linux_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/21_coverage_matrix.md`, and `README.md` to record the March 27, 2026 Linux-host controlled close-out evidence that forced the previously missing Linux CLI failure-path and same-workspace ambiguity cases, closing the Linux CLI platform checklist as validated.
 - Updated `README.md` and `docs/spec/21_coverage_matrix.md` so the repository status now records the fresh March 27, 2026 Linux `.venv` rerun where `pytest`, `mypy`, `ruff check`, and `ruff format --check` all passed.
 - Updated `docs/validation/macos_cli.md`, `docs/validation/macos_app.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/21_coverage_matrix.md`, and `README.md` to record the March 27, 2026 macOS-host controlled close-out evidence that forced the previously rare macOS failure-path and same-workspace ambiguity cases, closing the macOS CLI and macOS app platform checklists as validated.
 - Added `docs/spec/27_compact_mode_definition.md` to define the first approved compact-mode contract: same `export` skill, explicit `--compact` invocation, deterministic non-AI compaction, always-compacted raw patch bodies, compacted full file reads, and threshold-based raw diff retention with file-level summaries for larger diffs.
 - Updated `docs/spec/11_post_v1_deferrals.md`, `docs/spec/25_export_length_analysis.md`, and `docs/spec/26_compact_mode_readiness.md` so compact mode is no longer described as entirely undefined; the docs now point to the approved initial compact-mode contract while still treating implementation as pending.
 - Updated `README.md` so the automated validation snapshot now reflects the actual current macOS-local baseline of 31 passing `pytest` cases and names the added hidden-reasoning/internal-instruction exclusion coverage.
-- Updated `docs/spec/06_supported_environments.md` with a March 25, 2026 official-source refresh, including the current OpenAI note that Codex CLI on Windows is still officially experimental even though this repository keeps Windows CLI in scope as a project target with partial runtime evidence.
+- Updated `docs/spec/06_supported_environments.md` with a March 27, 2026 official-source refresh that records the current upstream documentation inconsistency around native Windows CLI support while aligning the repo-facing status with this repository's now-validated Windows evidence.
 - Updated `docs/spec/15_markdown_rendering_rules.md` so the v1 rendering spec now matches the implementation: there is no separate `## Git Context` section, and visible git-related content stays in the chronological conversation stream.
 - Updated `AGENTS.md` so unverified work must always be treated as absent until the repository proves otherwise, and branch audits are required when branch history may affect that judgment.
 - Updated `AGENTS.md` so every Git commit must carry traceability footers and every pull request must repeat the same links and state whether older branches were merged, superseded, or selectively salvaged.

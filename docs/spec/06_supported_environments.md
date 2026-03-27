@@ -3,7 +3,7 @@
 ## Status
 
 - Phase: implementation and validation
-- Date: March 25, 2026
+- Date: March 27, 2026
 
 ## Purpose
 
@@ -49,8 +49,9 @@ It does not mean:
   - validated support
 - Validation must happen separately from this support-target document.
 - For this project, Windows Codex CLI is a required v1 product target.
-- Current official Codex CLI documentation still describes Windows support as experimental and recommends WSL for the best experience.
-- This repository intentionally keeps Windows Codex CLI in scope anyway because the exporter now has direct partial Windows CLI runtime evidence; that target should still be treated as higher risk than macOS or Linux CLI support until validation is stronger.
+- As of March 27, 2026, current OpenAI Codex documentation is inconsistent about native Windows CLI support: the dedicated CLI setup page still describes Windows support as experimental and recommends WSL, while the Codex quickstart currently lists the CLI as supported on macOS, Windows, and Linux.
+- This repository treats Windows Codex CLI as both an in-scope v1 target and a validated repository surface based on direct repo-controlled evidence recorded in `docs/spec/22_platform_validation.md` and `docs/validation/windows_cli.md`.
+- Because the upstream support picture is still inconsistent, native Windows Codex CLI should still be treated as a higher external-platform-risk surface than macOS or Linux CLI even though this repository's own v1 validation checklist is closed.
 - Validation for Windows support may be established through real-user testing by Daniel and trusted Windows users in addition to repo-driven validation scenarios.
 - Platform validation is not complete unless it includes current-thread targeting correctness, not just happy-path export success.
 - Where practical, platform validation should include same-workspace multi-thread conditions and platform-specific path-representation differences.
@@ -64,8 +65,9 @@ Whenever environment support is described elsewhere in the spec, it should use t
 
 ## Source Basis
 
-Checked on March 25, 2026 against:
+Checked on March 27, 2026 against:
 
-- [Codex CLI](https://developers.openai.com/codex/cli)
+- [Codex CLI setup](https://developers.openai.com/codex/cli/#cli-setup)
+- [Codex quickstart setup](https://developers.openai.com/codex/quickstart/#setup)
 - [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan)
 - [Introducing the Codex app](https://openai.com/index/introducing-the-codex-app/)

@@ -137,7 +137,7 @@ When invoking the installed global skill on Windows without an activated virtual
 Current automated baseline:
 
 - 31 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, and timezone-fallback behavior
-- On March 27, 2026, a fresh Linux `.venv` rerun also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
+- On March 27, 2026, fresh Linux and Windows `.venv` reruns also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
@@ -147,8 +147,8 @@ Current manual validation status:
 - macOS Codex app: validated
 - macOS Codex CLI: validated
 - Linux Codex CLI: validated
-- Windows Codex CLI: partial validation recorded
-- Windows Codex app: partial validation recorded
+- Windows Codex CLI: validated
+- Windows Codex app: validated
 
 See:
 
@@ -161,10 +161,10 @@ See:
 
 Windows automated validation note:
 
-- On March 22, 2026, the repo test harness was updated so shared rollout fixtures render Windows-style paths safely inside JSONL and the shared baseline fixtures no longer depend on named timezone data.
-- On March 27, 2026, the same gates were rerun successfully in a fresh Linux `.venv`, so the remaining shared-harness rerun gap is now Windows-only.
-- A fresh Windows virtual-environment rerun is still required before the repository can claim that `python -m pytest` is now green on Windows too.
-- The remaining rerun and documentation follow-up is tracked in `docs/spec/05_open_questions_and_next_steps.md`.
+- On March 27, 2026, the cross-platform Windows test-harness close-out landed: UTC-only unit test construction is now host-independent, fenced markdown JSON expectations are rendered structurally, and repo-root `ruff` traversals now ignore `pytest-cache-files-*` temp directories.
+- On March 27, 2026, a fresh Windows `.venv` rerun passed `python -m pytest`, `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .`.
+- On March 27, 2026, controlled Windows CLI and Windows app close-out replays captured German checkpoint-failure messaging, explicit persisted-session-history failures under denied read access, and same-workspace ambiguity recovery from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts.
+- The Windows validation close-out and remaining non-blocking follow-up are tracked in `docs/spec/05_open_questions_and_next_steps.md`.
 
 ## Notes
 
