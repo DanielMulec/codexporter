@@ -84,6 +84,7 @@ To avoid deadlock, this default applies:
 - Every pull request body must repeat the same traceability links and must state whether any older branch was merged, superseded, or selectively salvaged.
 - Maintain a root `CHANGELOG.md` for notable repository changes using semantic version project-history entries starting at `v0.0.1`; in this repository, those versions apply to documentation milestones as well as code milestones.
 - Update `CHANGELOG.md` when meaningful product, engineering, documentation, or workflow changes are completed.
+- When advancing the current repository release version in `CHANGELOG.md`, update `[project].version` in `pyproject.toml` to the same semantic version and publish the matching GitHub tag `vX.Y.Z` for that release before the work is considered complete.
 - Push documentation, code, and export artefact changes to GitHub after making them, unless Daniel explicitly asks to keep them local only.
 
 ## Hard-Cut Product Policy

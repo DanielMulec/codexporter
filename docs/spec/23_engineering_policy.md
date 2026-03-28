@@ -84,6 +84,13 @@ Preferred split strategies:
 - when choosing between `.gitignore` and `.git/info/exclude`, prefer the narrowest scope that matches the intent
 - ignore rules do not stop tracking files that are already in Git; if a tracked file must remain on disk but leave version control, remove it from the index explicitly
 
+### Release Version Synchronization
+
+- the current release version is intentionally represented in three release-control surfaces: the latest versioned entry in `CHANGELOG.md`, `[project].version` in `pyproject.toml`, and the matching GitHub tag `vX.Y.Z`
+- when advancing the current repository release version, update all three in the same delivery flow; do not leave `CHANGELOG.md` ahead of `pyproject.toml` or the GitHub tag
+- formatting is intentionally different by surface: `CHANGELOG.md` headings and GitHub tags use `vX.Y.Z`, while `pyproject.toml` stores bare `X.Y.Z`
+- a release version bump is not done until the matching GitHub tag points at the released commit that carries the synchronized `CHANGELOG.md` and `pyproject.toml` update
+
 ### Security Scanning
 
 - `Trivy` is approved as a CI security gate after dependency manifests and CI wiring exist.
