@@ -10,6 +10,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 - Added the first implemented compact export profile on the existing `export` skill surface, so `$export --compact` now writes the same canonical markdown artifact type with deterministic omission markers for bulky raw tool payloads instead of introducing a second export identity.
 - Added 4 new automated tests covering compact CLI invocation, deterministic compaction of file-read outputs, raw patch payloads, large diffs, oversized file listings, short-diff preservation, and shared checkpoint behavior between compact and full renders.
+- Added `codexporter-session-discovery-fix-proposal-2026-03-28.md` to capture the March 28, 2026 investigation and the recommended fix for current-session discovery when live rollout files exist but `state_5.sqlite` session indexing is stale or missing.
 
 ### Changed
 
