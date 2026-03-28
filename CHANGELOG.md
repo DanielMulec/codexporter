@@ -20,6 +20,10 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 - Updated `AGENTS.md` and `docs/spec/23_engineering_policy.md` so advancing the repository release version now explicitly requires synchronized updates across the versioned `CHANGELOG.md` entry, `[project].version` in `pyproject.toml`, and the matching GitHub tag `vX.Y.Z`.
 - Updated `skills/export/codexporter/__init__.py` so the internal package version string no longer lags the already-recorded `1.0.0` package baseline in `pyproject.toml`.
 
+### Removed
+
+- Removed `codexporter-windows-test-suite-bug-report-2026-03-19.md` and `codexporter-windows-test-suite-fix-proposal-2026-03-19.md` because those Windows test-suite investigation documents are no longer needed in the current repository state.
+
 ## [v1.0.0] - 2026-03-27
 
 ### Added
