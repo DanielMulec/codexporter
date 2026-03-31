@@ -6,6 +6,8 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.0] - 2026-04-01
+
 ### Added
 
 - Added the first implemented compact export profile on the existing `export` skill surface, so `$export --compact` now writes the same canonical markdown artifact type with deterministic omission markers for bulky raw tool payloads instead of introducing a second export identity.
