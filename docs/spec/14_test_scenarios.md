@@ -25,6 +25,11 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-32`: successful export includes the required compact session metadata header when the metadata is available
 - `T-37`: globally installed skill exports successfully in more than one project context without reinstallation
 - `T-38`: globally installed skill writes export artifacts to the active project root rather than the installed skill directory
+- `T-44`: successful explicit compact export of the current live session through `$export --compact`
+- `T-45`: compact export preserves visible chronology while replacing bulky raw file-read bodies, raw `apply_patch` bodies, and large raw diff bodies with deterministic omission markers
+- `T-46`: compact export keeps a short qualifying raw diff verbatim rather than compacting it
+- `T-47`: compact export records `Render profile: compact` in export metadata and communicates compact success clearly
+- `T-49`: compact export compacts oversized machine-shaped JSON output with a deterministic omission marker
 
 ## Checkpoint Scenarios
 
@@ -38,6 +43,7 @@ This document lists the main v1 test scenarios implied by the current specificat
 - `T-34`: successful export writes the checkpoint sidecar as JSON with the required v1 schema fields
 - `T-35`: later exports do not rewrite earlier markdown export artifacts for the same session
 - `T-36`: cursor validation metadata mismatch stops export and preserves the prior checkpoint state
+- `T-48`: compact and full export profiles share the same canonical checkpoint and numbering state for a session
 
 ## Degraded-Mode Scenarios
 

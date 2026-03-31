@@ -66,6 +66,17 @@ This document turns the current v1 decisions into acceptance criteria.
 - If there is no new exportable content since the previous successful checkpoint, the user must be informed directly.
 - Prior markdown export artifacts must not be rewritten in v1.
 
+## Compact Export
+
+- `$export --compact` must be a supported explicit invocation on the same `export` skill surface.
+- Compact export must be additive to the canonical exporter flow rather than a second export identity.
+- Compact export must preserve the visible chronological workflow.
+- Compact export must record `Render profile: compact` in the export metadata.
+- Compact export must deterministically omit raw `apply_patch` bodies.
+- Compact export must deterministically omit bulky full file-read bodies and large raw diff bodies according to the approved compact-mode contract.
+- Compact export may keep short informative outputs verbatim when they remain within the approved compact thresholds.
+- Compact and full exports for the same session must share the same per-session numbering model and checkpoint semantics.
+
 ## Checkpoint Sidecar
 
 - V1 must use a sidecar checkpoint file.

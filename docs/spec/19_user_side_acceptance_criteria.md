@@ -124,3 +124,43 @@ This document defines the user-observable acceptance criteria for `$export`.
   - After the skill is installed once globally, it can be invoked across project contexts without per-project reinstallation, and export artifacts still go to the active project's `codex_exports` folder.
 - Observable evidence:
   - The same installed skill can export from more than one project context, and the created files appear under each active project's `codex_exports` folder rather than inside the installed skill directory.
+
+## AC-16: Explicit Compact Export Invocation
+
+- Related stories: US-10
+- Criterion:
+  - When the user invokes `$export --compact`, the skill creates a compact export of the current live session on the same `export` skill surface.
+- Observable evidence:
+  - The export succeeds through `$export --compact`, the success response states that compact mode was used, and the created markdown includes `Render profile: compact`.
+
+## AC-17: Compact Export Preserves Visible Chronology
+
+- Related stories: US-10
+- Criterion:
+  - Compact export preserves the visible conversation and workflow chronology rather than collapsing the session into a summary.
+- Observable evidence:
+  - The compact export still shows visible user messages, assistant replies, commentary, events, and tool activity in chronological order.
+
+## AC-18: Compact Export Deterministically Omits Bulky Raw Payloads
+
+- Related stories: US-10
+- Criterion:
+  - Compact export replaces qualifying bulky raw tool payloads with factual deterministic omission markers instead of preserving the full raw body.
+- Observable evidence:
+  - Large file-read bodies, raw `apply_patch` bodies, large raw diffs, and other qualifying bulky outputs appear as omission markers with derived factual context when available.
+
+## AC-19: Compact Export Preserves Short Informative Output
+
+- Related stories: US-10
+- Criterion:
+  - Compact export keeps short informative outputs verbatim when they remain inside the approved compact thresholds.
+- Observable evidence:
+  - A short qualifying raw diff remains visible in the compact export instead of being replaced by an omission marker.
+
+## AC-20: Compact And Full Exports Share Canonical History
+
+- Related stories: US-11
+- Criterion:
+  - Compact and full exports for the same session share the same export identity, numbering, and checkpoint behavior.
+- Observable evidence:
+  - A compact export advances the same checkpoint history as a full export, and switching profiles does not create duplicate export history for unchanged content.

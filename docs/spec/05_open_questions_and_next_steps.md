@@ -30,7 +30,7 @@
 - On March 27, 2026, a fresh Windows `.venv` rerun passed `python -m pytest`, `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .`.
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
-- The maintained macOS-local automated baseline is now 35 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, and compact/full checkpoint-sharing behavior.
+- The maintained macOS-local automated baseline is now 36 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, and compact/full checkpoint-sharing behavior.
 
 ## Acceptance Criteria
 

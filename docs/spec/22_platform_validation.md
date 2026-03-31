@@ -29,6 +29,7 @@ The following checks define the baseline validation evidence for a target enviro
 8. Failure or omission messaging follows the language of the active conversation when the exporter can determine that language from the available session data; pre-rollout access failures may fall back to English in v1.
 9. Restricted-environment behavior does not claim false success.
 10. When multiple sessions share a workspace or platform-specific path spellings vary, export still targets the invoking current thread or fails clearly rather than exporting a different session.
+11. When the user invokes `$export --compact`, the export succeeds on the same canonical exporter surface, records the compact render profile, preserves visible chronology, and applies the approved deterministic compactness rules without forking checkpoint identity.
 
 ## Validation Evidence Types
 
@@ -78,7 +79,9 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+  - compact export behavior: `pass`
 - Notes: Daniel recorded direct real-user macOS CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on macOS against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his macOS device for this skill.
+  The current compact evidence for this platform is grounded primarily in the maintained macOS-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
 
 ### Linux Codex CLI
 
@@ -101,7 +104,9 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+  - compact export behavior: `pass`
 - Notes: Daniel recorded direct real-user Linux CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on Linux against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill.
+  The current compact evidence for this platform is grounded primarily in the fresh Linux-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
 
 ### macOS Codex app
 
@@ -124,7 +129,9 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+  - compact export behavior: `pass`
 - Notes: March 13-14, 2026 captured direct macOS app happy-path evidence, including installed-skill invocation into the active project root. On March 27, 2026, the production entrypoint was rerun on macOS against isolated temporary Codex homes derived from copied real `vscode` thread data, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live app data. That closes the macOS app platform checklist while leaving GitHub-origin installation flow as a separate question.
+  The compact checklist item is currently satisfied by the same macOS-host automated gate rerun used as supplemental evidence for this repository, not by a separately captured live app-context `$export --compact` transcript.
 
 ### Windows Codex CLI
 
@@ -147,7 +154,9 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+  - compact export behavior: `pass`
 - Notes: Daniel recorded direct real-user Windows CLI happy-path evidence on March 20, 2026. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, first/incremental/no-new-content sequencing, visible-chat-first markdown inspection, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery while the temp state DB used Windows extended-length `\\?\` path spelling. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
+  The current compact evidence for this platform is grounded primarily in that fresh Windows-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
 
 ### Windows Codex app
 
@@ -170,7 +179,9 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
+  - compact export behavior: `pass`
 - Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form, plus installed-skill happy-path, incremental behavior, and no-new-content behavior. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real app thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery without mutating live app data. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
+  The compact checklist item is currently satisfied by the same Windows-host automated gate rerun used as supplemental evidence for this repository, not by a separately captured live app-context `$export --compact` transcript.
 
 ## Validation Recording Rules
 

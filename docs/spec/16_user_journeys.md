@@ -76,3 +76,43 @@ This document describes the main user journeys for the `$export` skill from the 
   2. The skill does not guess and does not write into the installed skill directory.
   3. Codex tells the user what failed and why.
 - Outcome: one globally installed skill can be reused across projects, or the user is told clearly why export could not proceed
+
+## Journey J-05: First Compact Export In Current Session
+
+- Actor: Codex user, `$export` skill, Codex CLI or Codex app
+- Trigger: user invokes `$export --compact`
+- Context: user is in the current active Codex session and wants a denser export for quick review
+- Goal: export the current session to a markdown file that preserves the visible chronology while omitting bulky raw tool payloads deterministically
+- Happy path:
+  1. The user invokes `$export --compact` in Codex CLI or the Codex app.
+  2. The skill exports the current session's supported content using the compact render profile.
+  3. The markdown export file is created with the same canonical artifact identity as any other export for that session.
+  4. The compact export preserves the visible chronological workflow while replacing qualifying bulky raw tool payloads with deterministic omission markers.
+  5. Codex tells the user that the compact export succeeded and provides the file name and file path.
+- Failure or edge path:
+  1. The export cannot be completed successfully.
+  2. Codex identifies the specific blocking problem.
+  3. Codex tells the user what failed and why.
+  4. Codex provides a next step when one is available.
+- Outcome: the compact export file is created, or the user understands why the compact export did not succeed and what to do next
+
+## Journey J-06: Compact Export Within Existing Export History
+
+- Actor: Codex user, `$export` skill, Codex CLI or Codex app
+- Trigger: user invokes `$export --compact` or `$export` after the same session has already been exported successfully with either profile
+- Context: the current session already has canonical export history and checkpoint state
+- Goal: continue the same per-session export history without duplicating content or forking checkpoint identity when switching between full and compact renders
+- Happy path:
+  1. The user invokes `$export --compact` or plain `$export` again in the same Codex session.
+  2. The skill detects the existing export history and reads the shared checkpoint.
+  3. The skill validates that checkpoint against the current session event stream.
+  4. The skill exports only new supported content after the last successful checkpoint, if any exists.
+  5. If no new exportable content exists, Codex tells the user directly and creates no new markdown file.
+  6. If new exportable content exists, the next numbered markdown export file is created with the requested render profile.
+  7. Codex tells the user that the export succeeded, whether it was incremental, and where the file was written.
+- Failure or edge path:
+  1. The export cannot be completed successfully.
+  2. Codex identifies the specific blocking problem.
+  3. Codex tells the user what failed and why.
+  4. Codex provides a next step when one is available.
+- Outcome: compact and full exports remain part of one canonical export history for the session, or the user understands why export could not continue safely

@@ -21,6 +21,7 @@
 - On March 14, 2026, invoked the globally installed skill under the renamed `$export` boundary in the active macOS Codex app thread and observed incremental export creation at `codex_exports/20260314-171923-I-ran-the-installed-skill-normally-It-returned-2.md`.
 - Confirmed that the installed skill boundary at `~/.codex/skills/export/` wrote the artifact into the active project's `codex_exports/` directory rather than into the installed skill directory.
 - On March 27, 2026, ran `./.venv/bin/python skills/export/scripts/export_skill.py` on macOS against isolated temporary Codex homes under `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl`, populated with copied real macOS app thread `019cf207-561a-72e0-8add-8dbd3ec4efc2`, source `vscode`, Codex `0.115.0-alpha.11`, model `gpt-5.4`, approval `on-request`, and sandbox `workspace-write` without network access.
+- The maintained macOS-host automated gate rerun on March 31, 2026 passed `./.venv/bin/python -m pytest`, including the explicit compact full-flow and deterministic compaction coverage that exercises `$export --compact`, large raw payload omission, short-diff retention, oversized JSON-output compaction, and shared checkpoint behavior.
 - That controlled app close-out first created `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-lang-project/codex_exports/20260327-090217-Ich-will-beim-export-skill-deutsche-UX-testen-Bitte-generier-1.md` plus sidecar `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-lang-project/codex_exports/019cf207-561a-72e0-8add-8dbd3ec4efc2-checkpoint.json`; after intentionally corrupting the sidecar, the next run failed in German with the unreadable-checkpoint message.
 - After removing read permission from `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/rollouts/app-restricted-rollout.jsonl`, the exporter returned the explicit persisted-session-history failure and created no export or checkpoint artifacts.
 - After seeding two same-workspace `vscode` rows in the isolated `state_5.sqlite`, the untargeted run failed clearly with the ambiguous-session message, and the targeted rerun with `CODEX_THREAD_ID=forced-app-ambiguous-a` exported `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-ambiguous-project/codex_exports/20260327-090217-Ich-will-beim-export-skill-deutsche-UX-testen-Bitte-generier-1.md` plus sidecar `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-ambiguous-project/codex_exports/019cf207-561a-72e0-8add-8dbd3ec4efc2-checkpoint.json`.
@@ -42,6 +43,7 @@
 - language-sensitive failure messaging: pass
 - restricted-environment honesty: pass
 - current-thread targeting under shared-workspace ambiguity or path variation: pass
+- compact export behavior: pass
 
 ## Notes
 
@@ -49,3 +51,4 @@
 - The March 27 close-out intentionally used isolated temporary Codex state derived from real macOS app persisted-session data because those failure-path conditions had not reproduced reliably in ordinary live use.
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
 - This validation record covers the macOS app platform checklist. It still does not turn GitHub-origin installation flow into a separate validated requirement.
+- The compact checklist item is currently backed primarily by the maintained macOS-host automated full-flow and compaction tests rather than by a separately retained live app-context `$export --compact` transcript.

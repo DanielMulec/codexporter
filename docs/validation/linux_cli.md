@@ -15,6 +15,7 @@
 - Daniel reported on March 22, 2026 that he had also already installed this skill successfully through `skill-installer` on his Linux device and used the resulting globally installed `export` skill in real use; the exact installer transcript and installed path were not retained in the repository notes.
 - The March 18 live run covered first export, default destination, success message with path, repeated incremental behavior, no-new-content behavior, filename sequencing, and rendered markdown quality.
 - On March 27, 2026, ran `./.venv/bin/python skills/export/scripts/export_skill.py` on Linux against isolated temporary Codex homes under `/tmp/codexporter-linux-validation-4jEM58`, populated with copied real Linux CLI thread rows and copied rollout artifacts so the rare failure-path conditions could be forced without mutating live `~/.codex` state.
+- The fresh Linux-host automated gate rerun recorded on March 27, 2026 passed `pytest`, which includes the explicit compact full-flow and deterministic compaction coverage that exercises `$export --compact`, large raw payload omission, short-diff retention, oversized JSON-output compaction, and shared checkpoint behavior.
 - The localized failure-path replay used copied real Linux CLI thread `019b84c4-118a-7330-ac1c-a5b8fdfdd39f`, source `cli`, CLI `0.77.0`, model `gpt-5.2`, approval `on-request`, sandbox `workspace-write` with network access, and rollout copy `/tmp/codexporter-linux-validation-4jEM58/rollouts/cli-language-rollout.jsonl`.
 - That localized failure-path replay first created `/tmp/codexporter-linux-validation-4jEM58/cli-lang-project/codex_exports/20260327-110400-Shell-Fish-Distro-Fedora-43-KDE-Edition-Problem-wir-mussen-g-1.md` plus sidecar `/tmp/codexporter-linux-validation-4jEM58/cli-lang-project/codex_exports/019b84c4-118a-7330-ac1c-a5b8fdfdd39f-checkpoint.json`; after intentionally corrupting the sidecar, the next run failed in German with the unreadable-checkpoint message.
 - The restricted-access and ambiguity close-out used copied real Linux CLI thread `019d2e99-e915-7681-a850-7510249f694e`, source `cli`, CLI `0.117.0`, model `gpt-5.4`, approval `never`, sandbox `danger-full-access`.
@@ -33,6 +34,7 @@
 - language-sensitive failure messaging: pass
 - restricted-environment honesty: pass
 - current-thread targeting under shared-workspace ambiguity or path variation: pass
+- compact export behavior: pass
 
 ## Notes
 
@@ -40,3 +42,4 @@
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
 - The live validation shell already exported a `CODEX_THREAD_ID` for the active conversation, so the untargeted close-out commands used `env -u CODEX_THREAD_ID` to keep the isolated replay controlled by the copied temp state rather than the live thread.
 - With the March 18 live success-path evidence plus the March 27 controlled failure-path and ambiguity evidence, the Linux CLI checklist is fully observed.
+- The compact checklist item is currently backed primarily by the fresh Linux-host automated full-flow and compaction tests rather than by a separately retained live `$export --compact` CLI transcript.

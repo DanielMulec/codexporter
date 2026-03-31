@@ -155,7 +155,7 @@ When invoking the installed global skill on Windows without an activated virtual
 
 Current automated baseline:
 
-- 35 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, timezone-fallback behavior, compact CLI invocation, deterministic bulky-payload compaction, and compact/profile checkpoint sharing
+- 36 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, timezone-fallback behavior, compact CLI invocation, deterministic bulky-payload compaction including oversized JSON-output suppression, and compact/profile checkpoint sharing
 - On March 27, 2026, fresh Linux and Windows `.venv` reruns also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
 - `mypy` in `strict` mode
 - `ruff check`

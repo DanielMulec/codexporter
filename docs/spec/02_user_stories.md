@@ -28,6 +28,11 @@ It exists separately from the triage document so that:
 - As a Codex user, I want it to be clear whether an export is the first export for a session or an incremental export so that I understand what changed since the previous checkpoint.
 - As a Codex user, I want export filenames to stay clearly sequenced across repeated exports of the same session so that I can tell the artifacts apart.
 
+## Compact Export (v1)
+
+- As a Codex user, I want an explicit compact export option so that I can review long, tool-heavy sessions more quickly without losing the visible workflow chronology.
+- As a Codex user, I want compact exports to remain part of the same per-session export history as full exports so that I can switch render profiles without creating divergent checkpoint state.
+
 ## Cross-Platform Behavior (v1)
 
 - As a Codex user, I want the skill to work consistently across the supported operating systems for Codex so that I can rely on it in different environments.

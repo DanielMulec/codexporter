@@ -119,3 +119,70 @@ This document defines the step-by-step flows for `$export`.
 - the same installed skill can be used across project contexts without reinstallation
 - export destination stays tied to the active project root
 - if the active project root cannot be determined, no export artifact is written into the installed skill directory
+
+## Flow F-05: Explicit Compact Export
+
+### Preconditions
+
+- user is in an active Codex session
+- current session history is accessible
+- user explicitly requests `$export --compact`
+
+### Main flow
+
+1. user invokes `$export --compact`
+2. skill identifies the current session
+3. skill reads exportable session records
+4. skill applies the compact render profile to the exportable entry stream
+5. skill preserves the visible chronological workflow while replacing qualifying bulky raw tool payloads with deterministic omission markers
+6. skill writes the markdown export into the `codex_exports` subfolder in the current project root
+7. skill writes the checkpoint sidecar into the same `codex_exports` subfolder
+8. skill records `Render profile: compact` in the export metadata
+9. skill informs user that the compact export succeeded and provides the file name and file path
+
+### Alternate flows
+
+- optional metadata is unavailable
+- session name is unavailable
+- a short qualifying raw diff remains verbatim because it is below the compact threshold
+
+### Postconditions
+
+- one markdown export file exists
+- one checkpoint sidecar exists
+- the export preserves visible chronology while compacting qualifying bulky raw payloads
+- the export metadata identifies the compact render profile
+
+## Flow F-06: Shared Compact And Full Checkpoint History
+
+### Preconditions
+
+- user is in the same session
+- at least one prior successful export exists
+- checkpoint sidecar exists
+- the prior export may have used either the full or compact render profile
+
+### Main flow
+
+1. user invokes `$export --compact` or plain `$export`
+2. skill identifies the current session
+3. skill loads the existing checkpoint sidecar
+4. skill validates the canonical cursor state
+5. skill reads only new records after the checkpoint
+6. if there is no new exportable content, skill does not create a new export file and informs the user directly
+7. if there is new exportable content, skill renders the next numbered export using the requested render profile
+8. skill updates the same checkpoint sidecar only after a successful export
+9. if a new export file was created, skill informs the user of success, whether the export was incremental, and where the file was written
+
+### Alternate flows
+
+- sidecar is unreadable
+- cursor validation fails
+- there is no new content since the last export
+
+### Postconditions
+
+- compact and full exports share one per-session numbering model
+- compact and full exports share one checkpoint history
+- if no new exportable content exists, no new export file is created
+- checkpoint advances only on success

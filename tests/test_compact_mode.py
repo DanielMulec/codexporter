@@ -92,6 +92,24 @@ def test_export_current_session_compact_shares_checkpoint_with_full_mode(
     assert len(list(session_fixture.export_dir.glob("*.md"))) == 1
 
 
+def test_prepare_entries_for_render_compacts_oversized_json_output() -> None:
+    large_json_output = json.dumps(
+        [{"index": index, "value": f"item-{index:03d}"} for index in range(400)],
+        indent=2,
+        sort_keys=True,
+    )
+    entries = (
+        _tool_call(1, "call-json", "exec_command", '{"cmd":"jq \'.\' build/report.json"}'),
+        _tool_output(2, "call-json", "exec_command", large_json_output),
+    )
+
+    compacted = prepare_entries_for_render(entries, "compact")
+
+    assert compacted[1].output is not None
+    assert "Large raw JSON output omitted in compact mode." in compacted[1].output
+    assert '"index": 399' not in compacted[1].output
+
+
 def test_cli_main_compact_creates_compact_export_and_reports_it(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
