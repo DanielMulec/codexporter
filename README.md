@@ -95,7 +95,7 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
-The staged no-`Any` hardening plan is tracked separately in `docs/spec/28_no_any_rollout.md`. Until those stages are landed in `pyproject.toml`, the commands above remain the current binding local gate set.
+Stage 1 of the staged no-`Any` hardening plan is now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any` and import-degraded `Any`. Later stages remain tracked in `docs/spec/28_no_any_rollout.md`.
 
 Run the exporter directly from the repo during development:
 
@@ -130,7 +130,7 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
-The staged no-`Any` hardening plan is tracked separately in `docs/spec/28_no_any_rollout.md`. Until those stages are landed in `pyproject.toml`, the commands above remain the current binding local gate set.
+Stage 1 of the staged no-`Any` hardening plan is now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any` and import-degraded `Any`. Later stages remain tracked in `docs/spec/28_no_any_rollout.md`.
 
 Run the exporter directly from the repo during development:
 

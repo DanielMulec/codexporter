@@ -62,29 +62,29 @@ Preferred replacements for `Any` in this repository are:
 
 ## Current Binding Gates
 
-Until the staged rollout lands in `pyproject.toml`, the current binding automated gates remain unchanged:
+As of April 2, 2026, Stage 1 is landed in `pyproject.toml`, so the current binding automated gates are:
 
 - `pytest`
-- `mypy` in `strict` mode
+- `mypy` in `strict` mode with `disallow_any_explicit = true` and `disallow_any_unimported = true`
 - `ruff check`
 - `ruff format --check`
 
-This document does not retroactively claim that repo-wide no-`Any` enforcement is already active.
+This document does not claim that repo-wide no-`Any` expression enforcement is already active.
 
 ## Rollout Stages
 
 ### Stage 1: Block New Explicit Any And Import-Degraded Any
 
-Approved first gate additions:
+Landed first gate additions:
 
 - `disallow_any_explicit = true`
 - `disallow_any_unimported = true`
 
 Reasoning:
 
-- `disallow_any_explicit` should be a no-op in the current repo state because no explicit `Any` is present today
+- `disallow_any_explicit` is a no-op in the current repo state because no explicit `Any` is present today
 - `disallow_any_unimported` closes a low-noise gap where missing import analysis could silently degrade to `Any`
-- neither step should require meaningful runtime refactoring
+- neither step required meaningful runtime refactoring
 
 Acceptance criteria:
 

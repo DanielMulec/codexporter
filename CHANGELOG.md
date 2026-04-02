@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.2] - 2026-04-02
+
+### Changed
+
+- Updated `pyproject.toml` so the binding `mypy` configuration now enforces Stage 1 of the approved no-`Any` rollout by enabling `disallow_any_explicit` and `disallow_any_unimported` without changing the contributor command surface.
+- Updated `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/23_engineering_policy.md`, and `docs/spec/28_no_any_rollout.md` so the repository now states truthfully that Stage 1 of the no-`Any` rollout is active while the later `disallow_any_expr` stages remain pending.
+
 ## [v1.1.1] - 2026-04-02
 
 ### Added
