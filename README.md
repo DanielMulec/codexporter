@@ -173,6 +173,10 @@ Current manual validation status:
 - Windows Codex CLI: validated
 - Windows Codex app: validated
 
+Latest macOS post-refactor reconfirmation:
+
+- On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor: a macOS app thread produced a first-run compact export, and a macOS CLI thread produced successful full, incremental, and compact incremental exports from the current repo state. This reconfirmation did not add new failure-path coverage.
+
 See:
 
 - `docs/spec/22_platform_validation.md`

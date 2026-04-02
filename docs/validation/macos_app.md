@@ -1,6 +1,6 @@
 # macOS Codex App Validation
 
-- Validation dates: March 13-14 and March 27, 2026
+- Validation dates: March 13-14, March 27, and April 2, 2026
 - Validation status: validated
 - Host OS: macOS
 - Codex surface: Codex Desktop app context
@@ -22,6 +22,7 @@
 - Confirmed that the installed skill boundary at `~/.codex/skills/export/` wrote the artifact into the active project's `codex_exports/` directory rather than into the installed skill directory.
 - On March 27, 2026, ran `./.venv/bin/python skills/export/scripts/export_skill.py` on macOS against isolated temporary Codex homes under `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl`, populated with copied real macOS app thread `019cf207-561a-72e0-8add-8dbd3ec4efc2`, source `vscode`, Codex `0.115.0-alpha.11`, model `gpt-5.4`, approval `on-request`, and sandbox `workspace-write` without network access.
 - The maintained macOS-host automated gate rerun on March 31, 2026 passed `./.venv/bin/python -m pytest`, including the explicit compact full-flow and deterministic compaction coverage that exercises `$export --compact`, large raw payload omission, short-diff retention, oversized JSON-output compaction, and shared checkpoint behavior.
+- On April 2, 2026, Daniel revalidated the post-Stage-2 live macOS app happy path in retained app-context thread `019d5012-678c-7223-867e-9ee9f25f4ab9` by generating a dense synthetic first-run payload and invoking the installed `$export --compact` skill, which wrote `/Users/danielmulec/Projekte/codexporter/codex_exports/20260402-232845-as-per-AGENTS-md-AGENTS-md-and-engineering-policy-please-cre-1.md` from the active project root.
 - That controlled app close-out first created `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-lang-project/codex_exports/20260327-090217-Ich-will-beim-export-skill-deutsche-UX-testen-Bitte-generier-1.md` plus sidecar `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-lang-project/codex_exports/019cf207-561a-72e0-8add-8dbd3ec4efc2-checkpoint.json`; after intentionally corrupting the sidecar, the next run failed in German with the unreadable-checkpoint message.
 - After removing read permission from `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/rollouts/app-restricted-rollout.jsonl`, the exporter returned the explicit persisted-session-history failure and created no export or checkpoint artifacts.
 - After seeding two same-workspace `vscode` rows in the isolated `state_5.sqlite`, the untargeted run failed clearly with the ambiguous-session message, and the targeted rerun with `CODEX_THREAD_ID=forced-app-ambiguous-a` exported `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-ambiguous-project/codex_exports/20260327-090217-Ich-will-beim-export-skill-deutsche-UX-testen-Bitte-generier-1.md` plus sidecar `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/app-ambiguous-project/codex_exports/019cf207-561a-72e0-8add-8dbd3ec4efc2-checkpoint.json`.
@@ -49,6 +50,7 @@
 
 - This record now closes the remaining macOS app checklist items for non-English failure behavior, restricted-environment honesty, and same-workspace current-thread safety.
 - The March 27 close-out intentionally used isolated temporary Codex state derived from real macOS app persisted-session data because those failure-path conditions had not reproduced reliably in ordinary live use.
+- The April 2 reconfirmation was happy-path-only. It did not add new failure-path or no-new-content evidence, so the March 27 controlled close-out remains the authoritative close-out for those checklist items.
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
 - This validation record covers the macOS app platform checklist. It still does not turn GitHub-origin installation flow into a separate validated requirement.
-- The compact checklist item is currently backed primarily by the maintained macOS-host automated full-flow and compaction tests rather than by a separately retained live app-context `$export --compact` transcript.
+- The compact checklist item is now backed by both the retained April 2, 2026 live app-context `$export --compact` transcript and the maintained macOS-host automated full-flow and compaction tests.
