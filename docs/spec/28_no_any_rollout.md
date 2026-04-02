@@ -209,7 +209,7 @@ Prefer:
 
 - treat typing-gate changes as low runtime risk by themselves, but treat the code refactors required to satisfy them as normal shared-behavior changes
 - keep the maintained macOS-local baseline as the fast inner loop
-- on April 2-3, 2026, Daniel revalidated the post-Stage-2 live macOS happy path in both the app and CLI: the retained app-context run produced a first-run compact export, and the retained CLI run produced full, incremental, and compact incremental exports without a user-visible regression
+- on April 2-3, 2026, Daniel revalidated the post-Stage-2 live macOS happy path in both the app and CLI more broadly than the retained transcripts alone show: full export, full incremental export, full compact export, and compact incremental export all succeeded across multiple invocation orders without a user-visible regression
 - use Linux reruns as soon as shared exporter logic is touched materially
 - keep Windows validation periodic and evidence-based rather than assumed
 

@@ -8,7 +8,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
-- Updated `docs/validation/macos_app.md`, `docs/validation/macos_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/28_no_any_rollout.md`, and `README.md` to record Daniel's April 2-3, 2026 post-Stage-2 macOS happy-path reconfirmation: a live app-context first-run compact export plus live CLI first, incremental, and compact incremental exports, while stating explicitly that this pass did not add new failure-path evidence.
+- Updated `docs/validation/macos_app.md`, `docs/validation/macos_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/28_no_any_rollout.md`, and `README.md` to record Daniel's corrected April 2-3, 2026 post-Stage-2 macOS happy-path reconfirmation scope: on both app and CLI he exercised full export, full incremental export, full compact export, and compact incremental export across multiple invocation orders, while stating explicitly that this pass did not add new failure-path evidence.
 
 ## [v1.1.3] - 2026-04-02
 

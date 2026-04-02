@@ -175,7 +175,7 @@ Current manual validation status:
 
 Latest macOS post-refactor reconfirmation:
 
-- On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor: a macOS app thread produced a first-run compact export, and a macOS CLI thread produced successful full, incremental, and compact incremental exports from the current repo state. This reconfirmation did not add new failure-path coverage.
+- On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor and confirmed the broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all succeeded from the current repo state across multiple invocation orders. The retained local transcripts document example slices of that retest rather than its full breadth. This reconfirmation did not add new failure-path coverage.
 
 See:
 
