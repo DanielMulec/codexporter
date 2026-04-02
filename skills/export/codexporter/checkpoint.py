@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from codexporter.errors import CheckpointError
+from codexporter.json_utils import JsonObject, load_json_object
 from codexporter.messages import checkpoint_mismatch_message, unreadable_checkpoint_message
 from codexporter.models import CheckpointState, ExportEntry, Language, ParsedRollout, SessionInfo
 
@@ -32,11 +33,11 @@ def load_checkpoint(path: Path, language: Language) -> CheckpointState | None:
         return None
 
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
+        payload: JsonObject = load_json_object(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
         raise CheckpointError(unreadable_checkpoint_message(path, language)) from exc
 
-    if not isinstance(payload, dict) or not REQUIRED_FIELDS.issubset(payload):
+    if not REQUIRED_FIELDS.issubset(payload):
         raise CheckpointError(unreadable_checkpoint_message(path, language))
 
     exported_artifacts = payload.get("exported_artifacts")
@@ -44,27 +45,35 @@ def load_checkpoint(path: Path, language: Language) -> CheckpointState | None:
         isinstance(item, str) for item in exported_artifacts
     ):
         raise CheckpointError(unreadable_checkpoint_message(path, language))
+    exported_artifact_paths = [item for item in exported_artifacts if isinstance(item, str)]
 
-    return CheckpointState(
-        schema_version=int(payload["schema_version"]),
-        session_id=str(payload["session_id"]),
-        session_name=str(payload["session_name"]) if payload["session_name"] is not None else None,
-        export_sequence=int(payload["export_sequence"]),
-        last_exported_record_index=int(payload["last_exported_record_index"]),
-        last_exported_event_timestamp=(
-            str(payload["last_exported_event_timestamp"])
-            if payload["last_exported_event_timestamp"] is not None
-            else None
-        ),
-        last_exported_turn_id=(
-            str(payload["last_exported_turn_id"])
-            if payload["last_exported_turn_id"] is not None
-            else None
-        ),
-        exported_artifacts=list(exported_artifacts),
-        created_at=str(payload["created_at"]),
-        updated_at=str(payload["updated_at"]),
-    )
+    try:
+        return CheckpointState(
+            schema_version=_required_int(payload["schema_version"]),
+            session_id=_required_text(payload["session_id"]),
+            session_name=(
+                _optional_text(payload["session_name"])
+                if payload["session_name"] is not None
+                else None
+            ),
+            export_sequence=_required_int(payload["export_sequence"]),
+            last_exported_record_index=_required_int(payload["last_exported_record_index"]),
+            last_exported_event_timestamp=(
+                _optional_text(payload["last_exported_event_timestamp"])
+                if payload["last_exported_event_timestamp"] is not None
+                else None
+            ),
+            last_exported_turn_id=(
+                _optional_text(payload["last_exported_turn_id"])
+                if payload["last_exported_turn_id"] is not None
+                else None
+            ),
+            exported_artifacts=exported_artifact_paths,
+            created_at=_required_text(payload["created_at"]),
+            updated_at=_required_text(payload["updated_at"]),
+        )
+    except ValueError as exc:
+        raise CheckpointError(unreadable_checkpoint_message(path, language)) from exc
 
 
 def validate_checkpoint(state: CheckpointState, parsed: ParsedRollout, path: Path) -> None:
@@ -119,3 +128,25 @@ def _timestamp_to_string(value: datetime | None) -> str | None:
 
 def _required_timestamp(value: datetime) -> str:
     return value.astimezone(UTC).isoformat().replace("+00:00", "Z")
+
+
+def _required_int(value: object) -> int:
+    if isinstance(value, bool | int):
+        return int(value)
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, str):
+        return int(value)
+    raise ValueError("Checkpoint payload used an unsupported numeric shape.")
+
+
+def _required_text(value: object) -> str:
+    if not isinstance(value, str):
+        raise ValueError("Checkpoint payload used an unsupported text shape.")
+    return value
+
+
+def _optional_text(value: object) -> str | None:
+    if value is None:
+        return None
+    return _required_text(value)

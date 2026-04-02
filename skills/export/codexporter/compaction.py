@@ -5,6 +5,7 @@ import re
 import shlex
 from dataclasses import dataclass, replace
 
+from codexporter.json_utils import JsonObject, load_json_object
 from codexporter.models import ExportEntry, RenderProfile
 
 SHORT_DIFF_MAX_LINES = 60
@@ -167,10 +168,8 @@ def _parse_exec_command(entry: ExportEntry | None) -> _CommandDetails | None:
     if entry is None or entry.tool_name != "exec_command" or not entry.arguments:
         return None
     try:
-        payload = json.loads(entry.arguments)
-    except json.JSONDecodeError:
-        return None
-    if not isinstance(payload, dict):
+        payload: JsonObject = load_json_object(entry.arguments)
+    except (ValueError, json.JSONDecodeError):
         return None
     raw_command = payload.get("cmd")
     if not isinstance(raw_command, str) or not raw_command.strip():

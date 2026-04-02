@@ -55,8 +55,8 @@ Decision date: March 13, 2026.
 Decision date: April 2, 2026.
 
 - the repository is adopting a staged no-`Any` hardening plan recorded in `docs/spec/28_no_any_rollout.md`
-- the first rollout stage is now binding in `pyproject.toml`: `mypy` still runs through the same command surface, but it now also blocks explicit `Any` and import-degraded `Any`
-- full repo-wide no-`Any` enforcement is not active yet; later stages still need explicit rollout
+- the first two rollout stages are now binding in `pyproject.toml`: `mypy` still runs through the same command surface, but it now also blocks explicit `Any`, import-degraded `Any`, and `Any` expressions in `codexporter` production modules
+- full repo-wide no-`Any` enforcement is not active yet; the test-suite-wide expression stage still needs explicit rollout
 - the approved rollout order is: block explicit `Any`, block import-degraded `Any`, enforce `disallow_any_expr` for `codexporter` production modules, then extend that enforcement to tests
 - implementation work should narrow dynamic boundary values quickly instead of letting unchecked JSON, SQLite rows, CLI namespace attributes, or similar inputs flow through the application as de facto typed values
 

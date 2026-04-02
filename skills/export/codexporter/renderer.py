@@ -5,6 +5,7 @@ from datetime import UTC, datetime, tzinfo
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+from codexporter.json_utils import load_json_value
 from codexporter.models import ExportEntry, ExportMode, RenderProfile, SessionInfo
 
 
@@ -110,10 +111,10 @@ def _fence_block(raw_text: str) -> str:
     block_language = "text"
     block_body = raw_text.rstrip()
     try:
-        parsed = json.loads(raw_text)
+        parsed = load_json_value(raw_text)
     except json.JSONDecodeError:
         try:
-            parsed = json.loads(raw_text.strip())
+            parsed = load_json_value(raw_text.strip())
         except json.JSONDecodeError:
             parsed = None
 

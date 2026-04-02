@@ -95,7 +95,7 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
-Stage 1 of the staged no-`Any` hardening plan is now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any` and import-degraded `Any`. Later stages remain tracked in `docs/spec/28_no_any_rollout.md`.
+Stages 1 and 2 of the staged no-`Any` hardening plan are now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any`, import-degraded `Any`, and `Any` expressions in the production `codexporter` package. The test-suite-wide expression stage remains tracked in `docs/spec/28_no_any_rollout.md`.
 
 Run the exporter directly from the repo during development:
 
@@ -130,7 +130,7 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
-Stage 1 of the staged no-`Any` hardening plan is now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any` and import-degraded `Any`. Later stages remain tracked in `docs/spec/28_no_any_rollout.md`.
+Stages 1 and 2 of the staged no-`Any` hardening plan are now landed in `pyproject.toml`, so the `mypy` command above already blocks explicit `Any`, import-degraded `Any`, and `Any` expressions in the production `codexporter` package. The test-suite-wide expression stage remains tracked in `docs/spec/28_no_any_rollout.md`.
 
 Run the exporter directly from the repo during development:
 

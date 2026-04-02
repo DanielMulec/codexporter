@@ -6,6 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from codexporter.errors import RolloutAccessError
+from codexporter.json_utils import JsonObject, load_json_object
 from codexporter.messages import detect_language, missing_rollout_message
 from codexporter.models import ExportEntry, ParsedRollout, SessionInfo, ThreadRecord
 
@@ -74,8 +75,8 @@ def _process_record(
     rollout_path: Path,
 ) -> None:
     try:
-        record = json.loads(line)
-    except json.JSONDecodeError as exc:
+        record: JsonObject = load_json_object(line)
+    except (ValueError, json.JSONDecodeError) as exc:
         raise RolloutAccessError(missing_rollout_message(rollout_path)) from exc
 
     timestamp = _parse_timestamp(record.get("timestamp"))

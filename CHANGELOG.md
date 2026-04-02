@@ -6,6 +6,18 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.3] - 2026-04-02
+
+### Added
+
+- Added `skills/export/codexporter/json_utils.py` to contain the stdlib `json.loads(...)` `Any` escape hatch in one narrow helper with explicit JSON value aliases, so production modules can validate decoded shapes immediately instead of propagating dynamic values.
+
+### Changed
+
+- Updated `skills/export/codexporter/session_store.py` to replace raw `sqlite3.Row` propagation with a typed thread-row boundary, reducing dynamic SQLite values to one coercion point before the exporter builds `ThreadRecord`.
+- Updated `skills/export/codexporter/cli.py`, `skills/export/codexporter/renderer.py`, `skills/export/codexporter/rollout_parser.py`, `skills/export/codexporter/compaction.py`, and `skills/export/codexporter/checkpoint.py` so Stage 2 of the approved no-`Any` rollout now lands in production code by narrowing `argparse` inputs and JSON checkpoint or rollout payloads at the module boundary instead of letting implicit `Any` flow deeper into the package.
+- Updated `pyproject.toml`, `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/23_engineering_policy.md`, and `docs/spec/28_no_any_rollout.md` so the repository now states truthfully that production `codexporter` modules are checked with `disallow_any_expr = true` while the test-suite-wide expression stage still remains pending.
+
 ## [v1.1.2] - 2026-04-02
 
 ### Changed

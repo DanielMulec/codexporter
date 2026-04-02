@@ -62,14 +62,14 @@ Preferred replacements for `Any` in this repository are:
 
 ## Current Binding Gates
 
-As of April 2, 2026, Stage 1 is landed in `pyproject.toml`, so the current binding automated gates are:
+As of April 2, 2026, Stages 1 and 2 are landed in `pyproject.toml`, so the current binding automated gates are:
 
 - `pytest`
-- `mypy` in `strict` mode with `disallow_any_explicit = true` and `disallow_any_unimported = true`
+- `mypy` in `strict` mode with `disallow_any_explicit = true`, `disallow_any_unimported = true`, and a production-only `disallow_any_expr = true` override for `codexporter`
 - `ruff check`
 - `ruff format --check`
 
-This document does not claim that repo-wide no-`Any` expression enforcement is already active.
+This document does not claim that repo-wide no-`Any` expression enforcement is already active in tests.
 
 ## Rollout Stages
 
@@ -94,7 +94,7 @@ Acceptance criteria:
 
 ### Stage 2: Enforce No Any Expressions In Production Modules
 
-Approved next gate:
+Landed next gate:
 
 - enable `disallow_any_expr = true` for `codexporter` production modules first
 

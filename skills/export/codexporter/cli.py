@@ -8,6 +8,13 @@ from codexporter.errors import ExporterError
 from codexporter.service import export_current_session
 
 
+class _CliArgs(argparse.Namespace):
+    project_root: Path
+    codex_home: Path | None
+    session_id: str | None
+    compact: bool
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Export the current Codex session to markdown.")
     parser.add_argument(
@@ -32,7 +39,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="Write the export in compact mode by omitting bulky raw tool payloads.",
     )
-    args = parser.parse_args(list(argv) if argv is not None else None)
+    args = parser.parse_args(list(argv) if argv is not None else None, namespace=_CliArgs())
 
     try:
         result = export_current_session(

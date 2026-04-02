@@ -34,7 +34,7 @@
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
 - The maintained macOS-local automated baseline is now 36 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, and compact/full checkpoint-sharing behavior.
-- On April 2, 2026, a stricter one-off mypy audit confirmed that the repo currently has no explicit `Any` annotations but still contains implicit `Any` propagation at dynamic boundaries, the staged remediation plan was recorded in `28_no_any_rollout.md`, and Stage 1 was then landed in `pyproject.toml` by enabling `disallow_any_explicit` and `disallow_any_unimported`.
+- On April 2, 2026, a stricter one-off mypy audit confirmed that the repo currently has no explicit `Any` annotations but still contains implicit `Any` propagation at dynamic boundaries, the staged remediation plan was recorded in `28_no_any_rollout.md`, Stage 1 was landed in `pyproject.toml` by enabling `disallow_any_explicit` and `disallow_any_unimported`, and Stage 2 then landed by enabling `disallow_any_expr` for `codexporter` production modules after the JSON, SQLite, and CLI boundaries were narrowed.
 
 ## Acceptance Criteria
 
@@ -52,4 +52,4 @@
 2. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
 3. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
 4. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
-5. Continue no-`Any` hardening in stages from the now-landed Stage 1 baseline: production-module `disallow_any_expr` next, and test-suite `disallow_any_expr` only after the production stage is green.
+5. Continue no-`Any` hardening from the now-landed Stage 2 baseline by extending `disallow_any_expr` to the tests only after the test fixture and JSON assertion boundaries are cleaned up.
