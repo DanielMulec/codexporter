@@ -6,6 +6,16 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.1] - 2026-04-02
+
+### Added
+
+- Added `docs/spec/28_no_any_rollout.md` to record the approved staged no-`Any` hardening plan, including the current implicit-`Any` audit result, the rollout order for `mypy` `--disallow-any-*` enforcement, and the policy for using a Fedora Linux guest on Daniel's Mac as supplemental Linux CLI validation evidence once directly observed.
+
+### Changed
+
+- Updated `docs/spec/23_engineering_policy.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/22_platform_validation.md`, and `README.md` so the repository now distinguishes clearly between the current enforced `mypy strict` baseline and the newly approved staged no-`Any` rollout instead of implying that `strict` already bans all `Any`.
+
 ## [v1.1.0] - 2026-04-01
 
 ### Added

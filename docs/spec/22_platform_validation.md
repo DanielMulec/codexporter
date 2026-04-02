@@ -41,6 +41,8 @@ Acceptable evidence may include:
 - captured artifact examples from the target environment
 - concise validation notes recorded against the checklist below
 
+For Linux CLI validation, directly observed execution inside a Linux guest or VM may count as Linux evidence when the guest environment is recorded explicitly. It does not count as Windows evidence and does not replace Windows validation.
+
 ## Result Vocabulary
 
 Use the following result labels in checklist records:

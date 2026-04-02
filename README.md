@@ -95,6 +95,8 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
+The staged no-`Any` hardening plan is tracked separately in `docs/spec/28_no_any_rollout.md`. Until those stages are landed in `pyproject.toml`, the commands above remain the current binding local gate set.
+
 Run the exporter directly from the repo during development:
 
 ```bash
@@ -127,6 +129,8 @@ python -m mypy skills/export tests
 python -m ruff check .
 python -m ruff format --check .
 ```
+
+The staged no-`Any` hardening plan is tracked separately in `docs/spec/28_no_any_rollout.md`. Until those stages are landed in `pyproject.toml`, the commands above remain the current binding local gate set.
 
 Run the exporter directly from the repo during development:
 

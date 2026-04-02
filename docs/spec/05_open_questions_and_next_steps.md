@@ -2,14 +2,15 @@
 
 ## Status
 
-- Phase: validated v1 baseline with implemented initial compact mode
-- Date: March 27, 2026
+- Phase: validated v1 baseline with implemented initial compact mode and staged no-`Any` hardening plan
+- Date: April 2, 2026
 
 ## Key Open Questions
 
 - No blocking v1 Windows validation questions remain after the March 27, 2026 close-out.
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
+- How quickly do we want to move from production-only no-`Any` enforcement into test-suite-wide no-`Any` enforcement after the production pass is green?
 
 ## Recommended Next Spec Steps
 
@@ -20,6 +21,8 @@
 5. Update validation docs only with directly observed runtime evidence.
 6. Preserve the March 22, 2026 retrospective `skill-installer` confirmations in the platform validation notes and add richer installer metadata later only if it materially helps future release or support work.
 7. Use future compact-mode work only for threshold tuning, additional deterministic compaction rules, or explicitly documented new render profiles rather than reopening the first compact-mode contract.
+8. Use `28_no_any_rollout.md` as the source of truth for the staged no-`Any` hardening order; do not claim repo-wide no-`Any` enforcement until the corresponding mypy settings are actually enabled.
+9. When the rollout reaches shared exporter refactors, use directly observed Linux reruns, including a Fedora guest on Daniel's Mac when available, as supplemental Linux evidence rather than as assumed coverage.
 
 ## Current Repo State
 
@@ -31,6 +34,7 @@
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
 - The maintained macOS-local automated baseline is now 36 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, and compact/full checkpoint-sharing behavior.
+- On April 2, 2026, a stricter one-off mypy audit confirmed that the repo currently has no explicit `Any` annotations but still contains implicit `Any` propagation at dynamic boundaries, and the staged remediation plan is now recorded in `28_no_any_rollout.md`.
 
 ## Acceptance Criteria
 
@@ -48,3 +52,4 @@
 2. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
 3. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
 4. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
+5. Land no-`Any` hardening in stages: explicit/import-degraded `Any` first, production-module `disallow_any_expr` next, and test-suite `disallow_any_expr` only after the production stage is green.

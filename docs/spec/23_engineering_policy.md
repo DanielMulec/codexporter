@@ -50,6 +50,15 @@ Decision date: March 13, 2026.
 - `ruff` rule `C901` is required with `lint.mccabe.max-complexity = 10`.
 - Do not add `flake8`, `pylint`, SonarQube, or another second general-purpose static-analysis layer unless a demonstrated gap justifies it.
 
+### Typed Any Hardening
+
+Decision date: April 2, 2026.
+
+- the repository is adopting a staged no-`Any` hardening plan recorded in `docs/spec/28_no_any_rollout.md`
+- until the corresponding settings are actually added to `pyproject.toml`, the current binding mypy gate remains `strict` mode rather than full repo-wide no-`Any` enforcement
+- the approved rollout order is: block explicit `Any`, block import-degraded `Any`, enforce `disallow_any_expr` for `codexporter` production modules, then extend that enforcement to tests
+- implementation work should narrow dynamic boundary values quickly instead of letting unchecked JSON, SQLite rows, CLI namespace attributes, or similar inputs flow through the application as de facto typed values
+
 ### Modular File Size Rule
 
 - no `.py` source file should exceed 400 lines without strong justification
