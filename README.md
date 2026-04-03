@@ -173,9 +173,12 @@ Current manual validation status:
 - Windows Codex CLI: validated
 - Windows Codex app: validated
 
-Latest macOS post-refactor reconfirmation:
+Latest post-refactor reconfirmation:
 
-- On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor and confirmed the broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all succeeded from the current repo state across multiple invocation orders. The retained local transcripts document example slices of that retest rather than its full breadth. This reconfirmation did not add new failure-path coverage.
+- On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor and confirmed the broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all succeeded from the current repo state across multiple invocation orders. The retained local transcripts document example slices of that retest rather than its full breadth.
+- On April 3, 2026, Daniel also reran live Linux happy-path checks after the same refactor and confirmed that both full and compact exports still worked from the current repo state.
+- The Windows post-Stage-2 retest is not recorded yet; Daniel has the Windows UTM setup in progress and is waiting to run it.
+- These reconfirmations did not add new failure-path coverage.
 
 See:
 
