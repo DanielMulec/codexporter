@@ -211,6 +211,7 @@ Prefer:
 - keep the maintained macOS-local baseline as the fast inner loop
 - on April 2-3, 2026, Daniel revalidated the post-Stage-2 live macOS happy path in both the app and CLI more broadly than the retained transcripts alone show: full export, full incremental export, full compact export, and compact incremental export all succeeded across multiple invocation orders without a user-visible regression
 - on April 3, 2026, Daniel also revalidated the post-Stage-2 live Linux happy path and confirmed that both full and compact exports still worked from the current repo state
+- on April 3, 2026, Daniel also revalidated the post-Stage-2 live Windows happy path in both the app and CLI and confirmed that full export, full incremental export, full compact export, and compact incremental export all still worked across multiple invocation orders
 - use Linux reruns as soon as shared exporter logic is touched materially
 - keep Windows validation periodic and evidence-based rather than assumed
 

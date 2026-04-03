@@ -8,7 +8,7 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
-- Updated `docs/validation/macos_app.md`, `docs/validation/macos_cli.md`, `docs/validation/linux_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/28_no_any_rollout.md`, and `README.md` to record Daniel's corrected April 2-3, 2026 macOS post-Stage-2 happy-path reconfirmation scope plus the April 3, 2026 Linux post-Stage-2 happy-path reconfirmation, and to note explicitly that the Windows post-Stage-2 retest is still pending in UTM.
+- Updated `docs/validation/macos_app.md`, `docs/validation/macos_cli.md`, `docs/validation/linux_cli.md`, `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/28_no_any_rollout.md`, and `README.md` to record Daniel's corrected April 2-3, 2026 macOS post-Stage-2 happy-path reconfirmation scope plus the April 3, 2026 Linux and Windows post-Stage-2 happy-path reconfirmations, including full and compact export behavior across multiple invocation orders.
 
 ## [v1.1.3] - 2026-04-02
 
