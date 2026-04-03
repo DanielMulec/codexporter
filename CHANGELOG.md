@@ -6,9 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.4] - 2026-04-03
+
 ### Changed
 
 - Updated `docs/validation/macos_app.md`, `docs/validation/macos_cli.md`, `docs/validation/linux_cli.md`, `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/28_no_any_rollout.md`, and `README.md` to record Daniel's corrected April 2-3, 2026 macOS post-Stage-2 happy-path reconfirmation scope plus the April 3, 2026 Linux and Windows post-Stage-2 happy-path reconfirmations, including full and compact export behavior across multiple invocation orders.
+- Updated `tests/conftest.py`, `tests/test_fixture_rendering.py`, `tests/test_exporter.py`, `tests/test_checkpoint_edges.py`, and `tests/test_compact_mode.py` so Stage 3 of the no-`Any` rollout now lands in the test suite by replacing ad hoc decoded-JSON handling with typed helper boundaries and explicit JSON field assertions.
+- Updated `pyproject.toml`, `README.md`, `docs/spec/05_open_questions_and_next_steps.md`, `docs/spec/23_engineering_policy.md`, and `docs/spec/28_no_any_rollout.md` so the repository now states truthfully that repo-wide `disallow_any_expr = true` is active, making the approved staged no-`Any` baseline complete rather than still partly pending.
 
 ## [v1.1.3] - 2026-04-02
 

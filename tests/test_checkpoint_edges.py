@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pytest
 
 from codexporter.checkpoint import REQUIRED_FIELDS, SCHEMA_VERSION
 from codexporter.errors import CheckpointError, ExporterError
+from codexporter.json_utils import load_json_object
 from codexporter.service import export_current_session
-from conftest import SessionFixture
+from conftest import SessionFixture, json_int_field, json_string_list_field, json_text_field
 
 
 def test_sidecar_json_contains_required_v1_fields(session_fixture: SessionFixture) -> None:
@@ -18,14 +18,14 @@ def test_sidecar_json_contains_required_v1_fields(session_fixture: SessionFixtur
         now=session_fixture.first_export_time,
     )
 
-    payload = json.loads(result.sidecar_path.read_text(encoding="utf-8"))
+    payload = load_json_object(result.sidecar_path.read_text(encoding="utf-8"))
 
     assert set(payload) == REQUIRED_FIELDS
-    assert payload["schema_version"] == SCHEMA_VERSION
-    assert payload["session_id"] == session_fixture.session_id
-    assert payload["session_name"] == "Spec Export Planning"
-    assert payload["export_sequence"] == 1
-    assert payload["exported_artifacts"] == [str(result.export_path)]
+    assert json_int_field(payload, "schema_version") == SCHEMA_VERSION
+    assert json_text_field(payload, "session_id") == session_fixture.session_id
+    assert json_text_field(payload, "session_name") == "Spec Export Planning"
+    assert json_int_field(payload, "export_sequence") == 1
+    assert json_string_list_field(payload, "exported_artifacts") == [str(result.export_path)]
 
 
 def test_incomplete_checkpoint_sidecar_fails_safely(session_fixture: SessionFixture) -> None:

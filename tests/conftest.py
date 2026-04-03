@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pytest
 
+from codexporter.json_utils import JsonObject, JsonValue, load_json_object, load_json_value
+
 FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "session_alpha"
 PLACEHOLDER = "__PROJECT_ROOT__"
 SESSION_ID = "019aaa00-bbbb-7ccc-8ddd-eeeeffff0001"
@@ -193,12 +195,81 @@ def render_rollout_jsonl_template(
     for line in template_path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
-        record = json.loads(line)
+        record = load_json_object(line)
         rendered_record = _replace_nested_string_values(record, project_root, replacements)
         rendered_lines.append(
             json.dumps(rendered_record, ensure_ascii=False, separators=(",", ":"))
         )
     return "\n".join(rendered_lines).rstrip("\n") + "\n"
+
+
+def load_json_lines(text: str) -> list[JsonObject]:
+    return [load_json_object(line) for line in text.splitlines() if line.strip()]
+
+
+def dump_json_value(
+    value: JsonValue,
+    *,
+    ensure_ascii: bool = True,
+    separators: tuple[str, str] | None = None,
+    indent: int | None = None,
+    sort_keys: bool = False,
+) -> str:
+    return json.dumps(
+        value,
+        ensure_ascii=ensure_ascii,
+        separators=separators,
+        indent=indent,
+        sort_keys=sort_keys,
+    )
+
+
+def json_field(payload: JsonObject, key: str) -> JsonValue:
+    if key not in payload:
+        raise AssertionError(f"Expected JSON key '{key}'.")
+    return payload[key]
+
+
+def json_object_field(payload: JsonObject, key: str) -> JsonObject:
+    return require_json_object(json_field(payload, key))
+
+
+def json_text_field(payload: JsonObject, key: str) -> str:
+    return require_json_text(json_field(payload, key))
+
+
+def json_int_field(payload: JsonObject, key: str) -> int:
+    return require_json_int(json_field(payload, key))
+
+
+def json_string_list_field(payload: JsonObject, key: str) -> list[str]:
+    return require_json_string_list(json_field(payload, key))
+
+
+def require_json_object(value: JsonValue) -> JsonObject:
+    if not isinstance(value, dict):
+        raise AssertionError("Expected a JSON object.")
+    return value
+
+
+def require_json_text(value: JsonValue) -> str:
+    if not isinstance(value, str):
+        raise AssertionError("Expected a JSON string.")
+    return value
+
+
+def require_json_int(value: JsonValue) -> int:
+    if isinstance(value, bool):
+        raise AssertionError("Expected a JSON integer, not a boolean.")
+    if isinstance(value, int):
+        return value
+    raise AssertionError("Expected a JSON integer.")
+
+
+def require_json_string_list(value: JsonValue) -> list[str]:
+    if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+        raise AssertionError("Expected a JSON list of strings.")
+    return [item for item in value if isinstance(item, str)]
 
 
 def _write_rollout_template(
@@ -213,10 +284,10 @@ def _write_rollout_template(
 
 
 def _replace_nested_string_values(
-    value: object,
+    value: JsonValue,
     project_root: Path,
     replacements: Mapping[str, str] | None = None,
-) -> object:
+) -> JsonValue:
     if isinstance(value, str):
         return _replace_string_values(value, project_root, replacements)
     if isinstance(value, list):
@@ -263,7 +334,7 @@ def _reencode_nested_json_string(
         return None
 
     try:
-        nested_payload = json.loads(value)
+        nested_payload = load_json_value(value)
     except json.JSONDecodeError:
         return None
 
@@ -295,7 +366,7 @@ def _render_markdown_template_content(
 
         if line == "```":
             try:
-                parsed_payload = json.loads("\n".join(fence_lines))
+                parsed_payload = load_json_value("\n".join(fence_lines))
             except json.JSONDecodeError:
                 rendered_lines.extend(
                     _replace_plain_string_values(block_line, project_root, replacements)

@@ -10,7 +10,7 @@
 - No blocking v1 Windows validation questions remain after the March 27, 2026 close-out.
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
-- How quickly do we want to move from production-only no-`Any` enforcement into test-suite-wide no-`Any` enforcement after the production pass is green?
+- Do we want any of the lower-value extra mypy `Any` flags after the now-complete Stage 3 baseline, or is the current repo-wide `disallow_any_expr` posture sufficient?
 
 ## Recommended Next Spec Steps
 
@@ -34,7 +34,7 @@
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
 - The maintained macOS-local automated baseline is now 36 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, and compact/full checkpoint-sharing behavior.
-- On April 2, 2026, a stricter one-off mypy audit confirmed that the repo currently has no explicit `Any` annotations but still contains implicit `Any` propagation at dynamic boundaries, the staged remediation plan was recorded in `28_no_any_rollout.md`, Stage 1 was landed in `pyproject.toml` by enabling `disallow_any_explicit` and `disallow_any_unimported`, and Stage 2 then landed by enabling `disallow_any_expr` for `codexporter` production modules after the JSON, SQLite, and CLI boundaries were narrowed.
+- On April 2-3, 2026, the staged no-`Any` hardening plan moved from audit to completed baseline: Stage 1 landed by enabling `disallow_any_explicit` and `disallow_any_unimported`, Stage 2 landed after narrowing the production JSON, SQLite, and CLI boundaries, and Stage 3 then landed after the test fixture and JSON assertion helpers were typed well enough for repo-wide `disallow_any_expr`.
 - On April 2-3, 2026, Daniel revalidated the post-Stage-2 macOS happy path from live Codex surfaces more broadly than the retained local transcripts alone show: on both macOS app and macOS CLI he exercised full export, full incremental export, full compact export, and compact incremental export from the current repo state across multiple invocation orders. The retained transcripts document example slices of that broader retest. This reconfirmation was happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, Daniel also revalidated the post-Stage-2 Linux happy path and confirmed that both full and compact exports still worked from the current repo state. That Linux reconfirmation was also happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, Daniel also revalidated the post-Stage-2 Windows happy path more broadly than the earlier retained evidence alone showed: on both Windows app and Windows CLI he exercised full export, full incremental export, full compact export, and compact incremental export from the current repo state across multiple invocation orders. This Windows reconfirmation was also happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
@@ -55,4 +55,4 @@
 2. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
 3. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
 4. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
-5. Continue no-`Any` hardening from the now-landed Stage 2 baseline by extending `disallow_any_expr` to the tests only after the test fixture and JSON assertion boundaries are cleaned up.
+5. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.

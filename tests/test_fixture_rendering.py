@@ -1,9 +1,16 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
-from conftest import FIXTURE_ROOT, render_markdown_template, render_rollout_jsonl_template
+from codexporter.json_utils import load_json_object
+from conftest import (
+    FIXTURE_ROOT,
+    json_object_field,
+    json_text_field,
+    load_json_lines,
+    render_markdown_template,
+    render_rollout_jsonl_template,
+)
 
 
 def test_windows_path_rollout_template_renders_valid_jsonl_and_plain_markdown() -> None:
@@ -13,18 +20,23 @@ def test_windows_path_rollout_template_renders_valid_jsonl_and_plain_markdown() 
         FIXTURE_ROOT / "rollout_initial.jsonl",
         project_root,
     )
-    records = [json.loads(line) for line in rendered_rollout.splitlines()]
+    records = load_json_lines(rendered_rollout)
 
-    turn_context = next(record for record in records if record["type"] == "turn_context")
+    turn_context = next(
+        record for record in records if json_text_field(record, "type") == "turn_context"
+    )
     tool_call = next(
         record
         for record in records
-        if record["type"] == "response_item" and record["payload"]["type"] == "function_call"
+        if json_text_field(record, "type") == "response_item"
+        and json_text_field(json_object_field(record, "payload"), "type") == "function_call"
     )
-    tool_arguments = json.loads(tool_call["payload"]["arguments"])
+    tool_arguments = load_json_object(
+        json_text_field(json_object_field(tool_call, "payload"), "arguments")
+    )
 
-    assert turn_context["payload"]["cwd"] == str(project_root)
-    assert tool_arguments["workdir"] == str(project_root)
+    assert json_text_field(json_object_field(turn_context, "payload"), "cwd") == str(project_root)
+    assert json_text_field(tool_arguments, "workdir") == str(project_root)
 
     rendered_markdown = render_markdown_template(
         FIXTURE_ROOT / "expected" / "initial_export.md",
@@ -32,4 +44,4 @@ def test_windows_path_rollout_template_renders_valid_jsonl_and_plain_markdown() 
     )
     assert f"- Current working directory: {project_root}" in rendered_markdown
     markdown_arguments = rendered_markdown.split("```json\n", 1)[1].split("\n```", 1)[0]
-    assert json.loads(markdown_arguments)["workdir"] == str(project_root)
+    assert json_text_field(load_json_object(markdown_arguments), "workdir") == str(project_root)

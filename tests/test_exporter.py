@@ -6,6 +6,7 @@ import pytest
 
 from codexporter.checkpoint import load_checkpoint
 from codexporter.errors import CheckpointError
+from codexporter.json_utils import load_json_object
 from codexporter.service import export_current_session
 from conftest import SessionFixture
 
@@ -146,7 +147,7 @@ def test_checkpoint_cursor_mismatch_fails_without_new_artifact(
         now=session_fixture.first_export_time,
     )
     assert first_result.export_path is not None
-    sidecar_payload = json.loads(session_fixture.sidecar_path.read_text(encoding="utf-8"))
+    sidecar_payload = load_json_object(session_fixture.sidecar_path.read_text(encoding="utf-8"))
     sidecar_payload["last_exported_event_timestamp"] = "2026-03-13T19:00:10Z"
     session_fixture.sidecar_path.write_text(
         json.dumps(sidecar_payload, indent=2) + "\n", encoding="utf-8"

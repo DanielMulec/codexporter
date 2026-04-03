@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -8,9 +7,10 @@ import pytest
 
 from codexporter.cli import main
 from codexporter.compaction import prepare_entries_for_render
+from codexporter.json_utils import JsonObject, JsonValue
 from codexporter.models import ExportEntry
 from codexporter.service import export_current_session
-from conftest import SessionFixture, build_session_fixture
+from conftest import SessionFixture, build_session_fixture, dump_json_value
 
 
 def test_prepare_entries_for_render_compacts_bulky_tool_payloads() -> None:
@@ -93,11 +93,10 @@ def test_export_current_session_compact_shares_checkpoint_with_full_mode(
 
 
 def test_prepare_entries_for_render_compacts_oversized_json_output() -> None:
-    large_json_output = json.dumps(
-        [{"index": index, "value": f"item-{index:03d}"} for index in range(400)],
-        indent=2,
-        sort_keys=True,
-    )
+    large_report: JsonValue = [
+        {"index": index, "value": f"item-{index:03d}"} for index in range(400)
+    ]
+    large_json_output = dump_json_value(large_report, indent=2, sort_keys=True)
     entries = (
         _tool_call(1, "call-json", "exec_command", '{"cmd":"jq \'.\' build/report.json"}'),
         _tool_output(2, "call-json", "exec_command", large_json_output),
@@ -178,7 +177,7 @@ def _tool_output(
 
 
 def _write_compact_rollout_fixture(session_fixture: SessionFixture) -> None:
-    records = [
+    records: list[JsonObject] = [
         {
             "timestamp": "2026-03-13T19:00:00Z",
             "type": "session_meta",
@@ -246,7 +245,7 @@ def _write_compact_rollout_fixture(session_fixture: SessionFixture) -> None:
             "payload": {
                 "type": "function_call",
                 "name": "exec_command",
-                "arguments": json.dumps({"cmd": "sed -n '1,120p' src/app.py"}),
+                "arguments": dump_json_value({"cmd": "sed -n '1,120p' src/app.py"}),
                 "call_id": "call-read",
             },
         },
@@ -302,7 +301,7 @@ def _write_compact_rollout_fixture(session_fixture: SessionFixture) -> None:
             "payload": {
                 "type": "function_call",
                 "name": "exec_command",
-                "arguments": json.dumps({"cmd": "git diff -- src/app.py"}),
+                "arguments": dump_json_value({"cmd": "git diff -- src/app.py"}),
                 "call_id": "call-diff",
             },
         },
@@ -321,7 +320,7 @@ def _write_compact_rollout_fixture(session_fixture: SessionFixture) -> None:
             "payload": {
                 "type": "function_call",
                 "name": "exec_command",
-                "arguments": json.dumps({"cmd": "rg --files"}),
+                "arguments": dump_json_value({"cmd": "rg --files"}),
                 "call_id": "call-list",
             },
         },
@@ -358,7 +357,7 @@ def _write_compact_rollout_fixture(session_fixture: SessionFixture) -> None:
         },
     ]
     session_fixture.rollout_path.write_text(
-        "\n".join(json.dumps(record, separators=(",", ":")) for record in records) + "\n",
+        "\n".join(dump_json_value(record, separators=(",", ":")) for record in records) + "\n",
         encoding="utf-8",
     )
 
