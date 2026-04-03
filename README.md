@@ -171,8 +171,8 @@ Current manual validation status:
 - macOS Codex app: validated
 - macOS Codex CLI: validated
 - Linux Codex CLI: validated
-- Windows Codex CLI: validated
-- Windows Codex app: validated
+- Windows Codex CLI: historical validated baseline retained, but broader Windows post-refactor sign-off is still open
+- Windows Codex app: not currently revalidated on the current repo state
 
 Latest post-refactor reconfirmation:
 
@@ -180,6 +180,7 @@ Latest post-refactor reconfirmation:
 - On April 3, 2026, a fresh Linux-host post-refactor rerun refreshed more than the earlier happy-path note: it recreated `.venv`, reran all four binding gates cleanly, then captured live current-thread full export, live ambiguity fail-closed behavior, live compact incremental export, compact-first/full-second shared-checkpoint replay, explicit no-new-content behavior, German checkpoint-failure localization, denied rollout access, explicit workspace-mismatch failure, and unsafe-project-root rejection from isolated temporary Codex homes derived from the current live Linux CLI thread.
 - On April 3, 2026, Daniel also reran live Windows happy-path checks after the same refactor and confirmed the same broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all still worked from the current repo state across multiple invocation orders.
 - The macOS and Windows notes above still describe happy-path-only reconfirmations; the Linux rerun now also refreshes direct failure-path coverage on the current repo state.
+- On April 3, 2026, a deeper Windows 11 ARM audit then reran the current repo in a fresh temporary `.venv`, replayed copied Windows Codex homes derived from the live app thread, and re-confirmed Windows ambiguity fail-closed behavior, targeted `\\?\` recovery, workspace-mismatch rejection, denied rollout access handling, German checkpoint-failure localization, and unsafe installed-skill-directory rejection. That same audit also found three current blockers for broader Windows post-refactor sign-off on this machine: real app-style compact exports still leak bulky raw `shell_command` file-read output, the installed global skill is stale relative to the repo, and a long-path Windows project root still fails during export writing on the repo entrypoint. See `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md`.
 
 See:
 
@@ -195,7 +196,7 @@ Windows automated validation note:
 - On March 27, 2026, the cross-platform Windows test-harness close-out landed: UTC-only unit test construction is now host-independent, fenced markdown JSON expectations are rendered structurally, and repo-root `ruff` traversals now ignore `pytest-cache-files-*` temp directories.
 - On March 27, 2026, a fresh Windows `.venv` rerun passed `python -m pytest`, `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .`.
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays captured German checkpoint-failure messaging, explicit persisted-session-history failures under denied read access, and same-workspace ambiguity recovery from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts.
-- The Windows validation close-out and remaining non-blocking follow-up are tracked in `docs/spec/05_open_questions_and_next_steps.md`.
+- The current Windows validation blockers and follow-up are tracked in `docs/spec/05_open_questions_and_next_steps.md` and `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md`.
 
 ## Notes
 

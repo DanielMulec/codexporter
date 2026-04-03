@@ -1,11 +1,11 @@
 # Windows Codex App Validation
 
-- Validation dates: March 18-20, March 27, and April 3, 2026
-- Validation status: validated
+- Validation dates: March 18-20, March 27, April 3, and April 3, 2026 post-refactor audit
+- Validation status: not currently revalidated on the current repo state
 - Host OS: Windows
 - Codex surface: Codex Desktop app context
 - Rollout source field: `vscode`
-- Codex versions observed: `0.115.0-alpha.27` and `0.112.0-alpha.3`
+- Codex versions observed: `0.115.0-alpha.27`, `0.112.0-alpha.3`, and `0.118.0-alpha.2`
 - Models observed: `gpt-5.4`
 - Approval modes observed: `never` and `on-request`
 - Sandbox modes observed: `danger-full-access` and `workspace-write` without network access
@@ -27,6 +27,10 @@
 - On March 27, 2026, ran `.\.venv\Scripts\python.exe skills/export/scripts/export_skill.py` on Windows against isolated temporary Codex homes under `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w`, populated with copied real Windows app thread rows and copied rollout artifacts so the remaining non-happy-path cases could be forced without mutating live app state.
 - The fresh Windows-host automated gate rerun on March 31, 2026 passed `.\.venv\Scripts\python.exe -m pytest`, including the explicit compact full-flow and deterministic compaction coverage that exercises `$export --compact`, large raw payload omission, short-diff retention, oversized JSON-output compaction, and shared checkpoint behavior.
 - On April 3, 2026, Daniel revalidated the post-Stage-2 live Windows app happy path and confirmed that full export, full incremental export, full compact export, and compact incremental export all still worked from the current repo state across multiple invocation orders, including mixed full-to-compact and compact-to-full sequences. This reconfirmation was happy-path-only; no new failure-path or ambiguity evidence was added in that pass.
+- On April 3, 2026, a deeper Windows 11 ARM audit then reran the current `main` repo entrypoint on the live app thread plus isolated copied app-style Codex homes derived from that live thread. That audit re-confirmed first export, incremental export, no-new-content behavior, ambiguity fail-closed behavior, targeted `\\?\` current-thread recovery, workspace-mismatch rejection, denied rollout access handling, German checkpoint-failure localization, unsafe installed-skill-directory rejection, and a fresh green temporary Windows `.venv` run of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
+- The same April 3, 2026 audit also reproduced a new blocking app-surface issue on the current repo state: a real Windows app-style compact export still preserved bulky raw `shell_command` file-read output such as the full `pyproject.toml` body, so the compact render profile did not satisfy the deterministic omission contract on that live Windows Desktop-style surface.
+- That audit also established that the globally installed skill under `C:\Users\Daniel\.codex\skills\export` was stale relative to the current repo revision, which means installed-skill manual runs on this machine can no longer be treated as evidence for the current `main` repo state until the install is refreshed.
+- The same audit additionally reproduced a long-path Windows write failure on the repo entrypoint at an estimated final export-path length of about `276` characters, and observed that successful targeted recovery from a persisted `\\?\` path spelling still surfaces that raw extended-length form in the user-facing success message.
 - The localized failure-path replay used copied real Windows app thread `019cdd30-b865-76f3-9612-6f801fe45575`, source `vscode`, Codex `0.112.0-alpha.3`, model `gpt-5.4`, approval `never`, sandbox `danger-full-access`, and rollout copy `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\rollouts\app-language-rollout.jsonl`.
 - That localized failure-path replay first created `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\app-lang-project\codex_exports\20260327-144752-Hey-GPT-Ich-hoffe-dass-wir-auch-auf-Deutsch-hier-eine-ideale-1.md` plus sidecar `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\app-lang-project\codex_exports\019cdd30-b865-76f3-9612-6f801fe45575-checkpoint.json`; after intentionally corrupting the sidecar, the next run failed in German with the unreadable-checkpoint message.
 - The restricted-access and ambiguity close-out used copied real Windows app thread `019d0bd3-71ff-7823-8295-203d79cd8338`, source `vscode`, Codex `0.115.0-alpha.27`, model `gpt-5.4`, approval `on-request`, sandbox `workspace-write` without network access.
@@ -46,13 +50,14 @@
 - language-sensitive failure messaging: pass
 - restricted-environment honesty: pass
 - current-thread targeting under shared-workspace ambiguity or path variation: pass
-- compact export behavior: pass
+- compact export behavior: fail
 
 ## Notes
 
-- This record now closes the remaining Windows app checklist items for non-English failure behavior, restricted-environment honesty, and same-workspace current-thread safety.
+- This file preserves the historical March 18-27 Windows app evidence, but the April 3, 2026 post-refactor audit re-opened Windows app validation on the current repo state because compact-mode behavior failed on a real Windows app-style session.
 - The March 27 close-out intentionally used isolated temporary Codex state derived from real Windows app persisted-session data because those failure-path conditions had not reproduced reliably in ordinary live use.
-- The April 3 reconfirmation was happy-path-only. It did not add new failure-path, no-new-content, or ambiguity evidence, so the March 27 controlled close-out remains the authoritative close-out for those checklist items.
+- The April 3 happy-path reconfirmation was still useful evidence, but it did not add new failure-path, no-new-content, or ambiguity evidence, so the March 27 controlled close-out remains the authoritative close-out for those checklist items.
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
-- With the March 18-20 live success-path evidence, the March 27 controlled close-out evidence, and the fresh Windows `.venv` gate rerun, the Windows app checklist is fully observed.
-- The compact checklist item is now backed by Daniel's April 3, 2026 live Windows app retest across full and compact export orders plus the fresh Windows-host automated full-flow and compaction tests.
+- The compact checklist item is not currently closed for the current repo state because the reproduced Windows app-style `shell_command` compact export still leaked bulky raw file-read output instead of replacing it with the approved deterministic omission marker.
+- The stale installed-skill finding means future Windows app installed-skill checks on this machine must prove install parity with the repo before they count as validation evidence for the current revision.
+- See `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md` for the full April 3, 2026 audit and its relationship to the separate March 28 session-discovery proposal.

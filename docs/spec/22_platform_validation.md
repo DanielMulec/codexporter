@@ -138,7 +138,7 @@ When practical, validation should include at least one condition that distinguis
 ### Windows Codex CLI
 
 - Target status: primary v1 target
-- Validated status: validated
+- Validated status: validated baseline retained, but current Windows-wide post-refactor sign-off is still open
 - Evidence source: `docs/validation/windows_cli.md`
 - Codex version: March 20 live happy-path metadata not recorded; March 27 controlled close-out on `0.116.0`
 - Source surface: Codex CLI
@@ -158,12 +158,13 @@ When practical, validation should include at least one condition that distinguis
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
   - compact export behavior: `pass`
 - Notes: Daniel recorded direct real-user Windows CLI happy-path evidence on March 20, 2026. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, first/incremental/no-new-content sequencing, visible-chat-first markdown inspection, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery while the temp state DB used Windows extended-length `\\?\` path spelling. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`. On April 3, 2026, Daniel then revalidated the post-Stage-2 live Windows CLI happy path and confirmed that full export, full incremental export, full compact export, and compact incremental export all still worked from the current repo state across multiple invocation orders, including mixed full-to-compact and compact-to-full sequences. That April reconfirmation was happy-path-only, so the March 27 controlled close-out remains the authoritative failure-path and ambiguity evidence for this platform.
-  The compact checklist item for this platform is now backed by Daniel's April 3, 2026 live Windows CLI retest across full and compact export orders plus that fresh Windows-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
+  On April 3, 2026, a deeper Windows 11 ARM audit of the current repo state reran the Windows gates in a fresh temporary `.venv` and replayed copied Windows Codex homes derived from the current live app thread, which reconfirmed the current repo entrypoint's ambiguity fail-closed behavior, targeted `\\?\` recovery, workspace-mismatch rejection, denied rollout access handling, German checkpoint-failure localization, and unsafe installed-skill-directory rejection. That audit did not freshly rerun the live CLI surface itself, but it did find two cross-cutting Windows issues that keep the broader Windows post-refactor sign-off open on this machine: the globally installed skill was stale relative to the repo, and a long-path Windows project root still failed during export writing on the current repo entrypoint.
+  The historical compact checklist item for this platform remains backed by Daniel's April 3, 2026 live Windows CLI retest across full and compact export orders plus that fresh Windows-host automated gate rerun, which includes the explicit compact full-flow and compaction tests. The broader Windows-wide post-refactor sign-off is still open for the reasons captured in `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md`.
 
 ### Windows Codex app
 
 - Target status: primary v1 target
-- Validated status: validated
+- Validated status: not currently revalidated on the current repo state
 - Evidence source: `docs/validation/windows_app.md`
 - Codex version: `0.115.0-alpha.27` and `0.112.0-alpha.3`
 - Source surface: Codex Desktop app context, rollout source field `vscode`
@@ -181,9 +182,11 @@ When practical, validation should include at least one condition that distinguis
   - language-sensitive failure messaging: `pass`
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
-  - compact export behavior: `pass`
+  - compact export behavior: `fail`
 - Notes: direct real-user validation by Daniel recorded on March 18-20, 2026 in Windows Codex Desktop app context; validation covered the previously broken current-thread targeting case where the persisted thread row used a `\\?\` Windows path spelling while the invoking workspace used the plain drive-letter form, plus installed-skill happy-path, incremental behavior, and no-new-content behavior. On March 27, 2026, the production entrypoint was rerun on Windows against isolated temporary Codex homes derived from copied real app thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, explicit persisted-session-history failure under denied read access, same-workspace ambiguity fail-closed behavior, and targeted current-thread recovery without mutating live app data. The same day also produced a fresh green Windows `.venv` rerun of `pytest`, `mypy`, `ruff check`, and `ruff format --check`. On April 3, 2026, Daniel then revalidated the post-Stage-2 live Windows app happy path and confirmed that full export, full incremental export, full compact export, and compact incremental export all still worked from the current repo state across multiple invocation orders, including mixed full-to-compact and compact-to-full sequences. That April reconfirmation was happy-path-only, so the March 27 controlled close-out remains the authoritative failure-path and ambiguity evidence for this platform.
-  The compact checklist item is now satisfied by Daniel's April 3, 2026 live Windows app retest across full and compact export orders plus the same Windows-host automated gate rerun used as supplemental evidence for this repository.
+  On April 3, 2026, a deeper Windows 11 ARM audit of the current repo state then reran the repo entrypoint on the live app thread and on isolated copied app-style Codex homes derived from that thread. That audit re-confirmed first export, incremental export, no-new-content behavior, same-workspace ambiguity fail-closed behavior, targeted `\\?\` current-thread recovery, workspace-mismatch rejection, denied rollout access handling, German checkpoint-failure localization, unsafe installed-skill-directory rejection, and a fresh green temporary Windows `.venv` run of `pytest`, `mypy`, `ruff check`, and `ruff format --check`.
+  The same audit also reproduced a blocking app-surface issue on the current repo state: a real Windows app-style compact export still preserved bulky raw `shell_command` file-read output such as the full `pyproject.toml` body, so the compact render profile did not satisfy the approved deterministic omission contract on that live Windows Desktop-style surface.
+  That audit also established that the globally installed Windows skill on this machine was stale relative to the repo and that a long-path Windows project root still failed during export writing on the current repo entrypoint. Because the compact checklist item is now directly failed on the current repo state, Windows app should not currently be treated as fully revalidated. See `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md`.
 
 ## Validation Recording Rules
 

@@ -6,9 +6,14 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+### Added
+
+- Added `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md` to record the April 3, 2026 Windows 11 ARM post-refactor audit, compare it to the still-open March 28, 2026 session-discovery proposal, and document why Windows should not yet be treated as fully revalidated on the current repo revision.
+
 ### Changed
 
 - Updated `docs/validation/linux_cli.md`, `docs/spec/22_platform_validation.md`, and `README.md` to record the fresh April 3, 2026 Linux post-refactor validation rerun: recreated `.venv`, reran `pytest`, `mypy`, `ruff check`, and `ruff format --check`, then captured live current-thread export, live ambiguity fail-closed behavior, live compact incremental export, compact-first/full-second checkpoint sharing, explicit no-new-content behavior, German checkpoint-failure localization, denied rollout access, explicit workspace-mismatch failure, and safe-project-root rejection on the current repo state.
+- Updated `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, `docs/spec/22_platform_validation.md`, `docs/spec/05_open_questions_and_next_steps.md`, and `README.md` so the docs now record the April 3, 2026 Windows 11 ARM audit truthfully: Windows app compact-mode validation is re-opened on the current repo state because real app-style `shell_command` traffic still leaks bulky raw file-read output in compact exports, installed-skill parity with the repo is not currently guaranteed on this machine, and long-path Windows write behavior is still an open risk.
 
 ## [v1.1.5] - 2026-04-03
 
