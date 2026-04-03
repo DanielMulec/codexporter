@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -35,6 +36,36 @@ def test_incomplete_checkpoint_sidecar_fails_safely(session_fixture: SessionFixt
         now=session_fixture.first_export_time,
     )
     session_fixture.sidecar_path.write_text("{}", encoding="utf-8")
+    session_fixture.apply_extended_rollout()
+
+    with pytest.raises(CheckpointError, match="checkpoint sidecar"):
+        export_current_session(
+            project_root=session_fixture.project_root,
+            codex_home=session_fixture.codex_home,
+            now=session_fixture.second_export_time,
+        )
+
+    markdown_files = sorted(session_fixture.export_dir.glob("*.md"))
+    assert [path.name for path in markdown_files] == ["20260313-200000-Spec-Export-Planning-1.md"]
+    assert (
+        first_result.export_path is not None
+        and first_result.export_path.read_text(encoding="utf-8")
+        == session_fixture.expected_initial_markdown
+    )
+
+
+def test_boolean_checkpoint_numeric_fields_fail_safely(session_fixture: SessionFixture) -> None:
+    first_result = export_current_session(
+        project_root=session_fixture.project_root,
+        codex_home=session_fixture.codex_home,
+        now=session_fixture.first_export_time,
+    )
+    sidecar_payload = load_json_object(session_fixture.sidecar_path.read_text(encoding="utf-8"))
+    sidecar_payload["export_sequence"] = True
+    sidecar_payload["last_exported_record_index"] = True
+    session_fixture.sidecar_path.write_text(
+        json.dumps(sidecar_payload, indent=2) + "\n", encoding="utf-8"
+    )
     session_fixture.apply_extended_rollout()
 
     with pytest.raises(CheckpointError, match="checkpoint sidecar"):

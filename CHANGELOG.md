@@ -6,6 +6,13 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ## [Unreleased]
 
+## [v1.1.5] - 2026-04-03
+
+### Changed
+
+- Tightened rollout and checkpoint validation so malformed rollout timestamps now fail through the normal user-facing rollout-access path, AGENTS or instruction payloads are omitted when they surface through visible tool output, and JSON booleans no longer pass as valid checkpoint integers.
+- Added regression tests covering malformed rollout timestamps on the CLI surface, instruction-payload leakage through tool output, and boolean checkpoint-field rejection.
+
 ## [v1.1.4] - 2026-04-03
 
 ### Changed

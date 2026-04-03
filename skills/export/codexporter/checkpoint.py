@@ -131,8 +131,10 @@ def _required_timestamp(value: datetime) -> str:
 
 
 def _required_int(value: object) -> int:
-    if isinstance(value, bool | int):
-        return int(value)
+    if isinstance(value, bool):
+        raise ValueError("Checkpoint payload used a boolean where an integer is required.")
+    if isinstance(value, int):
+        return value
     if isinstance(value, float) and value.is_integer():
         return int(value)
     if isinstance(value, str):

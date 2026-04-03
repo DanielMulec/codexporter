@@ -31,10 +31,15 @@ def parse_rollout(thread: ThreadRecord) -> ParsedRollout:
         visible_user_messages=[],
     )
 
-    for source_index, line in enumerate(_read_rollout_lines(thread.rollout_path)):
-        _process_record(source_index, line, state, thread.rollout_path)
+    try:
+        for source_index, line in enumerate(_read_rollout_lines(thread.rollout_path)):
+            _process_record(source_index, line, state, thread.rollout_path)
+        session_started_at = (
+            _parse_timestamp(state.session_meta.get("timestamp")) or thread.created_at
+        )
+    except ValueError as exc:
+        raise RolloutAccessError(missing_rollout_message(thread.rollout_path)) from exc
 
-    session_started_at = _parse_timestamp(state.session_meta.get("timestamp")) or thread.created_at
     approval_policy = _as_str(state.latest_turn_context.get("approval_policy"))
     sandbox_policy = _stringify_optional(state.latest_turn_context.get("sandbox_policy"))
     session = SessionInfo(
@@ -148,7 +153,7 @@ def _append_message_entry(
     role = _as_str(payload.get("role"))
     text = _extract_message_text(payload.get("content"))
     if role == "user":
-        if text and not _is_internal_user_message(text):
+        if text and not _is_internal_instruction_payload(text):
             state.entries.append(
                 ExportEntry(
                     source_index=source_index,
@@ -266,16 +271,24 @@ def _extract_message_text(content: object) -> str | None:
 
 
 def _extract_tool_output(output: object) -> str | None:
+    text: str | None
     if isinstance(output, str):
-        return output.rstrip()
-    if isinstance(output, dict | list):
-        return json.dumps(output, indent=2, sort_keys=True)
-    return None
+        text = output.rstrip()
+    elif isinstance(output, dict | list):
+        text = json.dumps(output, indent=2, sort_keys=True)
+    else:
+        return None
+
+    if _is_internal_instruction_payload(text):
+        return "Internal instruction payload omitted."
+    return text
 
 
-def _is_internal_user_message(text: str) -> bool:
+def _is_internal_instruction_payload(text: str) -> bool:
     stripped = text.strip()
     if stripped.startswith("# AGENTS.md instructions for "):
+        return True
+    if stripped.startswith("# AGENTS.md") and "## Collaboration Charter" in stripped:
         return True
     return "<INSTRUCTIONS>" in stripped and "Collaboration Charter" in stripped
 

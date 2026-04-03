@@ -96,6 +96,34 @@ def test_missing_rollout_uses_english_fallback_when_thread_language_cannot_be_de
     )
 
 
+def test_invalid_rollout_timestamp_fails_with_user_facing_rollout_error(
+    session_fixture: SessionFixture,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    original_rollout = session_fixture.rollout_path.read_text(encoding="utf-8")
+    session_fixture.rollout_path.write_text(
+        original_rollout.replace("2026-03-13T19:00:05Z", "not-a-timestamp", 1),
+        encoding="utf-8",
+    )
+
+    exit_code = main(
+        [
+            "--project-root",
+            str(session_fixture.project_root),
+            "--codex-home",
+            str(session_fixture.codex_home),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert (
+        captured.out.strip()
+        == f"I couldn't read the persisted session history at {session_fixture.rollout_path}. "
+        "Make sure this Codex environment can access the live session data, then retry $export."
+    )
+
+
 def test_no_new_content_message_is_localized_for_german_thread(tmp_path: Path) -> None:
     session_fixture = build_session_fixture(tmp_path)
     session_fixture.apply_initial_rollout(replacements=GERMAN_REPLACEMENTS)
