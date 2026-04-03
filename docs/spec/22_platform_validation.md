@@ -90,7 +90,7 @@ When practical, validation should include at least one condition that distinguis
 - Target status: primary v1 target
 - Validated status: validated
 - Evidence source: `docs/validation/linux_cli.md`
-- Codex version: `0.115.x` live happy-path evidence, plus March 27 close-out on `0.117.0` and `0.77.0`
+- Codex version: `0.115.x` live happy-path evidence, plus March 27 close-out on `0.117.0` and `0.77.0`, plus April 3 post-refactor rerun on `0.118.0`
 - Source surface: Codex CLI in Kitty
 - Model: `gpt-5.4` and `gpt-5.2`
 - Sandbox mode: March 18 live run not recorded; March 27 controlled close-out observed `workspace-write` with network access and `danger-full-access`
@@ -107,8 +107,8 @@ When practical, validation should include at least one condition that distinguis
   - restricted-environment honesty: `pass`
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
   - compact export behavior: `pass`
-- Notes: Daniel recorded direct real-user Linux CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on Linux against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill. On April 3, 2026, Daniel then revalidated the post-Stage-2 live Linux CLI happy path and confirmed that both full and compact exports still worked from the current repo state. That April reconfirmation was happy-path-only, so the March 27 controlled close-out remains the authoritative failure-path and ambiguity evidence for this platform.
-  The compact checklist item for this platform is now backed by Daniel's April 3, 2026 live Linux full and compact happy-path retest plus the fresh Linux-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
+- Notes: Daniel recorded direct real-user Linux CLI happy-path evidence on March 18, 2026. On March 27, 2026, the production entrypoint was rerun on Linux against isolated temporary Codex homes derived from copied real CLI thread rows and copied rollout artifacts, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live `~/.codex` state. Daniel also reported on March 22, 2026 that the global `skill-installer` flow had already succeeded on his Linux device for this skill. On April 3, 2026, a fresh Linux-host post-refactor rerun recreated `.venv`, passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`, then captured live targeted export, live ambiguity fail-closed behavior under three same-workspace thread rows, and live compact incremental export on Codex CLI `0.118.0`. The same day, isolated temporary Codex homes derived from the current live Linux CLI thread row and copied rollout history recaptured compact-first/full-second checkpoint sharing, explicit no-new-content behavior, German checkpoint-failure localization, denied rollout access, same-workspace ambiguity recovery, explicit workspace-mismatch fail-closed behavior, and safe-project-root rejection without mutating live `~/.codex` state.
+  The compact checklist item for this platform is now backed by the April 3, 2026 live compact incremental rerun, the same-day compact-first/full-second replay in the isolated Linux temp home, and the fresh Linux-host automated gate rerun, which includes the explicit compact full-flow and compaction tests.
 
 ### macOS Codex app
 

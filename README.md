@@ -161,6 +161,7 @@ Current automated baseline:
 
 - 39 passing `pytest` cases on the maintained macOS-local baseline across unit behavior, service flow, public invocation flow, degraded mode, checkpoint edge cases, thread-accurate session targeting, Windows-style path-shape equivalence, Windows-safe fixture rendering, localized CLI failure and omission messaging, explicit hidden-reasoning and internal-instruction exclusion, optional-metadata omission, timezone-fallback behavior, compact CLI invocation, deterministic bulky-payload compaction including oversized JSON-output suppression, compact/profile checkpoint-sharing behavior, malformed-rollout timestamp handling, tool-output instruction-payload omission, and boolean checkpoint-field rejection
 - On March 27, 2026, fresh Linux and Windows `.venv` reruns also passed `pytest`, `mypy`, `ruff check`, and `ruff format --check`
+- On April 3, 2026, a fresh Linux `.venv` rerun on Python `3.14.3` again passed `./.venv/bin/python -m pytest`, `./.venv/bin/python -m mypy skills/export tests`, `./.venv/bin/python -m ruff check .`, and `./.venv/bin/python -m ruff format --check .`
 - `mypy` in `strict` mode
 - `ruff check`
 - `ruff format --check`
@@ -176,9 +177,9 @@ Current manual validation status:
 Latest post-refactor reconfirmation:
 
 - On April 2-3, 2026, Daniel reran live macOS happy-path checks after the Stage 2 no-`Any` refactor and confirmed the broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all succeeded from the current repo state across multiple invocation orders. The retained local transcripts document example slices of that retest rather than its full breadth.
-- On April 3, 2026, Daniel also reran live Linux happy-path checks after the same refactor and confirmed that both full and compact exports still worked from the current repo state.
+- On April 3, 2026, a fresh Linux-host post-refactor rerun refreshed more than the earlier happy-path note: it recreated `.venv`, reran all four binding gates cleanly, then captured live current-thread full export, live ambiguity fail-closed behavior, live compact incremental export, compact-first/full-second shared-checkpoint replay, explicit no-new-content behavior, German checkpoint-failure localization, denied rollout access, explicit workspace-mismatch failure, and unsafe-project-root rejection from isolated temporary Codex homes derived from the current live Linux CLI thread.
 - On April 3, 2026, Daniel also reran live Windows happy-path checks after the same refactor and confirmed the same broader manual matrix on both app and CLI: full export, full incremental export, full compact export, and compact incremental export all still worked from the current repo state across multiple invocation orders.
-- These reconfirmations did not add new failure-path coverage.
+- The macOS and Windows notes above still describe happy-path-only reconfirmations; the Linux rerun now also refreshes direct failure-path coverage on the current repo state.
 
 See:
 
