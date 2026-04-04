@@ -95,7 +95,7 @@ It should replace that body with a deterministic omission marker that preserves 
 
 Current implementation note:
 
-- the first implementation derives this primarily from read-heavy `exec_command` calls such as `cat`, `sed`, `nl`, `head`, `tail`, `awk`, `bat`, `less`, and `more`
+- the implementation derives this from command-like tool calls such as `exec_command` and `shell_command`, especially for read-heavy commands like `cat`, `sed`, `nl`, `head`, `tail`, `awk`, `bat`, `less`, and `more`
 
 ### Raw patch payloads
 

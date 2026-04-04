@@ -4,14 +4,16 @@ import json
 import re
 import shlex
 from dataclasses import dataclass, replace
+from typing import TypeGuard
 
-from codexporter.json_utils import JsonObject, load_json_object
+from codexporter.json_utils import JsonObject, JsonValue, load_json_value
 from codexporter.models import ExportEntry, RenderProfile
 
 SHORT_DIFF_MAX_LINES = 60
 SHORT_DIFF_MAX_FILES = 2
 GENERIC_OUTPUT_MAX_LINES = 120
 GENERIC_OUTPUT_MAX_CHARS = 8000
+_COMMAND_TOOL_NAMES = frozenset({"exec_command", "shell_command"})
 _CONTROL_TOKENS = frozenset({"&&", "||", "|", ";", ">", ">>", "<", "2>", "&>"})
 _FILE_READ_COMMANDS = frozenset({"awk", "bat", "cat", "head", "less", "more", "nl", "sed", "tail"})
 _LISTING_COMMANDS = frozenset({"find", "ls", "tree"})
@@ -97,7 +99,7 @@ def _compact_tool_output(
 
 
 def _is_file_read_call(entry: ExportEntry | None) -> bool:
-    command_details = _parse_exec_command(entry)
+    command_details = _parse_command_invocation(entry)
     if command_details is None or not command_details.tokens:
         return False
     return command_details.tokens[0] in _FILE_READ_COMMANDS
@@ -106,7 +108,7 @@ def _is_file_read_call(entry: ExportEntry | None) -> bool:
 def _is_raw_diff_output(entry: ExportEntry | None, output: str) -> bool:
     if "diff --git " in output:
         return True
-    command_details = _parse_exec_command(entry)
+    command_details = _parse_command_invocation(entry)
     if command_details is None or not command_details.tokens:
         return False
     command = command_details.tokens
@@ -153,7 +155,7 @@ def _build_generic_output_summary(
     if _count_lines(output) <= GENERIC_OUTPUT_MAX_LINES and len(output) <= GENERIC_OUTPUT_MAX_CHARS:
         return None
 
-    command_details = _parse_exec_command(call_entry)
+    command_details = _parse_command_invocation(call_entry)
     if _is_listing_command(command_details):
         heading = "Large raw file listing omitted in compact mode."
     elif _looks_like_json(output):
@@ -164,21 +166,48 @@ def _build_generic_output_summary(
     return f"{heading}\nSuppressed lines: {_count_lines(output)}"
 
 
-def _parse_exec_command(entry: ExportEntry | None) -> _CommandDetails | None:
-    if entry is None or entry.tool_name != "exec_command" or not entry.arguments:
+def _parse_command_invocation(entry: ExportEntry | None) -> _CommandDetails | None:
+    if entry is None or entry.tool_name not in _COMMAND_TOOL_NAMES or not entry.arguments:
         return None
-    try:
-        payload: JsonObject = load_json_object(entry.arguments)
-    except (ValueError, json.JSONDecodeError):
-        return None
-    raw_command = payload.get("cmd")
-    if not isinstance(raw_command, str) or not raw_command.strip():
+    raw_command = _extract_raw_command(entry.arguments)
+    if raw_command is None:
         return None
     try:
         tokens = tuple(_truncate_control_sequence(shlex.split(raw_command)))
     except ValueError:
         tokens = tuple(_truncate_control_sequence(raw_command.strip().split()))
     return _CommandDetails(raw_command=raw_command, tokens=tokens)
+
+
+def _extract_raw_command(arguments: str) -> str | None:
+    stripped_arguments = arguments.strip()
+    if not stripped_arguments:
+        return None
+    try:
+        payload = load_json_value(arguments)
+    except json.JSONDecodeError:
+        return stripped_arguments
+
+    if isinstance(payload, dict):
+        return _extract_command_from_payload(payload)
+    if isinstance(payload, str) and payload.strip():
+        return payload
+    return None
+
+
+def _extract_command_from_payload(payload: JsonObject) -> str | None:
+    for key in ("cmd", "command"):
+        value = payload.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+    argv_value = payload.get("argv")
+    if _is_string_sequence(argv_value):
+        return " ".join(argv_value)
+    return None
+
+
+def _is_string_sequence(value: JsonValue) -> TypeGuard[list[str]]:
+    return isinstance(value, list) and all(isinstance(item, str) for item in value)
 
 
 def _truncate_control_sequence(tokens: list[str]) -> list[str]:
@@ -191,7 +220,7 @@ def _truncate_control_sequence(tokens: list[str]) -> list[str]:
 
 
 def _extract_read_files(entry: ExportEntry | None) -> tuple[str, ...]:
-    command_details = _parse_exec_command(entry)
+    command_details = _parse_command_invocation(entry)
     if command_details is None or not command_details.tokens:
         return ()
     command = command_details.tokens[0]
