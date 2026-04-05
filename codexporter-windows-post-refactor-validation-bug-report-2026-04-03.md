@@ -8,6 +8,22 @@ Scope: record the April 3, 2026 Windows 11 ARM validation audit of the current `
 
 Check date for upstream docs that affect this report: 2026-04-03.
 
+## Status Update: 2026-04-05
+
+This document remains the historical April 3, 2026 Windows audit record.
+
+A fresh Windows-host rerun on April 5, 2026 closed two findings that were current when this report was written:
+
+- the current repo state no longer leaks bulky raw `shell_command` file-read output in compact Windows app-style replays
+- the installed skill under `C:\Users\Daniel\.codex\skills\export` is no longer stale relative to the repo once content is compared after normalizing line endings
+
+Two Windows runtime caveats from the original report remain current on the April 5 host rerun:
+
+- long-path Windows project roots still fail during export writing on this host
+- successful targeted recovery still surfaces raw `\\?\` path spellings in user-facing success output and checkpoint artifact paths
+
+For the current validation status after that rerun, see `docs/validation/windows_app.md`, `docs/validation/windows_cli.md`, and `docs/spec/22_platform_validation.md`.
+
 ## Executive Summary
 
 The current repository state passed the Windows automated gates on this host and still succeeds on the ordinary happy path, but the Windows post-refactor validation close-out is not clean.

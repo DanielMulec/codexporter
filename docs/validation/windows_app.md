@@ -1,7 +1,7 @@
 # Windows Codex App Validation
 
-- Validation dates: March 18-20, March 27, April 3, and April 3, 2026 post-refactor audit
-- Validation status: not currently revalidated on the current repo state
+- Validation dates: March 18-20, March 27, April 3, and April 5, 2026
+- Validation status: validated on the current repo state, with residual Windows runtime caveats outside the core checklist
 - Host OS: Windows
 - Codex surface: Codex Desktop app context
 - Rollout source field: `vscode`
@@ -31,6 +31,13 @@
 - The same April 3, 2026 audit also reproduced a new blocking app-surface issue on the current repo state: a real Windows app-style compact export still preserved bulky raw `shell_command` file-read output such as the full `pyproject.toml` body, so the compact render profile did not satisfy the deterministic omission contract on that live Windows Desktop-style surface.
 - That audit also established that the globally installed skill under `C:\Users\Daniel\.codex\skills\export` was stale relative to the current repo revision, which means installed-skill manual runs on this machine can no longer be treated as evidence for the current `main` repo state until the install is refreshed.
 - The same audit additionally reproduced a long-path Windows write failure on the repo entrypoint at an estimated final export-path length of about `276` characters, and observed that successful targeted recovery from a persisted `\\?\` path spelling still surfaces that raw extended-length form in the user-facing success message.
+- On April 5, 2026, verified that the installed skill under `C:\Users\Daniel\.codex\skills\export` matched the repo content after normalizing line endings; the only remaining delta was generated `egg-info` metadata, so installed-skill runs on this machine are again valid evidence for the current repo state.
+- On April 5, 2026, a fresh temporary Windows virtual environment under `C:\Users\Daniel\AppData\Local\Temp\codexporter-win-validate-20260405` passed `python -m pytest` with `42` tests plus `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .` from the current repo state.
+- On April 5, 2026, invoked the installed skill from `C:\projekte\codexporter` on the active Windows Codex Desktop app thread and observed first export creation at `codex_exports/20260405-144007-codex-changed-the-compaction-py-in-this-repo-even-though-it--1.md`, follow-up incremental exports at `codex_exports/20260405-144018-codex-changed-the-compaction-py-in-this-repo-even-though-it--2.md` and `codex_exports/20260405-144031-codex-changed-the-compaction-py-in-this-repo-even-though-it--3.md`, and compact incremental export at `codex_exports/20260405-144040-codex-changed-the-compaction-py-in-this-repo-even-though-it--4.md`.
+- On April 5, 2026, reran the current installed skill against isolated temporary Codex homes under `C:\Users\Daniel\AppData\Local\Temp\codexporter-win-manual-validate-20260405`, which re-confirmed first export, explicit no-new-content behavior, compact/full shared checkpoint identity, ambiguity fail-closed behavior, targeted `\\?\` current-thread recovery, German checkpoint-failure localization, denied rollout access handling, and unsafe installed-skill-directory rejection without mutating live Windows app data.
+- That April 5 copied-state rerun also closed the April 3 compact regression on the current repo state: the sanitized Windows app-style `shell_command` compact export at `C:\Users\Daniel\AppData\Local\Temp\codexporter-win-manual-validate-20260405\shell_command\project-shell-command\codex_exports\20260405-144620-Spec-Export-Planning-1.md` used `Raw file contents omitted in compact mode.`, listed `pyproject.toml`, and did not leak `[build-system]` or the raw file body.
+- The same April 5 host still reproduced a long-path Windows write failure from `C:\Users\Daniel\AppData\Local\Temp\codexporter-win-manual-validate-20260405\long_path\...` with a project-root length of `206` characters while `LongPathsEnabled` remained `0`.
+- The same April 5 ambiguity replay also confirmed that successful targeted recovery still surfaces the raw `\\?\` path spelling in the user-facing success message and in checkpoint `exported_artifacts`, even though session targeting itself is now correct.
 - The localized failure-path replay used copied real Windows app thread `019cdd30-b865-76f3-9612-6f801fe45575`, source `vscode`, Codex `0.112.0-alpha.3`, model `gpt-5.4`, approval `never`, sandbox `danger-full-access`, and rollout copy `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\rollouts\app-language-rollout.jsonl`.
 - That localized failure-path replay first created `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\app-lang-project\codex_exports\20260327-144752-Hey-GPT-Ich-hoffe-dass-wir-auch-auf-Deutsch-hier-eine-ideale-1.md` plus sidecar `C:\Users\DanielMulecDatenpol\AppData\Local\Temp\codexporter-windows-validation-1ojzvv2w\app-language\app-lang-project\codex_exports\019cdd30-b865-76f3-9612-6f801fe45575-checkpoint.json`; after intentionally corrupting the sidecar, the next run failed in German with the unreadable-checkpoint message.
 - The restricted-access and ambiguity close-out used copied real Windows app thread `019d0bd3-71ff-7823-8295-203d79cd8338`, source `vscode`, Codex `0.115.0-alpha.27`, model `gpt-5.4`, approval `on-request`, sandbox `workspace-write` without network access.
@@ -50,14 +57,14 @@
 - language-sensitive failure messaging: pass
 - restricted-environment honesty: pass
 - current-thread targeting under shared-workspace ambiguity or path variation: pass
-- compact export behavior: fail
+- compact export behavior: pass
 
 ## Notes
 
-- This file preserves the historical March 18-27 Windows app evidence, but the April 3, 2026 post-refactor audit re-opened Windows app validation on the current repo state because compact-mode behavior failed on a real Windows app-style session.
+- This file preserves the historical March 18-27 Windows app evidence, the April 3, 2026 post-refactor audit that re-opened Windows app validation, and the April 5, 2026 Windows host rerun that closed that reopened compact-mode gap on the current repo state.
 - The March 27 close-out intentionally used isolated temporary Codex state derived from real Windows app persisted-session data because those failure-path conditions had not reproduced reliably in ordinary live use.
 - The April 3 happy-path reconfirmation was still useful evidence, but it did not add new failure-path, no-new-content, or ambiguity evidence, so the March 27 controlled close-out remains the authoritative close-out for those checklist items.
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
-- The compact checklist item is not currently closed for the current repo state because the reproduced Windows app-style `shell_command` compact export still leaked bulky raw file-read output instead of replacing it with the approved deterministic omission marker.
-- The stale installed-skill finding means future Windows app installed-skill checks on this machine must prove install parity with the repo before they count as validation evidence for the current revision.
-- See `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md` for the full April 3, 2026 audit and its relationship to the separate March 28 session-discovery proposal.
+- The April 5 rerun proved that the earlier compact `shell_command` regression and stale installed-skill finding are no longer current blockers on this machine; the remaining Windows caveats observed on the current repo state are the long-path write failure and the raw `\\?\` path-display rough edge.
+- Those two remaining caveats sit outside the current v1 platform checklist, so they do not reopen Windows app validated status, but they are still recorded explicitly because they are real Windows runtime limitations on this host.
+- See `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md` for the historical April 3, 2026 audit and its relationship to the separate March 28 session-discovery proposal.
