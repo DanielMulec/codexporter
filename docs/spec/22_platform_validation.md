@@ -115,11 +115,11 @@ When practical, validation should include at least one condition that distinguis
 - Target status: primary v1 target
 - Validated status: validated
 - Evidence source: `docs/validation/macos_app.md`
-- Codex version: `0.115.0-alpha.11`
+- Codex version: `0.115.0-alpha.11` and `0.118.0-alpha.2`
 - Source surface: Codex Desktop app context, rollout source field `vscode`
 - Model: `gpt-5.4`
-- Sandbox mode: `danger-full-access` in the March 13-14 live app-context run; `workspace-write` without network access in the March 27 close-out source row
-- Approval mode: `never` in the March 13-14 live app-context run; `on-request` in the March 27 close-out source row
+- Sandbox mode: `danger-full-access` in the March 13-14 and April 5 live app-context runs; `workspace-write` without network access in the March 27 close-out source row
+- Approval mode: `never` in the March 13-14 and April 5 live app-context runs; `on-request` in the March 27 close-out source row
 - Checklist results:
   - first export: `pass`
   - default export destination: `pass`
@@ -133,7 +133,9 @@ When practical, validation should include at least one condition that distinguis
   - current-thread targeting under shared-workspace ambiguity or path variation: `pass`
   - compact export behavior: `pass`
 - Notes: March 13-14, 2026 captured direct macOS app happy-path evidence, including installed-skill invocation into the active project root. On March 27, 2026, the production entrypoint was rerun on macOS against isolated temporary Codex homes derived from copied real `vscode` thread data, which captured German checkpoint-failure messaging, honest unreadable-rollout failure, same-workspace ambiguity fail-closed behavior, and targeted current-thread success without mutating live app data. That closes the macOS app platform checklist while leaving GitHub-origin installation flow as a separate question. On April 2-3, 2026, Daniel then revalidated the post-Stage-2 live macOS app happy path more broadly than the retained transcripts alone show: he confirmed that full export, full incremental export, full compact export, and compact incremental export all succeeded from the current repo state across multiple invocation orders. Retained app-context thread `019d5012-678c-7223-867e-9ee9f25f4ab9` preserves one concrete example slice of that broader retest, where the installed `$export --compact` skill wrote a first-run compact artifact into the active project root after a dense synthetic payload. That April reconfirmation was happy-path-only, so the March 27 controlled close-out remains the authoritative failure-path evidence for this platform.
-  The compact checklist item is now satisfied by Daniel's broader April 2-3, 2026 live app retest across full and compact export orders, one retained April 2, 2026 live app-context `$export --compact` transcript, and the same macOS-host automated gate rerun used as supplemental evidence for this repository.
+  On April 5, 2026, the current repo state was revalidated again on macOS app in two layers: a live installed-skill compact export on the active `vscode` app thread under Codex `0.118.0-alpha.2`, and isolated app-style replays derived from copied thread rows and copied rollout artifacts that re-confirmed `shell_command` compact behavior, shared compact/full checkpoint identity, no-new-content behavior, German checkpoint-failure localization, same-workspace ambiguity fail-closed behavior, targeted recovery, restricted-rollout honesty, workspace-mismatch rejection, and unsafe installed-skill-directory rejection. Those April 5 replays also confirmed `argv`-shaped `shell_command` compaction on the current repo state.
+  One lower-priority macOS path-alias seam surfaced during those isolated replays: `/var/...` and `/private/var/...` were not treated as equivalent until the disposable validation homes were normalized to the same resolved path spelling. That does not currently overturn the validated macOS app checklist, but it remains a deferred cleanup rather than a closed path-variation guarantee.
+  The compact checklist item is now satisfied by Daniel's broader April 2-3, 2026 live app retest across full and compact export orders, one retained April 2, 2026 live app-context `$export --compact` transcript, the April 5, 2026 live installed-skill compact rerun, the April 5 controlled app-style replay matrix, and the maintained macOS-host automated gate rerun used as supplemental evidence for this repository.
 
 ### Windows Codex CLI
 

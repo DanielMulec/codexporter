@@ -3,7 +3,7 @@
 ## Status
 
 - Phase: validated v1 baseline with implemented initial compact mode and staged no-`Any` hardening plan
-- Date: April 3, 2026
+- Date: April 5, 2026
 
 ## Key Open Questions
 
@@ -15,6 +15,7 @@
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 - Do we want any of the lower-value extra mypy `Any` flags after the now-complete Stage 3 baseline, or is the current repo-wide `disallow_any_expr` posture sufficient?
+- A lower-priority macOS path-alias seam surfaced during the April 5, 2026 isolated app-style replay: `/var/...` and `/private/var/...` are not yet treated as equivalent during same-workspace session matching unless the paths are normalized to the same resolved spelling first.
 
 ## Recommended Next Spec Steps
 
@@ -27,6 +28,7 @@
 7. Use future compact-mode work first to close the reopened Windows app blocker by covering real `shell_command` file-read and listing traffic before doing lower-priority threshold tuning or new profile work.
 8. Use `28_no_any_rollout.md` as the source of truth for the staged no-`Any` hardening order; do not claim repo-wide no-`Any` enforcement until the corresponding mypy settings are actually enabled.
 9. When the rollout reaches shared exporter refactors, use directly observed Linux reruns, including a Fedora guest on Daniel's Mac when available, as supplemental Linux evidence rather than as assumed coverage.
+10. Keep the lower-priority macOS `/var` versus `/private/var` path-alias seam deferred until the higher-priority Windows follow-up is closed first. If you want, I can turn that into a small targeted fix in `session_store.py` plus regression coverage.
 
 ## Current Repo State
 
@@ -37,12 +39,14 @@
 - On March 27, 2026, a fresh Windows `.venv` rerun passed `python -m pytest`, `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .`.
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
-- The maintained macOS-local automated baseline is now 39 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, compact/full checkpoint-sharing behavior, malformed-rollout timestamp handling, tool-output instruction-payload omission, and boolean checkpoint-field rejection.
+- The maintained macOS-local automated baseline is now 42 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, compact/full checkpoint-sharing behavior, malformed-rollout timestamp handling, tool-output instruction-payload omission, boolean checkpoint-field rejection, and `shell_command` compaction coverage for JSON-backed, plain-string, and sanitized app-style rollout payloads.
 - On April 2-3, 2026, the staged no-`Any` hardening plan moved from audit to completed baseline: Stage 1 landed by enabling `disallow_any_explicit` and `disallow_any_unimported`, Stage 2 landed after narrowing the production JSON, SQLite, and CLI boundaries, and Stage 3 then landed after the test fixture and JSON assertion helpers were typed well enough for repo-wide `disallow_any_expr`.
 - On April 2-3, 2026, Daniel revalidated the post-Stage-2 macOS happy path from live Codex surfaces more broadly than the retained local transcripts alone show: on both macOS app and macOS CLI he exercised full export, full incremental export, full compact export, and compact incremental export from the current repo state across multiple invocation orders. The retained transcripts document example slices of that broader retest. This reconfirmation was happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, Daniel also revalidated the post-Stage-2 Linux happy path and confirmed that both full and compact exports still worked from the current repo state. That Linux reconfirmation was also happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, Daniel also revalidated the post-Stage-2 Windows happy path more broadly than the earlier retained evidence alone showed: on both Windows app and Windows CLI he exercised full export, full incremental export, full compact export, and compact incremental export from the current repo state across multiple invocation orders. This Windows reconfirmation was also happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, a deeper Windows 11 ARM audit of the current repo state then reran the Windows gates in a fresh temporary `.venv`, replayed copied Windows Codex homes derived from the current live app thread, and reproduced a blocking Windows app compact-mode regression on real `shell_command` traffic, a stale installed-skill/repo mismatch on this machine, and a long-path Windows write failure on the current repo entrypoint. That audit is recorded in `codexporter-windows-post-refactor-validation-bug-report-2026-04-03.md`.
+- On April 5, 2026, the current repo state was revalidated again on macOS app with both a live installed-skill compact export on the active `vscode` thread and isolated app-style replays that re-confirmed `shell_command` compact behavior, no-new-content handling, compact/full checkpoint sharing, German checkpoint-failure localization, same-workspace ambiguity recovery, restricted-rollout honesty, workspace-mismatch rejection, and unsafe installed-skill-directory rejection.
+- That April 5 macOS rerun also surfaced one lower-priority path-alias seam in the validation harness itself: same-workspace session matching did not treat `/var/...` and `/private/var/...` as equivalent until the disposable validation homes were normalized to the same resolved path spelling. That seam is explicitly deferred behind the higher-priority Windows work and is not currently treated as a blocker for the macOS validation baseline.
 
 ## Acceptance Criteria
 
@@ -67,3 +71,4 @@
 6. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
 7. Treat future compact-mode work after the blocker fix as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
 8. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.
+9. Defer the macOS `/var` versus `/private/var` path-alias cleanup until after the higher-priority Windows items are addressed; if we choose to close it later, the intended shape is a small `session_store.py` normalization fix plus regression coverage.
