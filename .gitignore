@@ -10,3 +10,4 @@ pytest-cache-files-*/
 htmlcov/
 codex_exports/
 .local/
+docs/linkedin/
