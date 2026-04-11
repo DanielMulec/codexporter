@@ -2,15 +2,22 @@
 
 ## Status
 
-- Phase: validated v1 baseline with implemented initial compact mode and staged no-`Any` hardening plan
-- Date: April 5, 2026
+- Phase: validated v1 baseline with compact `shell_command` closure and staged no-`Any` hardening complete
+- Date: April 11, 2026
+
+## Agreed Post-April-5 Queue
+
+1. Compact-mode `shell_command` normalization and regression coverage: closed on current repo state.
+2. Session discovery fix for stale-SQLite or missing-thread-row current sessions: next implementation track.
+3. Windows long-path behavior: open follow-up.
+4. Windows `\\?\` user-facing path normalization: open follow-up.
 
 ## Key Open Questions
 
 - The April 5, 2026 Windows host reruns closed the earlier compact `shell_command` regression and stale installed-skill-parity findings, but two Windows follow-up questions still remain on the current repo state:
   - what is the supported Windows path-length envelope, given that the copied current Windows CLI-style `\\?\` row now succeeds at project-root length `221` while a parallel plain-path control still fails at `222` and `LongPathsEnabled = 0`
   - should successful targeted recovery paths be normalized for user-facing display instead of surfacing raw `\\?\` path spellings in success messages and checkpoint artifact paths
-- How should the repo resolve the separate March 28, 2026 stale-SQLite/live-rollout session-discovery proposal relative to the new April 3, 2026 Windows findings, given that the proposal remains partly unimplemented but was not the main blocker reproduced in this audit?
+- What exact acceptance criteria should close the March 28, 2026 stale-SQLite/live-rollout session-discovery proposal once the rollout-first current-session path is implemented?
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 - Do we want any of the lower-value extra mypy `Any` flags after the now-complete Stage 3 baseline, or is the current repo-wide `disallow_any_expr` posture sufficient?
@@ -63,11 +70,13 @@
 
 ## Implementation Order
 
-1. Reconfirm the maintained macOS-local baseline if a future follow-up change lands.
-2. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
-3. Decide and document the supported Windows path-length envelope, then rerun the repo entrypoint accordingly.
-4. Normalize Windows success-message and checkpoint artifact paths for targeted `\\?\` recovery, or document that raw path spelling explicitly as an intentional boundary.
-5. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
-6. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
-7. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.
-8. Defer the macOS `/var` versus `/private/var` path-alias cleanup until after the higher-priority Windows items are addressed; if we choose to close it later, the intended shape is a small `session_store.py` normalization fix plus regression coverage.
+1. Implement the March 28 session-discovery proposal as the next track: make explicit current-thread discovery rollout-first and treat SQLite as secondary metadata.
+2. Add and run automated regression coverage for stale-SQLite or missing-thread-row current-session discovery while preserving fail-closed ambiguity and workspace-mismatch behavior.
+3. Reconfirm the maintained macOS-local baseline and rerun at least one Linux or Windows gate after the session-discovery change lands.
+4. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
+5. Decide and document the supported Windows path-length envelope, then rerun the repo entrypoint accordingly.
+6. Normalize Windows success-message and checkpoint artifact paths for targeted `\\?\` recovery, or document that raw path spelling explicitly as an intentional boundary.
+7. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
+8. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
+9. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.
+10. Defer the macOS `/var` versus `/private/var` path-alias cleanup until after the higher-priority Windows items are addressed; if we choose to close it later, the intended shape is a small `session_store.py` normalization fix plus regression coverage.
