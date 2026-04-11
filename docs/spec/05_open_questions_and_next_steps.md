@@ -12,6 +12,44 @@
 3. Windows long-path behavior: open follow-up.
 4. Windows `\\?\` user-facing path normalization: open follow-up.
 
+## Session Discovery Implementation Plan (Approved April 11, 2026)
+
+### Scope
+
+- Implement explicit-thread discovery as rollout-first when `--session-id` or `CODEX_THREAD_ID` is available.
+- Keep no-thread-id ambiguity behavior fail-closed exactly as it is today.
+- Treat SQLite thread rows as secondary metadata for explicit-thread discovery, not as the sole authority.
+
+### Implementation Steps
+
+1. Update `session_store.py` so explicit-thread discovery first resolves rollout files by session id under `CODEX_HOME/sessions/**/rollout-*-<session_id>.jsonl`, then validates session id and normalized workspace from `session_meta`.
+2. Preserve the existing fail-closed workspace mismatch protection for explicit session targets.
+3. Use SQLite thread-row fields as optional metadata enrichment when available and consistent with the validated rollout context.
+4. Keep no-session-id discovery behavior fail-closed and unchanged for this track.
+5. Update user-facing diagnostics to distinguish rollout-missing conditions from stale or missing SQLite indexing conditions.
+
+### Regression Tests Required
+
+1. Full export succeeds when explicit session id is available, the rollout exists, and `state_5.sqlite` is missing the matching thread row.
+2. Compact export succeeds in the same stale-SQLite or missing-thread-row condition.
+3. Explicit wrong-workspace targeting still fails closed.
+4. Ambiguous same-workspace discovery without a thread id still fails closed.
+5. Diagnostics for rollout-missing and stale-index conditions remain distinct and deterministic.
+
+### Acceptance Criteria For This Track
+
+1. Explicit current-session export succeeds from rollout history even when `state_5.sqlite.threads` is stale or missing the matching row.
+2. Full and compact export both use the corrected explicit-thread discovery path.
+3. Workspace mismatch and no-thread-id ambiguity protections remain fail-closed.
+4. Automated regression coverage for stale-SQLite/live-rollout conditions is merged and green.
+5. `22_platform_validation.md` and per-platform validation records are updated only with directly observed rerun evidence after code lands.
+
+### Freshness Note
+
+- Check date: April 11, 2026.
+- Official Codex docs used for boundary confirmation: `https://developers.openai.com/codex/config-reference` and `https://developers.openai.com/codex/app/windows/`.
+- Current public docs do not define `session_index.jsonl`, `state_5.sqlite`, or rollout filename schema as stable integration contracts, so this plan treats local-state discovery as best-effort and robustness-oriented.
+
 ## Key Open Questions
 
 - The April 5, 2026 Windows host reruns closed the earlier compact `shell_command` regression and stale installed-skill-parity findings, but two Windows follow-up questions still remain on the current repo state:
