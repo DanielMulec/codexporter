@@ -83,6 +83,15 @@ def missing_targeted_session_message(session_id: str, project_root: Path | str) 
     )
 
 
+def missing_targeted_rollout_message(session_id: str, project_root: Path | str) -> str:
+    return (
+        f"I found a reference to session {session_id} for workspace {project_root}, but I couldn't "
+        "find readable persisted session history for that session. "
+        "Make sure this Codex environment "
+        "can access the live rollout data, then retry $export."
+    )
+
+
 def ambiguous_session_message(project_root: Path | str) -> str:
     return (
         f"I found more than one Codex session for this workspace at {project_root} and "
@@ -107,6 +116,16 @@ def missing_rollout_message(rollout_path: Path) -> str:
     return (
         f"I couldn't read the persisted session history at {rollout_path}. "
         "Make sure this Codex environment can access the live session data, then retry $export."
+    )
+
+
+def stale_session_index_message(project_root: Path | str) -> str:
+    return (
+        f"I couldn't discover a current session from the persisted session index for workspace "
+        f"{project_root}, but rollout history for this workspace still exists. "
+        "This usually means the local session index is stale or incomplete. "
+        "Retry from the active session context with "
+        "the current thread id available."
     )
 
 

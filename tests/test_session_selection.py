@@ -45,6 +45,9 @@ def test_discover_current_thread_accepts_windows_extended_path_for_targeted_sess
     session_fixture: SessionFixture,
 ) -> None:
     windows_cwd = r"\\?\C:\projekte\AI\sonstiges\SKILLS"
+    session_fixture.apply_initial_rollout(
+        replacements={str(session_fixture.project_root): windows_cwd}
+    )
     with sqlite3.connect(session_fixture.state_db_path) as connection:
         connection.execute("DELETE FROM threads")
         insert_thread_record(
@@ -118,3 +121,61 @@ def test_export_fails_closed_when_multiple_sessions_match_same_workspace(
         )
 
     assert not session_fixture.export_dir.exists()
+
+
+def test_export_succeeds_when_sqlite_row_is_missing_but_rollout_exists(
+    session_fixture: SessionFixture,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    with sqlite3.connect(session_fixture.state_db_path) as connection:
+        connection.execute("DELETE FROM threads")
+        connection.commit()
+
+    monkeypatch.setenv("CODEX_THREAD_ID", session_fixture.session_id)
+    result = export_current_session(
+        project_root=session_fixture.project_root,
+        codex_home=session_fixture.codex_home,
+        now=session_fixture.first_export_time,
+    )
+
+    assert result.export_path is not None
+    assert result.sidecar_path.exists()
+    assert result.export_mode == "full"
+    assert "Exported the current session" in result.message
+
+
+def test_compact_export_succeeds_when_sqlite_row_is_missing_but_rollout_exists(
+    session_fixture: SessionFixture,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    with sqlite3.connect(session_fixture.state_db_path) as connection:
+        connection.execute("DELETE FROM threads")
+        connection.commit()
+
+    monkeypatch.setenv("CODEX_THREAD_ID", session_fixture.session_id)
+    result = export_current_session(
+        project_root=session_fixture.project_root,
+        codex_home=session_fixture.codex_home,
+        now=session_fixture.first_export_time,
+        render_profile="compact",
+    )
+
+    assert result.export_path is not None
+    assert result.sidecar_path.exists()
+    assert result.render_profile == "compact"
+    assert "compact mode" in result.message
+
+
+def test_export_reports_stale_index_when_rollout_exists_but_no_thread_row_and_no_session_id(
+    session_fixture: SessionFixture,
+) -> None:
+    with sqlite3.connect(session_fixture.state_db_path) as connection:
+        connection.execute("DELETE FROM threads")
+        connection.commit()
+
+    with pytest.raises(SessionDiscoveryError, match="session index is stale or incomplete"):
+        export_current_session(
+            project_root=session_fixture.project_root,
+            codex_home=session_fixture.codex_home,
+            now=session_fixture.first_export_time,
+        )

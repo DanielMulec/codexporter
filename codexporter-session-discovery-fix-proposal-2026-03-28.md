@@ -8,6 +8,16 @@ Scope: restore reliable current-session export when the live session rollout exi
 
 Check date for upstream docs that affect this proposal: 2026-03-28.
 
+## Status Update: 2026-04-11
+
+This proposal is now implemented on current `main` for explicit-thread discovery:
+
+- explicit `--session-id` or `CODEX_THREAD_ID` targeting now resolves rollout metadata first and treats SQLite thread rows as secondary metadata
+- no-thread-id same-workspace discovery remains fail-closed on ambiguity
+- regression coverage now includes stale-SQLite or missing-thread-row success paths for both full and compact export modes plus stale-index diagnostics
+
+Remaining work after this implementation is validation-evidence reruns across supported platforms, not a redesign of the session-discovery algorithm in this proposal.
+
 ## Executive Summary
 
 The export skill is failing for the current Windows session, but the exporter pipeline itself is not broken.

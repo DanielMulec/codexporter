@@ -12,6 +12,10 @@ The format is based on Keep a Changelog, and this project intends to follow Sema
 
 ### Changed
 
+- Updated `skills/export/codexporter/session_store.py` so explicit-thread session discovery now resolves rollout metadata first and treats SQLite thread rows as secondary metadata, while preserving fail-closed no-thread-id ambiguity behavior and workspace-mismatch protection.
+- Updated `skills/export/codexporter/messages.py` with clearer session-discovery diagnostics for targeted rollout-missing and stale-session-index conditions.
+- Updated `tests/test_session_selection.py` with stale-SQLite or missing-thread-row regression coverage for both full and compact explicit-thread export paths plus stale-index fail-closed diagnostics; the maintained local baseline is now 45 passing `pytest` cases.
+- Updated `docs/spec/05_open_questions_and_next_steps.md`, `codexporter-session-discovery-fix-proposal-2026-03-28.md`, and `README.md` so documentation now records the April 11, 2026 implementation status of the approved session-discovery track and the updated 45-test automated baseline.
 - Updated `docs/spec/05_open_questions_and_next_steps.md` with an explicit approved April 11, 2026 session-discovery implementation plan: rollout-first explicit-thread discovery, unchanged fail-closed no-thread-id behavior, regression-test requirements for stale-SQLite/live-rollout cases in both full and compact mode, acceptance criteria, and a dated freshness note about undocumented Codex internal session-index contracts.
 - Updated `docs/spec/05_open_questions_and_next_steps.md` to reflect the April 11, 2026 post-fix planning state explicitly: the compact `shell_command` issue is closed on the current repo state, the March 28 session-discovery proposal is now the next implementation track, and the implementation-order queue now places session-discovery work ahead of the remaining Windows path-length and `\\?\` display follow-up.
 - Updated `.gitignore` to ignore `docs/linkedin/` so locally generated LinkedIn draft exports stay out of version control by default.

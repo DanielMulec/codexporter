@@ -8,7 +8,7 @@
 ## Agreed Post-April-5 Queue
 
 1. Compact-mode `shell_command` normalization and regression coverage: closed on current repo state.
-2. Session discovery fix for stale-SQLite or missing-thread-row current sessions: next implementation track.
+2. Session discovery fix for stale-SQLite or missing-thread-row current sessions: implemented on current repo state on April 11, 2026; pending fresh cross-platform rerun evidence.
 3. Windows long-path behavior: open follow-up.
 4. Windows `\\?\` user-facing path normalization: open follow-up.
 
@@ -50,12 +50,19 @@
 - Official Codex docs used for boundary confirmation: `https://developers.openai.com/codex/config-reference` and `https://developers.openai.com/codex/app/windows/`.
 - Current public docs do not define `session_index.jsonl`, `state_5.sqlite`, or rollout filename schema as stable integration contracts, so this plan treats local-state discovery as best-effort and robustness-oriented.
 
+### Implementation Status
+
+- Completed on current repo state on April 11, 2026 in `session_store.py`, `messages.py`, and `tests/test_session_selection.py`.
+- Explicit-thread discovery now resolves rollout metadata first and treats SQLite as secondary metadata.
+- No-thread-id ambiguity behavior remains fail-closed.
+- Added regression tests for stale-SQLite or missing-thread-row success paths in full and compact mode plus stale-index diagnostics.
+
 ## Key Open Questions
 
 - The April 5, 2026 Windows host reruns closed the earlier compact `shell_command` regression and stale installed-skill-parity findings, but two Windows follow-up questions still remain on the current repo state:
   - what is the supported Windows path-length envelope, given that the copied current Windows CLI-style `\\?\` row now succeeds at project-root length `221` while a parallel plain-path control still fails at `222` and `LongPathsEnabled = 0`
   - should successful targeted recovery paths be normalized for user-facing display instead of surfacing raw `\\?\` path spellings in success messages and checkpoint artifact paths
-- What exact acceptance criteria should close the March 28, 2026 stale-SQLite/live-rollout session-discovery proposal once the rollout-first current-session path is implemented?
+- Which minimal rerun matrix should be executed next to close validation evidence for the April 11, 2026 session-discovery implementation across macOS, Linux, Windows CLI, and Windows app?
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 - Do we want any of the lower-value extra mypy `Any` flags after the now-complete Stage 3 baseline, or is the current repo-wide `disallow_any_expr` posture sufficient?
@@ -83,7 +90,7 @@
 - On March 27, 2026, a fresh Windows `.venv` rerun passed `python -m pytest`, `python -m mypy skills/export tests`, `python -m ruff check .`, and `python -m ruff format --check .`.
 - On March 27, 2026, controlled Windows CLI and Windows app close-out replays were recorded from isolated temporary Codex homes derived from copied real thread rows and copied rollout artifacts, closing the remaining Windows checklist items without mutating live Codex state.
 - On March 27, 2026, the initial compact export profile landed on the same `export` skill surface via `$export --compact`, preserving chronology and checkpoint identity while deterministically compacting bulky raw tool payloads.
-- The maintained macOS-local automated baseline is now 42 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, compact/full checkpoint-sharing behavior, malformed-rollout timestamp handling, tool-output instruction-payload omission, boolean checkpoint-field rejection, and `shell_command` compaction coverage for JSON-backed, plain-string, and sanitized app-style rollout payloads.
+- The maintained macOS-local automated baseline is now 45 passing `pytest` cases, including compact CLI invocation, deterministic bulky-payload compaction, oversized JSON-output compaction, compact/full checkpoint-sharing behavior, malformed-rollout timestamp handling, tool-output instruction-payload omission, boolean checkpoint-field rejection, `shell_command` compaction coverage for JSON-backed, plain-string, and sanitized app-style rollout payloads, and explicit stale-SQLite/missing-thread-row session-discovery coverage in both full and compact modes.
 - On April 2-3, 2026, the staged no-`Any` hardening plan moved from audit to completed baseline: Stage 1 landed by enabling `disallow_any_explicit` and `disallow_any_unimported`, Stage 2 landed after narrowing the production JSON, SQLite, and CLI boundaries, and Stage 3 then landed after the test fixture and JSON assertion helpers were typed well enough for repo-wide `disallow_any_expr`.
 - On April 2-3, 2026, Daniel revalidated the post-Stage-2 macOS happy path from live Codex surfaces more broadly than the retained local transcripts alone show: on both macOS app and macOS CLI he exercised full export, full incremental export, full compact export, and compact incremental export from the current repo state across multiple invocation orders. The retained transcripts document example slices of that broader retest. This reconfirmation was happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
 - On April 3, 2026, Daniel also revalidated the post-Stage-2 Linux happy path and confirmed that both full and compact exports still worked from the current repo state. That Linux reconfirmation was also happy-path-only and does not replace the March 27 controlled failure-path close-out evidence.
@@ -108,13 +115,11 @@
 
 ## Implementation Order
 
-1. Implement the March 28 session-discovery proposal as the next track: make explicit current-thread discovery rollout-first and treat SQLite as secondary metadata.
-2. Add and run automated regression coverage for stale-SQLite or missing-thread-row current-session discovery while preserving fail-closed ambiguity and workspace-mismatch behavior.
-3. Reconfirm the maintained macOS-local baseline and rerun at least one Linux or Windows gate after the session-discovery change lands.
-4. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
-5. Decide and document the supported Windows path-length envelope, then rerun the repo entrypoint accordingly.
-6. Normalize Windows success-message and checkpoint artifact paths for targeted `\\?\` recovery, or document that raw path spelling explicitly as an intentional boundary.
-7. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
-8. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
-9. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.
-10. Defer the macOS `/var` versus `/private/var` path-alias cleanup until after the higher-priority Windows items are addressed; if we choose to close it later, the intended shape is a small `session_store.py` normalization fix plus regression coverage.
+1. Reconfirm the maintained macOS-local baseline and rerun at least one Linux or Windows gate after the April 11, 2026 session-discovery change.
+2. Record only the runtime evidence that is directly re-observed in `22_platform_validation.md` and the per-platform validation records.
+3. Decide and document the supported Windows path-length envelope, then rerun the repo entrypoint accordingly.
+4. Normalize Windows success-message and checkpoint artifact paths for targeted `\\?\` recovery, or document that raw path spelling explicitly as an intentional boundary.
+5. Keep future Windows validation additive rather than redefining the meaning of the v1 checklist.
+6. Treat future compact-mode work as threshold tuning or explicit new profile design, not as a rewrite of the implemented `--compact` contract.
+7. Treat the repo-wide no-`Any` expression gate as the new baseline and revisit lower-value extra `Any` flags only if a demonstrated gap justifies them.
+8. Defer the macOS `/var` versus `/private/var` path-alias cleanup until after the higher-priority Windows items are addressed; if we choose to close it later, the intended shape is a small `session_store.py` normalization fix plus regression coverage.
