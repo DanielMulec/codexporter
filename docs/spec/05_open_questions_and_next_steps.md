@@ -8,7 +8,7 @@
 ## Agreed Post-April-5 Queue
 
 1. Compact-mode `shell_command` normalization and regression coverage: closed on current repo state.
-2. Session discovery fix for stale-SQLite or missing-thread-row current sessions: implemented on current repo state on April 11, 2026; pending fresh cross-platform rerun evidence.
+2. Session discovery fix for stale-SQLite or missing-thread-row current sessions: implemented on current repo state on April 11, 2026; fresh macOS app and macOS CLI rerun evidence captured on April 11, 2026, with Linux and Windows reruns still pending.
 3. Windows long-path behavior: open follow-up.
 4. Windows `\\?\` user-facing path normalization: open follow-up.
 
@@ -62,7 +62,7 @@
 - The April 5, 2026 Windows host reruns closed the earlier compact `shell_command` regression and stale installed-skill-parity findings, but two Windows follow-up questions still remain on the current repo state:
   - what is the supported Windows path-length envelope, given that the copied current Windows CLI-style `\\?\` row now succeeds at project-root length `221` while a parallel plain-path control still fails at `222` and `LongPathsEnabled = 0`
   - should successful targeted recovery paths be normalized for user-facing display instead of surfacing raw `\\?\` path spellings in success messages and checkpoint artifact paths
-- Which minimal rerun matrix should be executed next to close validation evidence for the April 11, 2026 session-discovery implementation across macOS, Linux, Windows CLI, and Windows app?
+- Which minimal rerun matrix should be executed next to close validation evidence for the April 11, 2026 session-discovery implementation across Linux, Windows CLI, and Windows app after the fresh April 11, 2026 macOS reruns?
 - How much tuning do we want on the compact profile's generic bulky-output thresholding beyond the initial deterministic implementation?
 - How much additional installer metadata do we want beyond Daniel's retrospective March 22, 2026 install confirmations on macOS, Linux, and Windows devices?
 - Do we want any of the lower-value extra mypy `Any` flags after the now-complete Stage 3 baseline, or is the current repo-wide `disallow_any_expr` posture sufficient?
@@ -100,6 +100,7 @@
 - That same April 5 Windows validation narrowed the remaining path-length question instead of closing it outright: the copied current CLI-style row with extended-length `\\?\` cwd succeeded at project-root length `221`, while a parallel plain-path control still failed at `222` with `LongPathsEnabled = 0`. The raw `\\?\` path-display rough edge on targeted recovery also remains current, so those two path-oriented seams are now the active Windows follow-up rather than the older compact-shell or stale-install blockers.
 - On April 5, 2026, the current repo state was revalidated again on macOS app with both a live installed-skill compact export on the active `vscode` thread and isolated app-style replays that re-confirmed `shell_command` compact behavior, no-new-content handling, compact/full checkpoint sharing, German checkpoint-failure localization, same-workspace ambiguity recovery, restricted-rollout honesty, workspace-mismatch rejection, and unsafe installed-skill-directory rejection.
 - That April 5 macOS rerun also surfaced one lower-priority path-alias seam in the validation harness itself: same-workspace session matching did not treat `/var/...` and `/private/var/...` as equivalent until the disposable validation homes were normalized to the same resolved path spelling. That seam is explicitly deferred behind the higher-priority Windows work and is not currently treated as a blocker for the macOS validation baseline.
+- On April 11, 2026, fresh macOS reruns after the session-discovery implementation re-observed a green maintained local gate baseline (`pytest` with 45 tests plus `mypy` and both binding `ruff` checks), produced new live app-surface exports on thread `019d7db4-d5fb-7d10-998b-06872ff57b7f`, and re-ran a normalized-path isolated macOS replay matrix for both `vscode` and `cli` sources under `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-matrix-final-cuj7jx5t`, where both surfaces passed all platform checklist rows plus stale-index diagnostics and explicit stale-SQLite-thread-row targeted recovery.
 
 ## Acceptance Criteria
 

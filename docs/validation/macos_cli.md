@@ -1,10 +1,10 @@
 # macOS Codex CLI Validation
 
-- Validation dates: March 18, March 27, April 2-3, and April 5, 2026
+- Validation dates: March 18, March 27, April 2-3, April 5, and April 11, 2026
 - Validation status: validated
 - Host OS: macOS
 - Codex surface: Codex CLI in Ghostty
-- Codex versions observed: `0.115.x` (March 18 live run; exact patch not recorded), `0.116.0` (March 27 restricted-access and ambiguity close-out), `0.80.0` (March 27 German failure-path replay), `0.118.0` (April 5 live installed-skill rerun and isolated replay matrix)
+- Codex versions observed: `0.115.x` (March 18 live run; exact patch not recorded), `0.116.0` (March 27 restricted-access and ambiguity close-out), `0.80.0` (March 27 German failure-path replay), `0.118.0` (April 5 live installed-skill rerun, April 11 live retained-thread rerun, and isolated replay matrices)
 - Models observed: `gpt-5.4`, `gpt-5.2-codex`
 - Approval modes observed: March 18 live run not retained; March 27 controlled close-out and April 5 rerun used `on-request`
 - Sandbox modes observed: March 18 live run not retained; March 27 controlled close-out and April 5 rerun used `workspace-write` with network access
@@ -27,6 +27,10 @@
 - The restricted-access and ambiguity close-out used copied real macOS CLI thread `019d25c7-6b90-7092-a2c9-1273d3f43cb7`, source `cli`, CLI `0.116.0`, model `gpt-5.4`, approval `on-request`, sandbox `workspace-write` with network access.
 - After removing read permission from `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/rollouts/cli-restricted-rollout.jsonl`, the exporter returned the explicit persisted-session-history failure and created no export or checkpoint artifacts.
 - After seeding two same-workspace thread rows in the isolated `state_5.sqlite`, the untargeted run failed clearly with the ambiguous-session message, and the targeted rerun with `CODEX_THREAD_ID=forced-cli-ambiguous-a` exported `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/cli-ambiguous-project/codex_exports/20260327-090217-Hey-GPT-I-lost-complete-train-of-where-the-project-currently-1.md` plus sidecar `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-validation-iunfq0pl/cli-ambiguous-project/codex_exports/019d25c7-6b90-7092-a2c9-1273d3f43cb7-checkpoint.json`.
+- On April 11, 2026, reran the globally installed skill against retained macOS CLI thread `019d5032-e209-7a70-ab8a-e5ebe9d0257b` from the active project root with explicit `--session-id`; both full and compact invocations returned the explicit no-new-content message, matching the unchanged checkpoint state.
+- On April 11, 2026, rechecked installed-skill parity under `~/.codex/skills/export/` against repo `skills/export/` and observed no tracked-source drift; only local cache/build artifacts differed (`__pycache__`, `.egg-info`, `.DS_Store`).
+- On April 11, 2026, reran binding macOS-local gates on current repo state and observed `./.venv/bin/python -m pytest` (45 tests), `./.venv/bin/python -m mypy skills/export tests`, `./.venv/bin/python -m ruff check .`, and `./.venv/bin/python -m ruff format --check .` all pass.
+- On April 11, 2026, rebuilt the macOS replay matrix under `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-matrix-final-cuj7jx5t` and captured report `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-matrix-final-cuj7jx5t/validation_report.json`; the `macos_cli` (`cli`) surface passed all checklist rows and also re-confirmed stale-index diagnostics plus explicit stale-SQLite-thread-row targeted recovery.
 
 ## Checklist Results
 
@@ -49,3 +53,4 @@
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
 - With the March 18 live success-path evidence, the April 2-3 broader live happy-path retest, and the April 5 live plus isolated reruns on the current repo state, the macOS CLI checklist is fully observed.
 - The compact checklist item is now backed by Daniel's broader April 2-3, 2026 live CLI retest across full and compact export orders, one retained April 3, 2026 live `$export --compact` CLI transcript, the April 5 live installed-skill rerun, the April 5 isolated compact-first/full-second replay matrix, and the maintained macOS-host automated full-flow and compaction tests.
+- The April 11, 2026 rerun refreshed both retained live-thread behavior and the isolated macOS CLI replay matrix after the session-discovery change, and the full macOS CLI checklist stayed green.

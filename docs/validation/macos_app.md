@@ -1,12 +1,12 @@
 # macOS Codex App Validation
 
-- Validation dates: March 13-14, March 27, April 2-3, and April 5, 2026
+- Validation dates: March 13-14, March 27, April 2-3, April 5, and April 11, 2026
 - Validation status: validated
 - Host OS: macOS
 - Codex surface: Codex Desktop app context
 - Rollout source field: `vscode`
-- Codex version: `0.115.0-alpha.11` and `0.118.0-alpha.2`
-- Models observed: `gpt-5.4`
+- Codex version: `0.115.0-alpha.11`, `0.118.0-alpha.2`, and `0.119.0-alpha.28`
+- Models observed: `gpt-5.4` and `gpt-5.3-codex`
 - Approval modes observed: `never` (March 13-14 live app-context validation and April 5 live app-context validation), `on-request` (March 27 controlled close-out source row)
 - Sandbox modes observed: `danger-full-access` (March 13-14 live app-context validation and April 5 live app-context validation), `workspace-write` without network access (March 27 controlled close-out source row)
 
@@ -39,6 +39,10 @@
   - `./.venv/bin/ruff format --check .`
   - `./.venv/bin/mypy skills/export tests`
   - `./.venv/bin/pytest`
+- On April 11, 2026, reran the globally installed skill on live macOS Codex app thread `019d7db4-d5fb-7d10-998b-06872ff57b7f` (source `vscode`, Codex `0.119.0-alpha.28`, model `gpt-5.3-codex`) from the active project root with explicit `--session-id`, and observed first full export `/Users/danielmulec/Projekte/codexporter/codex_exports/20260411-200709-As-we-just-refactored-the-skills-session-discovery-system-in-1.md` plus compact incremental export `/Users/danielmulec/Projekte/codexporter/codex_exports/20260411-200711-As-we-just-refactored-the-skills-session-discovery-system-in-2.md`.
+- On April 11, 2026, rechecked installed-skill parity under `~/.codex/skills/export/` against the repo `skills/export/` tree and observed no tracked-source drift; only local cache/build artifacts differed (`__pycache__`, `.egg-info`, `.DS_Store`).
+- On April 11, 2026, reran binding macOS-local gates on current repo state and observed `./.venv/bin/python -m pytest` (45 tests), `./.venv/bin/python -m mypy skills/export tests`, `./.venv/bin/python -m ruff check .`, and `./.venv/bin/python -m ruff format --check .` all pass.
+- On April 11, 2026, rebuilt the macOS replay matrix under `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-matrix-final-cuj7jx5t` and captured report `/private/var/folders/z7/vnklz78n3954_0ljxwny2p0m0000gn/T/codexporter-macos-matrix-final-cuj7jx5t/validation_report.json`; the `macos_app` (`vscode`) surface passed all checklist rows and also re-confirmed stale-index diagnostics plus explicit stale-SQLite-thread-row targeted recovery.
 
 ## Checklist Results
 
@@ -58,10 +62,11 @@
 
 - This record now closes the remaining macOS app checklist items for non-English failure behavior, restricted-environment honesty, and same-workspace current-thread safety.
 - The March 27 close-out intentionally used isolated temporary Codex state derived from real macOS app persisted-session data because those failure-path conditions had not reproduced reliably in ordinary live use.
-- The April 2 reconfirmation was happy-path-only. It did not add new failure-path or no-new-content evidence, so the March 27 controlled close-out remains the authoritative close-out for those checklist items.
+- The April 2 reconfirmation was happy-path-only. It did not add new failure-path or no-new-content evidence, so March 27 remained the authoritative close-out until the April 11, 2026 rerun refreshed those failure-path rows again on current repo state.
 - The April 5 rerun refreshed both live installed-skill evidence and controlled app-style replay evidence on the current repo state, specifically for the `shell_command` compact-mode surface that had been reopened on Windows.
 - On April 5, 2026, the parser-risk review also re-checked the current Python `shlex` documentation, which still warns that `shlex` is designed for Unix shells; that supports keeping the compact-mode command parser conservative rather than promising full Windows-shell fidelity.
 - Pre-rollout access failures still fall back to English in v1 by design because the exporter cannot determine conversation language until it can read the rollout content.
 - This validation record covers the macOS app platform checklist. It still does not turn GitHub-origin installation flow into a separate validated requirement.
 - The compact checklist item is now backed by Daniel's broader April 2-3, 2026 live app retest across full and compact export orders, one retained April 2, 2026 live app-context `$export --compact` transcript, the April 5, 2026 live installed-skill compact rerun on the current app thread, the April 5 controlled app-style `shell_command` replay matrix, and the maintained macOS-host automated full-flow and compaction tests.
 - One lower-priority macOS seam surfaced while building the April 5 isolated replays: `/var/...` and `/private/var/...` were not treated as equivalent during same-workspace session matching until the disposable validation homes were normalized to the same resolved path spelling. That does not undermine the compact-mode validation result, but it means symlinked or alias-style macOS project-root path variation should not yet be treated as fully closed.
+- The April 11, 2026 rerun re-confirmed the full macOS app checklist on current repo state after the session-discovery change and reproduced the same lower-priority `/var` versus `/private/var` path-alias seam when disposable replay homes were not normalized before execution.
